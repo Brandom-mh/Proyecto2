@@ -46,6 +46,7 @@ const char* obtenerAtomo(Token token, const char* texto);
 void Return();
 void For();
 void Funcion();
+void ExprLogica();
 
 
 // Función para buscar un identificador en la tabla de símbolos
@@ -149,6 +150,233 @@ void imprimirToken(Token token, char *texto) {
     strcat(cadenaDeAtomos, atomo);
     strcat(cadenaDeAtomos, " ");
 }
+
+// Proyección 23: <Sent> ---> <Asig>
+void Sent23() {
+    Asig();  // Procesar asignación
+}
+
+// Proyección 24: <Sent> ---> <doW>
+void Sent24() {
+    doW();   // Procesar do-while
+}
+
+// Proyección 25: <Sent> ---> <IF>
+void Sent25() {
+    IF();    // Procesar if
+}
+
+// Proyección 26: <Sent> ---> <Switch>
+void Sent26() {
+    Switch(); // Procesar switch
+}
+
+// Proyección 27: <Sent> ---> <For>
+void Sent27() {
+    For();   // Procesar for
+}
+
+// Proyección 28: <Sent> ---> <Ret>
+void Sent28() {
+    Ret();   // Procesar return
+}
+
+// Proyección 29: <Sent> ---> c.
+void Sent29() {
+    if (strcmp(yytext, "c") == 0) {
+        yylex(); // Consumir 'c'
+        if (strcmp(yytext, ".") == 0) {
+            yylex(); // Consumir '.'
+        } else {
+            printf("Error: Se esperaba '.' después de 'c'\n");
+        }
+    } else {
+        printf("Error: Se esperaba 'c' para sentencia\n");
+    }
+}
+
+// Proyección 30: <Sent> ---> b.
+void Sent30() {
+    if (strcmp(yytext, "b") == 0) {
+        yylex(); // Consumir 'b'
+        if (strcmp(yytext, ".") == 0) {
+            yylex(); // Consumir '.'
+        } else {
+            printf("Error: Se esperaba '.' después de 'b'\n");
+        }
+    } else {
+        printf("Error: Se esperaba 'b' para sentencia\n");
+    }
+}
+
+// Función general para <Sent>
+void Sent() {
+    // Verificar el token actual para decidir qué producción aplicar
+    if (strcmp(yytext, "d") == 0) {        // Asumo que 'd' inicia <Asig>
+        Sent23();
+    }
+    else if (strcmp(yytext, "do") == 0) {  // do-while
+        Sent24();
+    }
+    else if (strcmp(yytext, "if") == 0) {  // if
+        Sent25();
+    }
+    else if (strcmp(yytext, "switch") == 0) { // switch
+        Sent26();
+    }
+    else if (strcmp(yytext, "for") == 0) { // for
+        Sent27();
+    }
+    else if (strcmp(yytext, "return") == 0) { // return
+        Sent28();
+    }
+    else if (strcmp(yytext, "c") == 0) {   // sentencia tipo 'c.'
+        Sent29();
+    }
+    else if (strcmp(yytext, "b") == 0) {   // sentencia tipo 'b.'
+        Sent30();
+    }
+    else {
+        printf("Error: Token inesperado '%s' en <Sent>\n", yytext);
+    }
+}
+
+// Proyección 31: <listaSent> ---> <Sent><listaSent>
+// CS(31): FIRST(<Sent>) = {d, i, k, f, r}
+void listaSent31() {
+    // Procesar una sentencia
+    Sent();
+    
+    // Procesar el resto de sentencias
+    listaSent();
+}
+
+// Proyección 32: <listaSent> ---> ε
+// CS(32): { ], }, b }
+void listaSent32() {
+    // Producción vacía, no se hace nada
+    return;
+}
+
+// Función general para <listaSent>
+void listaSent() {
+    // Verificar los tokens del FIRST(<Sent>) para la proyección 31
+    if (strcmp(yytext, "d") == 0 ||   // declaración
+        strcmp(yytext, "i") == 0 ||   // if
+        strcmp(yytext, "k") == 0 ||   // for
+        strcmp(yytext, "f") == 0 ||   // función
+        strcmp(yytext, "r") == 0) {   // return
+        listaSent31();
+    }
+    // Verificar los tokens del CS(32) para la proyección vacía
+    else if (strcmp(yytext, "]") == 0 ||
+             strcmp(yytext, "}") == 0 ||
+             strcmp(yytext, "b") == 0) {
+        listaSent32();
+    }
+    else {
+        printf("Error: Token inesperado '%s' en <listaSent>\n", yytext);
+    }
+}
+
+
+// Proyección 34: <exprLog> ---> !(E)
+void exprLog34() {
+    if (strcmp(yytext, "!") == 0) {
+        yylex(); // Consumir '!'
+        if (strcmp(yytext, "(") == 0) {
+            yylex(); // Consumir '('
+            E();    // Procesar expresión E
+            if (strcmp(yytext, ")") == 0) {
+                yylex(); // Consumir ')'
+            } else {
+                printf("Error: Se esperaba ')' después de expresión\n");
+            }
+        } else {
+            printf("Error: Se esperaba '(' después de '!'\n");
+        }
+    } else {
+        printf("Error: Se esperaba '!' para expresión lógica\n");
+    }
+}
+
+// Proyección 35 modificada: <exprLog> ---> (E)<opLog>(E)
+void exprLog35() {
+    if (strcmp(yytext, "(") == 0) {
+        yylex(); // Consumir '('
+        E();     // Procesar primera expresión E
+        
+        if (strcmp(yytext, ")") == 0) {
+            yylex(); // Consumir ')'
+            opLog(); // Procesar operador lógico (& o |)
+            
+            if (strcmp(yytext, "(") == 0) {
+                yylex(); // Consumir '('
+                E();     // Procesar segunda expresión E
+                
+                if (strcmp(yytext, ")") == 0) {
+                    yylex(); // Consumir ')'
+                    // Expresión lógica completa
+                } else {
+                    printf("Error: Se esperaba ')' después de la segunda expresión\n");
+                }
+            } else {
+                printf("Error: Se esperaba '(' después del operador lógico\n");
+            }
+        } else {
+            printf("Error: Se esperaba ')' después de la primera expresión\n");
+        }
+    } else {
+        printf("Error: Se esperaba '(' para expresión lógica\n");
+    }
+}
+
+// Proyección 36: <opLog> ---> &
+void opLog36() {
+    if (strcmp(yytext, "&") == 0) {
+        yylex(); // Consumir '&'
+        // € indica fin de la producción
+    } else {
+        printf("Error: Se esperaba operador '&'\n");
+    }
+}
+
+// Proyección 37: <opLog> ---> |
+void opLog37() {
+    if (strcmp(yytext, "|") == 0) {
+        yylex(); // Consumir '|'
+        // € indica fin de la producción
+    } else {
+        printf("Error: Se esperaba operador '|'\n");
+    }
+}
+
+// Función general para <opLog> que maneja ambas opciones (36 y 37)
+void opLog() {
+    if (strcmp(yytext, "&") == 0) {
+        opLog36();
+    } else if (strcmp(yytext, "|") == 0) {
+        opLog37();
+    } else {
+        printf("Error: Operador lógico desconocido. Se esperaba '&' o '|'\n");
+    }
+}
+
+// Función general para <exprLog> que maneja ambas opciones (34 y 35)
+void exprLog() {
+    // Verificar si empieza con '!' (proyección 34)
+    if (strcmp(yytext, "!") == 0) {
+        exprLog34();
+    } 
+    // Verificar si empieza con '(' (proyección 35)
+    else if (strcmp(yytext, "(") == 0) {
+        exprLog35();
+    } else {
+        printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
+    }
+}
+
+
 
 // Implementación de Return()
 void Return() {
