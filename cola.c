@@ -91,3 +91,20 @@ void mostrarCola(Cola* cola) {
     }
     printf("\n");
 }
+
+void imprimirColaEnArchivo(Cola* cola, FILE* archivo) {
+    if (cola == NULL || archivo == NULL) {
+        fprintf(stderr, "Error: Cola o archivo no válidos\n");
+        return;
+    }
+
+    Nodo* actual = cola->frente;
+    fprintf(archivo, "Contenido de la cola: [");
+    
+    while (actual != NULL) {
+        fprintf(archivo, "%c", actual->dato);
+        actual = actual->siguiente;
+    }
+    
+    fprintf(archivo, "]\n");
+}

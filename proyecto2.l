@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "cola.h"  
 
 int yylex(void);
 
+Cola* colaDeAtomos;
 // Definición de constantes para los tamaños máximos de las tablas
 #define MAX_IDENTIFIERS 100  
 #define MAX_LITERALS 100     
@@ -39,10 +41,11 @@ int numLiterales = 0;
 FILE *outputFile;
 
 // Cadena para acumular átomos
+
 char cadenaDeAtomos[10000] = "";
 
 // Prototipos de funciones
-const char* obtenerAtomo(Token token, const char* texto);
+char obtenerAtomo(Token token, const char* texto);
 void Return();
 void For();
 void Funcion();
@@ -90,34 +93,32 @@ int agregarATablaLiterales(char *dato) {
     return numLiterales++;  // Retorna la posición del nuevo literal
 }
 
-const char* obtenerAtomo(Token token, const char* texto) {
-    static char atomo[10];
-    
+char obtenerAtomo(Token token, const char* texto) {
     switch (token.clase) {
-        case 0: return "n";  // Constante entera
-        case 1: return "r";  // Constante flotante
-        case 2: return texto;  // Operadores aritméticos son sus propios átomos
-        case 3: return texto;  // Símbolos especiales también
-        case 4: return "s";  // Constante cadena
+        case 0: return 'n';  // Constante entera
+        case 1: return 'r';  // Constante flotante
+        case 2: return texto[0];  // Operadores aritméticos (primer caracter)
+        case 3: return texto[0];  // Símbolos especiales (primer caracter)
+        case 4: return 's';  // Constante cadena
         case 5: {  // Palabras reservadas
-            const char* atomoReservadas[] = {
-                    "b","z","h","c","d","u","e","f","v","i",
-                    "t","g","x","y","j","k","q","o","w"
+            const char atomoReservadas[] = {
+                'b','z','h','c','d','u','e','f','v','i',
+                't','g','x','y','j','k','q','o','w'
             };
             return atomoReservadas[token.valor];
         }
         case 6: {  // Operadores de asignación
-            const char* atomoAsignacion[] = {
-                "=", "#", ";", "$", ",", "?", ":", "^", "@", "<", ">"
+            const char atomoAsignacion[] = {
+                '=', '#', ';', '$', ',', '?', ':', '^', '@', '<', '>'
             };
             return atomoAsignacion[token.valor];
         }
         case 7: {  // Operadores lógicos
-            const char* atomoLogico[] = {"|", "&", "!"};
+            const char atomoLogico[] = {'|', '&', '!'};
             return atomoLogico[token.valor];
         }
-        case 8: return "a";  // Identificador
-        default: return "?";
+        case 8: return 'a';  // Identificador
+        default: return '?';
     }
 }
 
@@ -146,235 +147,234 @@ void imprimirToken(Token token, char *texto) {
                                                            token.valor, 
                                                            texto);
     // Agregar átomo a la cadena
-    const char* atomo = obtenerAtomo(token, texto);
-    strcat(cadenaDeAtomos, atomo);
-    strcat(cadenaDeAtomos, " ");
+    char atomo = obtenerAtomo(token, texto);
+    encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
 
-// Proyección 23: <Sent> ---> <Asig>
-void Sent23() {
-    Asig();  // Procesar asignación
-}
+// // Proyección 23: <Sent> ---> <Asig>
+// void Sent23() {
+//     Asig();  // Procesar asignación
+// }
 
-// Proyección 24: <Sent> ---> <doW>
-void Sent24() {
-    doW();   // Procesar do-while
-}
+// // Proyección 24: <Sent> ---> <doW>
+// void Sent24() {
+//     doW();   // Procesar do-while
+// }
 
-// Proyección 25: <Sent> ---> <IF>
-void Sent25() {
-    IF();    // Procesar if
-}
+// // Proyección 25: <Sent> ---> <IF>
+// void Sent25() {
+//     IF();    // Procesar if
+// }
 
-// Proyección 26: <Sent> ---> <Switch>
-void Sent26() {
-    Switch(); // Procesar switch
-}
+// // Proyección 26: <Sent> ---> <Switch>
+// void Sent26() {
+//     Switch(); // Procesar switch
+// }
 
-// Proyección 27: <Sent> ---> <For>
-void Sent27() {
-    For();   // Procesar for
-}
+// // Proyección 27: <Sent> ---> <For>
+// void Sent27() {
+//     For();   // Procesar for
+// }
 
-// Proyección 28: <Sent> ---> <Ret>
-void Sent28() {
-    Ret();   // Procesar return
-}
+// // Proyección 28: <Sent> ---> <Ret>
+// void Sent28() {
+//     Ret();   // Procesar return
+// }
 
-// Proyección 29: <Sent> ---> c.
-void Sent29() {
-    if (strcmp(yytext, "c") == 0) {
-        yylex(); // Consumir 'c'
-        if (strcmp(yytext, ".") == 0) {
-            yylex(); // Consumir '.'
-        } else {
-            printf("Error: Se esperaba '.' después de 'c'\n");
-        }
-    } else {
-        printf("Error: Se esperaba 'c' para sentencia\n");
-    }
-}
+// // Proyección 29: <Sent> ---> c.
+// void Sent29() {
+//     if (strcmp(yytext, "c") == 0) {
+//         yylex(); // Consumir 'c'
+//         if (strcmp(yytext, ".") == 0) {
+//             yylex(); // Consumir '.'
+//         } else {
+//             printf("Error: Se esperaba '.' después de 'c'\n");
+//         }
+//     } else {
+//         printf("Error: Se esperaba 'c' para sentencia\n");
+//     }
+// }
 
-// Proyección 30: <Sent> ---> b.
-void Sent30() {
-    if (strcmp(yytext, "b") == 0) {
-        yylex(); // Consumir 'b'
-        if (strcmp(yytext, ".") == 0) {
-            yylex(); // Consumir '.'
-        } else {
-            printf("Error: Se esperaba '.' después de 'b'\n");
-        }
-    } else {
-        printf("Error: Se esperaba 'b' para sentencia\n");
-    }
-}
+// // Proyección 30: <Sent> ---> b.
+// void Sent30() {
+//     if (strcmp(yytext, "b") == 0) {
+//         yylex(); // Consumir 'b'
+//         if (strcmp(yytext, ".") == 0) {
+//             yylex(); // Consumir '.'
+//         } else {
+//             printf("Error: Se esperaba '.' después de 'b'\n");
+//         }
+//     } else {
+//         printf("Error: Se esperaba 'b' para sentencia\n");
+//     }
+// }
 
-// Función general para <Sent>
-void Sent() {
-    // Verificar el token actual para decidir qué producción aplicar
-    if (strcmp(yytext, "d") == 0) {        // Asumo que 'd' inicia <Asig>
-        Sent23();
-    }
-    else if (strcmp(yytext, "do") == 0) {  // do-while
-        Sent24();
-    }
-    else if (strcmp(yytext, "if") == 0) {  // if
-        Sent25();
-    }
-    else if (strcmp(yytext, "switch") == 0) { // switch
-        Sent26();
-    }
-    else if (strcmp(yytext, "for") == 0) { // for
-        Sent27();
-    }
-    else if (strcmp(yytext, "return") == 0) { // return
-        Sent28();
-    }
-    else if (strcmp(yytext, "c") == 0) {   // sentencia tipo 'c.'
-        Sent29();
-    }
-    else if (strcmp(yytext, "b") == 0) {   // sentencia tipo 'b.'
-        Sent30();
-    }
-    else {
-        printf("Error: Token inesperado '%s' en <Sent>\n", yytext);
-    }
-}
+// // Función general para <Sent>
+// void Sent() {
+//     // Verificar el token actual para decidir qué producción aplicar
+//     if (strcmp(yytext, "d") == 0) {        // Asumo que 'd' inicia <Asig>
+//         Sent23();
+//     }
+//     else if (strcmp(yytext, "do") == 0) {  // do-while
+//         Sent24();
+//     }
+//     else if (strcmp(yytext, "if") == 0) {  // if
+//         Sent25();
+//     }
+//     else if (strcmp(yytext, "switch") == 0) { // switch
+//         Sent26();
+//     }
+//     else if (strcmp(yytext, "for") == 0) { // for
+//         Sent27();
+//     }
+//     else if (strcmp(yytext, "return") == 0) { // return
+//         Sent28();
+//     }
+//     else if (strcmp(yytext, "c") == 0) {   // sentencia tipo 'c.'
+//         Sent29();
+//     }
+//     else if (strcmp(yytext, "b") == 0) {   // sentencia tipo 'b.'
+//         Sent30();
+//     }
+//     else {
+//         printf("Error: Token inesperado '%s' en <Sent>\n", yytext);
+//     }
+// }
 
-// Proyección 31: <listaSent> ---> <Sent><listaSent>
-// CS(31): FIRST(<Sent>) = {d, i, k, f, r}
-void listaSent31() {
-    // Procesar una sentencia
-    Sent();
+// // Proyección 31: <listaSent> ---> <Sent><listaSent>
+// // CS(31): FIRST(<Sent>) = {d, i, k, f, r}
+// void listaSent31() {
+//     // Procesar una sentencia
+//     Sent();
     
-    // Procesar el resto de sentencias
-    listaSent();
-}
+//     // Procesar el resto de sentencias
+//     listaSent();
+// }
 
-// Proyección 32: <listaSent> ---> ε
-// CS(32): { ], }, b }
-void listaSent32() {
-    // Producción vacía, no se hace nada
-    return;
-}
+// // Proyección 32: <listaSent> ---> ε
+// // CS(32): { ], }, b }
+// void listaSent32() {
+//     // Producción vacía, no se hace nada
+//     return;
+// }
 
-// Función general para <listaSent>
-void listaSent() {
-    // Verificar los tokens del FIRST(<Sent>) para la proyección 31
-    if (strcmp(yytext, "d") == 0 ||   // declaración
-        strcmp(yytext, "i") == 0 ||   // if
-        strcmp(yytext, "k") == 0 ||   // for
-        strcmp(yytext, "f") == 0 ||   // función
-        strcmp(yytext, "r") == 0) {   // return
-        listaSent31();
-    }
-    // Verificar los tokens del CS(32) para la proyección vacía
-    else if (strcmp(yytext, "]") == 0 ||
-             strcmp(yytext, "}") == 0 ||
-             strcmp(yytext, "b") == 0) {
-        listaSent32();
-    }
-    else {
-        printf("Error: Token inesperado '%s' en <listaSent>\n", yytext);
-    }
-}
+// // Función general para <listaSent>
+// void listaSent() {
+//     // Verificar los tokens del FIRST(<Sent>) para la proyección 31
+//     if (strcmp(yytext, "d") == 0 ||   // declaración
+//         strcmp(yytext, "i") == 0 ||   // if
+//         strcmp(yytext, "k") == 0 ||   // for
+//         strcmp(yytext, "f") == 0 ||   // función
+//         strcmp(yytext, "r") == 0) {   // return
+//         listaSent31();
+//     }
+//     // Verificar los tokens del CS(32) para la proyección vacía
+//     else if (strcmp(yytext, "]") == 0 ||
+//              strcmp(yytext, "}") == 0 ||
+//              strcmp(yytext, "b") == 0) {
+//         listaSent32();
+//     }
+//     else {
+//         printf("Error: Token inesperado '%s' en <listaSent>\n", yytext);
+//     }
+// }
 
 
-// Proyección 34: <exprLog> ---> !(E)
-void exprLog34() {
-    if (strcmp(yytext, "!") == 0) {
-        yylex(); // Consumir '!'
-        if (strcmp(yytext, "(") == 0) {
-            yylex(); // Consumir '('
-            E();    // Procesar expresión E
-            if (strcmp(yytext, ")") == 0) {
-                yylex(); // Consumir ')'
-            } else {
-                printf("Error: Se esperaba ')' después de expresión\n");
-            }
-        } else {
-            printf("Error: Se esperaba '(' después de '!'\n");
-        }
-    } else {
-        printf("Error: Se esperaba '!' para expresión lógica\n");
-    }
-}
+// // Proyección 34: <exprLog> ---> !(E)
+// void exprLog34() {
+//     if (strcmp(yytext, "!") == 0) {
+//         yylex(); // Consumir '!'
+//         if (strcmp(yytext, "(") == 0) {
+//             yylex(); // Consumir '('
+//             E();    // Procesar expresión E
+//             if (strcmp(yytext, ")") == 0) {
+//                 yylex(); // Consumir ')'
+//             } else {
+//                 printf("Error: Se esperaba ')' después de expresión\n");
+//             }
+//         } else {
+//             printf("Error: Se esperaba '(' después de '!'\n");
+//         }
+//     } else {
+//         printf("Error: Se esperaba '!' para expresión lógica\n");
+//     }
+// }
 
-// Proyección 35 modificada: <exprLog> ---> (E)<opLog>(E)
-void exprLog35() {
-    if (strcmp(yytext, "(") == 0) {
-        yylex(); // Consumir '('
-        E();     // Procesar primera expresión E
+// // Proyección 35 modificada: <exprLog> ---> (E)<opLog>(E)
+// void exprLog35() {
+//     if (strcmp(yytext, "(") == 0) {
+//         yylex(); // Consumir '('
+//         E();     // Procesar primera expresión E
         
-        if (strcmp(yytext, ")") == 0) {
-            yylex(); // Consumir ')'
-            opLog(); // Procesar operador lógico (& o |)
+//         if (strcmp(yytext, ")") == 0) {
+//             yylex(); // Consumir ')'
+//             opLog(); // Procesar operador lógico (& o |)
             
-            if (strcmp(yytext, "(") == 0) {
-                yylex(); // Consumir '('
-                E();     // Procesar segunda expresión E
+//             if (strcmp(yytext, "(") == 0) {
+//                 yylex(); // Consumir '('
+//                 E();     // Procesar segunda expresión E
                 
-                if (strcmp(yytext, ")") == 0) {
-                    yylex(); // Consumir ')'
-                    // Expresión lógica completa
-                } else {
-                    printf("Error: Se esperaba ')' después de la segunda expresión\n");
-                }
-            } else {
-                printf("Error: Se esperaba '(' después del operador lógico\n");
-            }
-        } else {
-            printf("Error: Se esperaba ')' después de la primera expresión\n");
-        }
-    } else {
-        printf("Error: Se esperaba '(' para expresión lógica\n");
-    }
-}
+//                 if (strcmp(yytext, ")") == 0) {
+//                     yylex(); // Consumir ')'
+//                     // Expresión lógica completa
+//                 } else {
+//                     printf("Error: Se esperaba ')' después de la segunda expresión\n");
+//                 }
+//             } else {
+//                 printf("Error: Se esperaba '(' después del operador lógico\n");
+//             }
+//         } else {
+//             printf("Error: Se esperaba ')' después de la primera expresión\n");
+//         }
+//     } else {
+//         printf("Error: Se esperaba '(' para expresión lógica\n");
+//     }
+// }
 
-// Proyección 36: <opLog> ---> &
-void opLog36() {
-    if (strcmp(yytext, "&") == 0) {
-        yylex(); // Consumir '&'
-        // € indica fin de la producción
-    } else {
-        printf("Error: Se esperaba operador '&'\n");
-    }
-}
+// // Proyección 36: <opLog> ---> &
+// void opLog36() {
+//     if (strcmp(yytext, "&") == 0) {
+//         yylex(); // Consumir '&'
+//         // € indica fin de la producción
+//     } else {
+//         printf("Error: Se esperaba operador '&'\n");
+//     }
+// }
 
-// Proyección 37: <opLog> ---> |
-void opLog37() {
-    if (strcmp(yytext, "|") == 0) {
-        yylex(); // Consumir '|'
-        // € indica fin de la producción
-    } else {
-        printf("Error: Se esperaba operador '|'\n");
-    }
-}
+// // Proyección 37: <opLog> ---> |
+// void opLog37() {
+//     if (strcmp(yytext, "|") == 0) {
+//         yylex(); // Consumir '|'
+//         // € indica fin de la producción
+//     } else {
+//         printf("Error: Se esperaba operador '|'\n");
+//     }
+// }
 
-// Función general para <opLog> que maneja ambas opciones (36 y 37)
-void opLog() {
-    if (strcmp(yytext, "&") == 0) {
-        opLog36();
-    } else if (strcmp(yytext, "|") == 0) {
-        opLog37();
-    } else {
-        printf("Error: Operador lógico desconocido. Se esperaba '&' o '|'\n");
-    }
-}
+// // Función general para <opLog> que maneja ambas opciones (36 y 37)
+// void opLog() {
+//     if (strcmp(yytext, "&") == 0) {
+//         opLog36();
+//     } else if (strcmp(yytext, "|") == 0) {
+//         opLog37();
+//     } else {
+//         printf("Error: Operador lógico desconocido. Se esperaba '&' o '|'\n");
+//     }
+// }
 
-// Función general para <exprLog> que maneja ambas opciones (34 y 35)
-void exprLog() {
-    // Verificar si empieza con '!' (proyección 34)
-    if (strcmp(yytext, "!") == 0) {
-        exprLog34();
-    } 
-    // Verificar si empieza con '(' (proyección 35)
-    else if (strcmp(yytext, "(") == 0) {
-        exprLog35();
-    } else {
-        printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
-    }
-}
+// // Función general para <exprLog> que maneja ambas opciones (34 y 35)
+// void exprLog() {
+//     // Verificar si empieza con '!' (proyección 34)
+//     if (strcmp(yytext, "!") == 0) {
+//         exprLog34();
+//     } 
+//     // Verificar si empieza con '(' (proyección 35)
+//     else if (strcmp(yytext, "(") == 0) {
+//         exprLog35();
+//     } else {
+//         printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
+//     }
+// }
 
 
 
@@ -618,12 +618,14 @@ int main(int argc, char *argv[]){
         printf("Error al abrir los archivos.\n");
         return 1;
     }
-
-    yylex();  // Ejecutar el analizador léxico
+    colaDeAtomos=crearCola(); // Ejecutar el analizador léxico
+    yylex(); 
+    
+    
 
     // Imprimir la cadena de átomos
-    printf("\nCadena de átomos:\n%s\n", cadenaDeAtomos);
-    fprintf(outputFile, "\nCadena de átomos:\n%s\n", cadenaDeAtomos);
+    //printf("\nCadena de átomos:\n%s\n", cadenaDeAtomos);
+    //fprintf(outputFile, "\nCadena de átomos:\n%s\n", cadenaDeAtomos);
 
     // Imprimir la tabla de símbolos
     printf("\nTabla de Símbolos:\n");
@@ -644,6 +646,10 @@ int main(int argc, char *argv[]){
         fprintf(outputFile, "Posición: %d, Dato: %s\n", 
                tablaLiterales[i].posicion, tablaLiterales[i].dato);
     }
+
+    imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
+    mostrarCola(colaDeAtomos);  // Mostrar la cola de átomos
+    destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida
     fclose(yyin);  // Cerrar archivo de entrada

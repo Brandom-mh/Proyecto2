@@ -55,9 +55,6 @@ TOKEN: Clase 0 (Constante numérica entera), Valor: 0, Texto: 0
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 
-Cadena de átomos:
-a a ( ) { a a = n ; a a = r ; a ( a n ) { a ( s ) ; } a a a n ; } 
-
 Tabla de Símbolos:
 Posición: 0, Nombre: int, Tipo: -1
 Posición: 1, Nombre: main, Tipo: -1
@@ -73,3 +70,4 @@ Posición: 9, Nombre: return, Tipo: -1
 Tabla de Literales:
 Posición: 0, Dato: 3.14e-2
 Posición: 1, Dato: #Hola Mundo#
+Contenido de la cola: [aa(){aa=n;aa=r;a(an){a(s);}aaan;}]
