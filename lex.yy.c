@@ -690,230 +690,7 @@ void imprimirToken(Token token, char *texto) {
     encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
 
-// // Proyección 23: <Sent> ---> <Asig>
-// void Sent23() {
-//     Asig();  // Procesar asignación
-// }
 
-// // Proyección 24: <Sent> ---> <doW>
-// void Sent24() {
-//     doW();   // Procesar do-while
-// }
-
-// // Proyección 25: <Sent> ---> <IF>
-// void Sent25() {
-//     IF();    // Procesar if
-// }
-
-// // Proyección 26: <Sent> ---> <Switch>
-// void Sent26() {
-//     Switch(); // Procesar switch
-// }
-
-// // Proyección 27: <Sent> ---> <For>
-// void Sent27() {
-//     For();   // Procesar for
-// }
-
-// // Proyección 28: <Sent> ---> <Ret>
-// void Sent28() {
-//     Ret();   // Procesar return
-// }
-
-// // Proyección 29: <Sent> ---> c.
-// void Sent29() {
-//     if (strcmp(yytext, "c") == 0) {
-//         yylex(); // Consumir 'c'
-//         if (strcmp(yytext, ".") == 0) {
-//             yylex(); // Consumir '.'
-//         } else {
-//             printf("Error: Se esperaba '.' después de 'c'\n");
-//         }
-//     } else {
-//         printf("Error: Se esperaba 'c' para sentencia\n");
-//     }
-// }
-
-// // Proyección 30: <Sent> ---> b.
-// void Sent30() {
-//     if (strcmp(yytext, "b") == 0) {
-//         yylex(); // Consumir 'b'
-//         if (strcmp(yytext, ".") == 0) {
-//             yylex(); // Consumir '.'
-//         } else {
-//             printf("Error: Se esperaba '.' después de 'b'\n");
-//         }
-//     } else {
-//         printf("Error: Se esperaba 'b' para sentencia\n");
-//     }
-// }
-
-// // Función general para <Sent>
-// void Sent() {
-//     // Verificar el token actual para decidir qué producción aplicar
-//     if (strcmp(yytext, "d") == 0) {        // Asumo que 'd' inicia <Asig>
-//         Sent23();
-//     }
-//     else if (strcmp(yytext, "do") == 0) {  // do-while
-//         Sent24();
-//     }
-//     else if (strcmp(yytext, "if") == 0) {  // if
-//         Sent25();
-//     }
-//     else if (strcmp(yytext, "switch") == 0) { // switch
-//         Sent26();
-//     }
-//     else if (strcmp(yytext, "for") == 0) { // for
-//         Sent27();
-//     }
-//     else if (strcmp(yytext, "return") == 0) { // return
-//         Sent28();
-//     }
-//     else if (strcmp(yytext, "c") == 0) {   // sentencia tipo 'c.'
-//         Sent29();
-//     }
-//     else if (strcmp(yytext, "b") == 0) {   // sentencia tipo 'b.'
-//         Sent30();
-//     }
-//     else {
-//         printf("Error: Token inesperado '%s' en <Sent>\n", yytext);
-//     }
-// }
-
-// // Proyección 31: <listaSent> ---> <Sent><listaSent>
-// // CS(31): FIRST(<Sent>) = {d, i, k, f, r}
-// void listaSent31() {
-//     // Procesar una sentencia
-//     Sent();
-    
-//     // Procesar el resto de sentencias
-//     listaSent();
-// }
-
-// // Proyección 32: <listaSent> ---> ε
-// // CS(32): { ], }, b }
-// void listaSent32() {
-//     // Producción vacía, no se hace nada
-//     return;
-// }
-
-// // Función general para <listaSent>
-// void listaSent() {
-//     // Verificar los tokens del FIRST(<Sent>) para la proyección 31
-//     if (strcmp(yytext, "d") == 0 ||   // declaración
-//         strcmp(yytext, "i") == 0 ||   // if
-//         strcmp(yytext, "k") == 0 ||   // for
-//         strcmp(yytext, "f") == 0 ||   // función
-//         strcmp(yytext, "r") == 0) {   // return
-//         listaSent31();
-//     }
-//     // Verificar los tokens del CS(32) para la proyección vacía
-//     else if (strcmp(yytext, "]") == 0 ||
-//              strcmp(yytext, "}") == 0 ||
-//              strcmp(yytext, "b") == 0) {
-//         listaSent32();
-//     }
-//     else {
-//         printf("Error: Token inesperado '%s' en <listaSent>\n", yytext);
-//     }
-// }
-
-
-// // Proyección 34: <exprLog> ---> !(E)
-// void exprLog34() {
-//     if (strcmp(yytext, "!") == 0) {
-//         yylex(); // Consumir '!'
-//         if (strcmp(yytext, "(") == 0) {
-//             yylex(); // Consumir '('
-//             E();    // Procesar expresión E
-//             if (strcmp(yytext, ")") == 0) {
-//                 yylex(); // Consumir ')'
-//             } else {
-//                 printf("Error: Se esperaba ')' después de expresión\n");
-//             }
-//         } else {
-//             printf("Error: Se esperaba '(' después de '!'\n");
-//         }
-//     } else {
-//         printf("Error: Se esperaba '!' para expresión lógica\n");
-//     }
-// }
-
-// // Proyección 35 modificada: <exprLog> ---> (E)<opLog>(E)
-// void exprLog35() {
-//     if (strcmp(yytext, "(") == 0) {
-//         yylex(); // Consumir '('
-//         E();     // Procesar primera expresión E
-        
-//         if (strcmp(yytext, ")") == 0) {
-//             yylex(); // Consumir ')'
-//             opLog(); // Procesar operador lógico (& o |)
-            
-//             if (strcmp(yytext, "(") == 0) {
-//                 yylex(); // Consumir '('
-//                 E();     // Procesar segunda expresión E
-                
-//                 if (strcmp(yytext, ")") == 0) {
-//                     yylex(); // Consumir ')'
-//                     // Expresión lógica completa
-//                 } else {
-//                     printf("Error: Se esperaba ')' después de la segunda expresión\n");
-//                 }
-//             } else {
-//                 printf("Error: Se esperaba '(' después del operador lógico\n");
-//             }
-//         } else {
-//             printf("Error: Se esperaba ')' después de la primera expresión\n");
-//         }
-//     } else {
-//         printf("Error: Se esperaba '(' para expresión lógica\n");
-//     }
-// }
-
-// // Proyección 36: <opLog> ---> &
-// void opLog36() {
-//     if (strcmp(yytext, "&") == 0) {
-//         yylex(); // Consumir '&'
-//         // € indica fin de la producción
-//     } else {
-//         printf("Error: Se esperaba operador '&'\n");
-//     }
-// }
-
-// // Proyección 37: <opLog> ---> |
-// void opLog37() {
-//     if (strcmp(yytext, "|") == 0) {
-//         yylex(); // Consumir '|'
-//         // € indica fin de la producción
-//     } else {
-//         printf("Error: Se esperaba operador '|'\n");
-//     }
-// }
-
-// // Función general para <opLog> que maneja ambas opciones (36 y 37)
-// void opLog() {
-//     if (strcmp(yytext, "&") == 0) {
-//         opLog36();
-//     } else if (strcmp(yytext, "|") == 0) {
-//         opLog37();
-//     } else {
-//         printf("Error: Operador lógico desconocido. Se esperaba '&' o '|'\n");
-//     }
-// }
-
-// // Función general para <exprLog> que maneja ambas opciones (34 y 35)
-// void exprLog() {
-//     // Verificar si empieza con '!' (proyección 34)
-//     if (strcmp(yytext, "!") == 0) {
-//         exprLog34();
-//     } 
-//     // Verificar si empieza con '(' (proyección 35)
-//     else if (strcmp(yytext, "(") == 0) {
-//         exprLog35();
-//     } else {
-//         printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
-//     }
-// }
 
 
 
@@ -996,8 +773,8 @@ void Funcion() {
     }
 }
 
-#line 1000 "lex.yy.c"
-#line 1001 "lex.yy.c"
+#line 777 "lex.yy.c"
+#line 778 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -1214,9 +991,9 @@ YY_DECL
 		}
 
 	{
-#line 475 "proyecto2.l"
+#line 252 "proyecto2.l"
 
-#line 1220 "lex.yy.c"
+#line 997 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1275,7 +1052,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 476 "proyecto2.l"
+#line 253 "proyecto2.l"
 {
     Token token;
     token.clase = 0;  
@@ -1285,7 +1062,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 483 "proyecto2.l"
+#line 260 "proyecto2.l"
 {
     Token token;
     token.clase = 1;  
@@ -1299,7 +1076,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 494 "proyecto2.l"
+#line 271 "proyecto2.l"
 {
     Token token;
     token.clase = 2;  // Clase: Operador aritmético
@@ -1316,7 +1093,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 508 "proyecto2.l"
+#line 285 "proyecto2.l"
 {
     Token token;
     token.clase = 3;  // Clase: Símbolo especial
@@ -1326,7 +1103,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 515 "proyecto2.l"
+#line 292 "proyecto2.l"
 {
     Token token;
     token.clase = 4;  // Clase: Constante cadena
@@ -1340,7 +1117,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 526 "proyecto2.l"
+#line 303 "proyecto2.l"
 {
     Token token;
     token.clase = 5;  // Clase: Palabra reservada Esta madre esta al reves en el proyecto 1
@@ -1368,7 +1145,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 551 "proyecto2.l"
+#line 328 "proyecto2.l"
 {
     Token token;
     token.clase = 6;  // Clase: Operador de asignación
@@ -1388,7 +1165,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 568 "proyecto2.l"
+#line 345 "proyecto2.l"
 {
     Token token;
     token.clase = 7;  // Clase: Operador lógico
@@ -1400,7 +1177,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 577 "proyecto2.l"
+#line 354 "proyecto2.l"
 {
     Token token;
     token.clase = 8;  // Clase: Identificador
@@ -1415,12 +1192,12 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 588 "proyecto2.l"
+#line 365 "proyecto2.l"
 {}  // Ignorar espacios en blanco
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 589 "proyecto2.l"
+#line 366 "proyecto2.l"
 { 
     printf("Comentario de línea, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de línea, Texto: %s\n", yytext); 
@@ -1429,7 +1206,7 @@ YY_RULE_SETUP
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 593 "proyecto2.l"
+#line 370 "proyecto2.l"
 { 
     printf("Comentario de bloque, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de bloque, Texto: %s\n", yytext); 
@@ -1437,7 +1214,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 597 "proyecto2.l"
+#line 374 "proyecto2.l"
 { 
     printf("Error: '%s' no es un identificador\n", yytext); 
     fprintf(outputFile, "Error: '%s' no es un identificador\n", yytext); 
@@ -1445,10 +1222,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 601 "proyecto2.l"
+#line 378 "proyecto2.l"
 ECHO;
 	YY_BREAK
-#line 1452 "lex.yy.c"
+#line 1229 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2453,7 +2230,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 601 "proyecto2.l"
+#line 378 "proyecto2.l"
 
 
 int yywrap() {
