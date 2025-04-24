@@ -226,3 +226,10 @@ void exprLog(Cola *cola) {
         printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
     }
 }
+// SENtencias If, do while, swicth case
+void IfElse() { if (strcmp(yytext, "IF") == 0) 
+    { yylex(); if (strcmp(yytext, "(") == 0) { yylex(); if (strcmp(yytext, ")") == 0) { yylex(); if (strcmp(yytext, "ELSE") == 0) { yylex(); } } else { printf("Error: se esperaba ')'\n"); } } else { printf("Error: se esperaba '('\n"); } } else { printf("Error: se esperaba 'if'\n"); } }
+
+void DoWhile() { if (strcmp(yytext, "DO") == 0) { yylex(); if (strcmp(yytext, "WHILE") == 0) { yylex(); if (strcmp(yytext, "(") == 0) { yylex(); if (strcmp(yytext, ")") == 0) { yylex(); if (strcmp(yytext, ";") == 0) { yylex(); } else { printf("Error: se esperaba ';'\n"); } } else { printf("Error: se esperaba ')'\n"); } } else { printf("Error: se esperaba '('\n"); } } else { printf("Error: se esperaba 'while'\n"); } } else { printf("Error: se esperaba 'do'\n"); } }
+
+void SwitchCase() { if (strcmp(yytext, "SWITCH") == 0) { yylex(); if (strcmp(yytext, "(") == 0) { yylex(); if (strcmp(yytext, ")") == 0) { yylex(); if (strcmp(yytext, "{") == 0) { yylex(); while (strcmp(yytext, "CASE") == 0) { yylex(); if (strcmp(yytext, ":") == 0) { yylex(); } else { printf("Error: se esperaba ':'\n"); } } if (strcmp(yytext, "}") == 0) { yylex(); } else { printf("Error: se esperaba '}'\n"); } } else { printf("Error: se esperaba '{'\n"); } } else { printf("Error: se esperaba ')'\n"); } } else { printf("Error: se esperaba '('\n"); } } else { printf("Error: se esperaba 'switch'\n"); } }
