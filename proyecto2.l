@@ -2,9 +2,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "cola.h"  
 
 int yylex(void);
 
+Cola* colaDeAtomos;
 // Definición de constantes para los tamaños máximos de las tablas
 #define MAX_IDENTIFIERS 100  
 #define MAX_LITERALS 100     
@@ -39,14 +41,14 @@ int numLiterales = 0;
 FILE *outputFile;
 
 // Cadena para acumular átomos
+
 char cadenaDeAtomos[10000] = "";
 
 // Prototipos de funciones
-const char* obtenerAtomo(Token token, const char* texto);
-void Return();
-void For();
-void Funcion();
-
+char obtenerAtomo(Token token, const char* texto);
+void E(Cola* cola);
+void listaSent(Cola* cola);
+void listaDec(Cola* cola);
 
 // Función para buscar un identificador en la tabla de símbolos
 int buscarEnTablaSimbolos(char *nombre) {
@@ -89,34 +91,32 @@ int agregarATablaLiterales(char *dato) {
     return numLiterales++;  // Retorna la posición del nuevo literal
 }
 
-const char* obtenerAtomo(Token token, const char* texto) {
-    static char atomo[10];
-    
+char obtenerAtomo(Token token, const char* texto) {
     switch (token.clase) {
-        case 0: return "n";  // Constante entera
-        case 1: return "r";  // Constante flotante
-        case 2: return texto;  // Operadores aritméticos son sus propios átomos
-        case 3: return texto;  // Símbolos especiales también
-        case 4: return "s";  // Constante cadena
+        case 0: return 'n';  // Constante entera
+        case 1: return 'r';  // Constante flotante
+        case 2: return texto[0];  // Operadores aritméticos (primer caracter)
+        case 3: return texto[0];  // Símbolos especiales (primer caracter)
+        case 4: return 's';  // Constante cadena
         case 5: {  // Palabras reservadas
-            const char* atomoReservadas[] = {
-                    "b","z","h","c","d","u","e","f","v","i",
-                    "t","g","x","y","j","k","q","o","w"
+            const char atomoReservadas[] = {
+                'b','z','h','c','d','u','e','f','v','i',
+                't','g','x','y','j','k','q','o','w'
             };
             return atomoReservadas[token.valor];
         }
         case 6: {  // Operadores de asignación
-            const char* atomoAsignacion[] = {
-                "=", "#", ";", "$", ",", "?", ":", "^", "@", "<", ">"
+            const char atomoAsignacion[] = {
+                '=', '#', ';', '$', ',', '?', ':', '^', '@', '<', '>'
             };
             return atomoAsignacion[token.valor];
         }
         case 7: {  // Operadores lógicos
-            const char* atomoLogico[] = {"|", "&", "!"};
+            const char atomoLogico[] = {'|', '&', '!'};
             return atomoLogico[token.valor];
         }
-        case 8: return "a";  // Identificador
-        default: return "?";
+        case 8: return 'a';  // Identificador
+        default: return '?';
     }
 }
 
@@ -145,89 +145,11 @@ void imprimirToken(Token token, char *texto) {
                                                            token.valor, 
                                                            texto);
     // Agregar átomo a la cadena
-    const char* atomo = obtenerAtomo(token, texto);
-    strcat(cadenaDeAtomos, atomo);
-    strcat(cadenaDeAtomos, " ");
+    char atomo = obtenerAtomo(token, texto);
+    encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
 
-// Implementación de Return()
-void Return() {
-    if (strcmp(yytext, "RETURN") == 0) {
-        yylex(); // consumir 'return'
-        // aquí podría venir una expresión opcional
-        if (strcmp(yytext, ";") == 0) {
-            yylex(); // consumir ';'
-        } else {
-            printf("Error: se esperaba ';' después de return\n");
-        }
-    } else {
-        printf("Error: se esperaba 'return'\n");
-    }
-}
 
-// Implementación de For()
-void For() {
-    if (strcmp(yytext, "FOR") == 0) {
-        yylex(); // consumir 'for'
-        if (strcmp(yytext, "(") == 0) {
-            yylex(); // consumir '('
-            // puedes agregar funciones: Declaracion(); o Expresion();
-            if (strcmp(yytext, ";") == 0) {
-                yylex(); // consumir ';'
-                // otra expresión
-                if (strcmp(yytext, ";") == 0) {
-                    yylex(); // consumir ';'
-                    // última expresión
-                    if (strcmp(yytext, ")") == 0) {
-                        yylex(); // consumir ')'
-                        // luego el cuerpo
-                        // puedes poner: Bloque(); o Instruccion();
-                    } else {
-                        printf("Error: se esperaba ')'\n");
-                    }
-                } else {
-                    printf("Error: se esperaba segundo ';'\n");
-                }
-            } else {
-                printf("Error: se esperaba primer ';'\n");
-            }
-        } else {
-            printf("Error: se esperaba '('\n");
-        }
-    } else {
-        printf("Error: se esperaba 'for'\n");
-    }
-}
-
-// Implementación de Funcion()
-void Funcion() {
-    Token token;
-    // Debe comenzar con tipo de retorno
-    if (strcmp(yytext, "INT") == 0 || strcmp(yytext, "VOID") == 0 || strcmp(yytext, "FLOAT") == 0) {
-        yylex(); // consumir tipo
-
-        if (token.clase == 8) {  // identificador
-            yylex(); // consumir nombre
-
-            if (strcmp(yytext, "(") == 0) {
-                yylex(); // consumir '('
-                // Aquí puedes agregar una función Parametros();
-                if (strcmp(yytext, ")") == 0) {
-                    yylex(); // consumir ')'
-                    // Aquí puedes poner Bloque(); para el cuerpo
-                } else {
-                    printf("Error: se esperaba ')'\n");
-                }
-            } else {
-                printf("Error: se esperaba '('\n");
-            }
-        } else {
-            printf("Error: se esperaba nombre de función\n");
-        }
-    } else {
-        printf("Error: se esperaba tipo de retorno\n");
-    }
-}
 
 %}
 
@@ -390,12 +312,14 @@ int main(int argc, char *argv[]){
         printf("Error al abrir los archivos.\n");
         return 1;
     }
-
-    yylex();  // Ejecutar el analizador léxico
+    colaDeAtomos=crearCola(); // Ejecutar el analizador léxico
+    yylex(); 
+    
+    Func(colaDeAtomos);
 
     // Imprimir la cadena de átomos
-    printf("\nCadena de átomos:\n%s\n", cadenaDeAtomos);
-    fprintf(outputFile, "\nCadena de átomos:\n%s\n", cadenaDeAtomos);
+    //printf("\nCadena de átomos:\n%s\n", cadenaDeAtomos);
+    //fprintf(outputFile, "\nCadena de átomos:\n%s\n", cadenaDeAtomos);
 
     // Imprimir la tabla de símbolos
     printf("\nTabla de Símbolos:\n");
@@ -416,6 +340,10 @@ int main(int argc, char *argv[]){
         fprintf(outputFile, "Posición: %d, Dato: %s\n", 
                tablaLiterales[i].posicion, tablaLiterales[i].dato);
     }
+
+    imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
+    mostrarCola(colaDeAtomos);  // Mostrar la cola de átomos
+    destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida
     fclose(yyin);  // Cerrar archivo de entrada
