@@ -1,235 +1,152 @@
 #include <stdio.h>
 #include <string.h>
 #include "cola.h"
+Cola *cola; // Cola de prueba
 
-// Proyección 23: <Sent> ---> <Asig>
+// Proyección 23: <//Sent> ---> <Asig>
 void Sent23() {
-    Asig();  // Procesar asignación
+   // Asig();  // Procesar asignación
 }
 
-// Proyección 24: <Sent> ---> <doW>
-void Sent24() {
-    doW();   // Procesar do-while
-}
-
-// Proyección 25: <Sent> ---> <IF>
-void Sent25() {
-    IF();    // Procesar if
-}
-
-// Proyección 26: <Sent> ---> <Switch>
-void Sent26() {
-    Switch(); // Procesar switch
-}
-
-// Proyección 27: <Sent> ---> <For>
-void Sent27() {
-    For();   // Procesar for
-}
-
-// Proyección 28: <Sent> ---> <Ret>
-void Sent28() {
-    Ret();   // Procesar return
-}
-
-// Proyección 29: <Sent> ---> c.
-void Sent29(Cola *cola) {
-    if (strcmp(frente(cola), "c") == 0) {
-        desencolar(cola); // Consumir 'c'
-        if (strcmp(frente(cola), ".") == 0) {
-            desencolar(cola); // Consumir '.'
-        } else {
-            printf("Error: Se esperaba '.' después de 'c'\n");
-        }
-    } else {
-        printf("Error: Se esperaba 'c' para sentencia\n");
-    }
-}
-
-// Proyección 30: <Sent> ---> b.
-void Sent30(Cola *cola) {
-    if (strcmp(frente(cola), "b") == 0) {
-        desencolar(cola); // Consumir 'b'
-        if (strcmp(frente(cola), ".") == 0) {
-            desencolar(cola); // Consumir '.'
-        } else {
-            printf("Error: Se esperaba '.' después de 'b'\n");
-        }
-    } else {
-        printf("Error: Se esperaba 'b' para sentencia\n");
-    }
-}
-
-// Función general para <Sent>
-void Sent(Cola *cola) {
-    // Verificar el token actual para decidir qué producción aplicar
-    if (strcmp(frente(cola), "d") == 0) {        // Asumo que 'd' inicia <Asig>
-        Sent23();
-    }
-    else if (strcmp(frente(cola), "do") == 0) {  // do-while
-        Sent24();
-    }
-    else if (strcmp(frente(cola), "if") == 0) {  // if
-        Sent25();
-    }
-    else if (strcmp(frente(cola), "switch") == 0) { // switch
-        Sent26();
-    }
-    else if (strcmp(frente(cola), "for") == 0) { // for
-        Sent27();
-    }
-    else if (strcmp(frente(cola), "return") == 0) { // return
-        Sent28();
-    }
-    else if (strcmp(frente(cola), "c") == 0) {   // sentencia tipo 'c.'
-        Sent29(cola);
-    }
-    else if (strcmp(frente(cola), "b") == 0) {   // sentencia tipo 'b.'
-        Sent30(cola);
-    }
-    else {
-        printf("Error: Token inesperado '%s' en <Sent>\n", frente(cola));
-    }
-}
-
-// Proyección 31: <listaSent> ---> <Sent><listaSent>
-// CS(31): FIRST(<Sent>) = {d, i, k, f, r}
-void listaSent31(Cola *cola) {
-    // Procesar una sentencia
-    Sent(cola);
-    
-    // Procesar el resto de sentencias
-    listaSent(cola);
-}
-
-// Proyección 32: <listaSent> ---> ε
-// CS(32): { ], }, b }
-void listaSent32() {
-    // Producción vacía, no se hace nada
-    return;
-}
-
-// Función general para <listaSent>
-void listaSent(Cola *cola) {   
-    // Verificar los tokens del FIRST(<Sent>) para la proyección 31
-    if (strcmp(frente(cola), "d") == 0 ||   // declaración
-        strcmp(frente(cola), "i") == 0 ||   // if
-        strcmp(frente(cola), "k") == 0 ||   // for
-        strcmp(frente(cola), "f") == 0 ||   // función
-        strcmp(frente(cola), "r") == 0) {   // return
-        listaSent31(cola);
-    }
-    // Verificar los tokens del CS(32) para la proyección vacía
-    else if (strcmp(frente(cola), "]") == 0 ||
-             strcmp(frente(cola), "}") == 0 ||
-             strcmp(frente(cola), "b") == 0) {
-        listaSent32();
-    }
-    else {
-        printf("Error: Token inesperado '%s' en <listaSent>\n", frente(cola));
-    }
-}
-
-
-// Proyección 34: <exprLog> ---> !(E)
-void exprLog34(Cola *cola) {
-    if (strcmp(frente(cola), "!") == 0) {
-        desencolar(cola); // Consumir '!'
-        if (strcmp(frente(cola), "(") == 0) {
-            desencolar(cola); // Consumir '('
-            E(cola);    // Procesar expresión E
-            if (strcmp(frente(cola), ")") == 0) {
-                desencolar(cola); // Consumir ')'
-            } else {
-                printf("Error: Se esperaba ')' después de expresión\n");
-            }
-        } else {
-            printf("Error: Se esperaba '(' después de '!'\n");
-        }
-    } else {
-        printf("Error: Se esperaba '!' para expresión lógica\n");
-    }
-}
-
-// Proyección 35 modificada: <exprLog> ---> (E)<opLog>(E)
-void exprLog35(Cola *cola) {
-    if (strcmp(frente(cola), "(") == 0) {
-        desencolar(cola); // Consumir '('
-        E();     // Procesar primera expresión E
-        
-        if (strcmp(frente(cola), ")") == 0) {
-            desencolar(cola); // Consumir ')'
-            opLog(cola); // Procesar operador lógico (& o |)
-            
-            if (strcmp(frente(cola), "(") == 0) {
-                desencolar(cola); // Consumir '('
-                E();     // Procesar segunda expresión E
-                
-                if (strcmp(frente(cola), ")") == 0) {
-                    desencolar(cola); // Consumir ')'
-                    // Expresión lógica completa
+// Proyección 24: <//Sent> ---> <doW>
+void doW(Cola *cola) {
+    if (frente(cola) == 'd') {
+        desencolar(cola);
+        ////Sent(cola);
+        if (frente(cola) == 'w') {
+            desencolar(cola);
+            if (frente(cola) == '(') {
+                desencolar(cola);
+                if (frente(cola) == ')') {
+                    desencolar(cola);
+                    if (frente(cola) == ';') {
+                        desencolar(cola);
+                    } else {
+                        printf("Error: se esperaba ';' después de do-while\n");
+                    }
                 } else {
-                    printf("Error: Se esperaba ')' después de la segunda expresión\n");
+                    printf("Error: se esperaba ')' en condición de while\n");
                 }
             } else {
-                printf("Error: Se esperaba '(' después del operador lógico\n");
+                printf("Error: se esperaba '(' en condición de while\n");
             }
         } else {
-            printf("Error: Se esperaba ')' después de la primera expresión\n");
+            printf("Error: se esperaba 'while' después del cuerpo do\n");
         }
     } else {
-        printf("Error: Se esperaba '(' para expresión lógica\n");
+        printf("Error: se esperaba 'do'\n");
     }
 }
 
-// Proyección 36: <opLog> ---> &
-void opLog36(Cola *cola) {
-    if (strcmp(frente(cola), "&") == 0) {
-        desencolar(cola); // Consumir '&'
-        // € indica fin de la producción
+// Proyección 25: <//Sent> ---> <IF>
+void IF(Cola *cola) {
+    if (frente(cola) == 'i') {
+        desencolar(cola);
+        if (frente(cola) == '(') {
+            desencolar(cola);
+            if (frente(cola) == ')') {
+                desencolar(cola);
+                //Sent(cola);
+                if (frente(cola) == 'e') {
+                    desencolar(cola);
+                    //Sent(cola);
+                }
+            } else {
+                printf("Error: se esperaba ')' en la sentencia if\n");
+            }
+        } else {
+            printf("Error: se esperaba '(' en la sentencia if\n");
+        }
     } else {
-        printf("Error: Se esperaba operador '&'\n");
+        printf("Error: se esperaba 'if'\n");
     }
 }
 
-// Proyección 37: <opLog> ---> |
-void opLog37(Cola *cola) {
-    if (strcmp(frente(cola), "|") == 0) {
-        desencolar(cola); // Consumir '|'
-        // € indica fin de la producción
+// Proyección 26: <//Sent> ---> <Switch>
+void Switch(Cola *cola) {
+    if (frente(cola) == 'k') {
+        desencolar(cola);
+        if (frente(cola) == '(') {
+            desencolar(cola);
+            if (frente(cola) == 'a' || frente(cola) == 'n') {
+                desencolar(cola);
+                if (frente(cola) == ')') {
+                    desencolar(cola);
+                    if (frente(cola) == '{') {
+                        desencolar(cola);
+                        while (frente(cola) == 'z') {
+                            desencolar(cola);
+                            if (frente(cola) == ':') {
+                                desencolar(cola);
+                                //Sent(cola);
+                            } else {
+                                printf("Error: se esperaba ':' en CASE\n");
+                                break;
+                            }
+                        }
+                        if (frente(cola) == '}') {
+                            desencolar(cola);
+                        } else {
+                            printf("Error: se esperaba '}' para cerrar switch\n");
+                        }
+                    } else {
+                        printf("Error: se esperaba '{' después del switch\n");
+                    }
+                } else {
+                    printf("Error: se esperaba ')' en switch\n");
+                }
+            } else {
+                printf("Error: se esperaba una expresión en switch()\n");
+            }
+        } else {
+            printf("Error: se esperaba '(' en switch\n");
+        }
     } else {
-        printf("Error: Se esperaba operador '|'\n");
+        printf("Error: se esperaba 'switch'\n");
     }
 }
 
-// Función general para <opLog> que maneja ambas opciones (36 y 37)
-void opLog(Cola *cola) {
-    if (strcmp(frente(cola), "&") == 0) {
-        opLog36(cola);
-    } else if (strcmp(frente(cola), "|") == 0) {
-        opLog37(cola);
-    } else {
-        printf("Error: Operador lógico desconocido. Se esperaba '&' o '|'\n");
-    }
+// Función principal para pruebas
+int main() {
+    cola = crearCola();
+
+    // Prueba 1: IF () c. ELSE b.
+    printf("\n--- Prueba IF ---\n");
+    encolar(cola, 'i'); // if
+    encolar(cola, '(');
+    encolar(cola, ')');
+    encolar(cola, 'c');
+    encolar(cola, '.');
+    encolar(cola, 'e'); // else
+    encolar(cola, 'b');
+    encolar(cola, '.');
+    IF(cola);
+
+    // Prueba 2: DO c. WHILE ();;
+    printf("\n--- Prueba DO-WHILE ---\n");
+    encolar(cola, 'd');
+    encolar(cola, 'c');
+    encolar(cola, '.');
+    encolar(cola, 'w');
+    encolar(cola, '(');
+    encolar(cola, ')');
+    encolar(cola, ';');
+    doW(cola);
+
+    // Prueba 3: SWITCH(a){ CASE : b. }
+    printf("\n--- Prueba SWITCH ---\n");
+    encolar(cola, 'k');
+    encolar(cola, '(');
+    encolar(cola, 'a');
+    encolar(cola, ')');
+    encolar(cola, '{');
+    encolar(cola, 'z');
+    encolar(cola, ':');
+    encolar(cola, 'b');
+    encolar(cola, '.');
+    encolar(cola, '}');
+    Switch(cola);
+
+    destruirCola(cola);
+    return 0;
 }
-
-// Función general para <exprLog> que maneja ambas opciones (34 y 35)
-void exprLog(Cola *cola) {
-    // Verificar si empieza con '!' (proyección 34)
-    if (strcmp(frente(cola), "!") == 0) {
-        exprLog34(cola);
-    } 
-    // Verificar si empieza con '(' (proyección 35)
-    else if (strcmp(frente(cola), "(") == 0) {
-        exprLog35(cola);
-    } else {
-        printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
-    }
-}
-// SENtencias If, do while, swicth case
-void IfElse() { if (strcmp(yytext, "IF") == 0) 
-    { yylex(); if (strcmp(yytext, "(") == 0) { yylex(); if (strcmp(yytext, ")") == 0) { yylex(); if (strcmp(yytext, "ELSE") == 0) { yylex(); } } else { printf("Error: se esperaba ')'\n"); } } else { printf("Error: se esperaba '('\n"); } } else { printf("Error: se esperaba 'if'\n"); } }
-
-void DoWhile() { if (strcmp(yytext, "DO") == 0) { yylex(); if (strcmp(yytext, "WHILE") == 0) { yylex(); if (strcmp(yytext, "(") == 0) { yylex(); if (strcmp(yytext, ")") == 0) { yylex(); if (strcmp(yytext, ";") == 0) { yylex(); } else { printf("Error: se esperaba ';'\n"); } } else { printf("Error: se esperaba ')'\n"); } } else { printf("Error: se esperaba '('\n"); } } else { printf("Error: se esperaba 'while'\n"); } } else { printf("Error: se esperaba 'do'\n"); } }
-
-void SwitchCase() { if (strcmp(yytext, "SWITCH") == 0) { yylex(); if (strcmp(yytext, "(") == 0) { yylex(); if (strcmp(yytext, ")") == 0) { yylex(); if (strcmp(yytext, "{") == 0) { yylex(); while (strcmp(yytext, "CASE") == 0) { yylex(); if (strcmp(yytext, ":") == 0) { yylex(); } else { printf("Error: se esperaba ':'\n"); } } if (strcmp(yytext, "}") == 0) { yylex(); } else { printf("Error: se esperaba '}'\n"); } } else { printf("Error: se esperaba '{'\n"); } } else { printf("Error: se esperaba ')'\n"); } } else { printf("Error: se esperaba '('\n"); } } else { printf("Error: se esperaba 'switch'\n"); } }
