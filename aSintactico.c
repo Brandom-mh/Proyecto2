@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "cola.h"
+
+Cola *cola;
 // Proyección: D -> <tipo>a
 void D() {
     // Procesar el tipo
