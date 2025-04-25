@@ -3,15 +3,76 @@
 #include "cola.h"
 Cola *cola; // Cola de prueba
 
-Cola *cola;
 // --- Prototipos de funciones ---
-void D(Cola *cola);
-void Asig(Cola *cola);
-void opAsig(Cola *cola);
-void expresionArit(Cola *cola);
+
+void cargarColaCaracterPorCaracter();
+void Program();
+void OtraFunc();
+void Func();
+void TipoF();
+void Arg();
+void Cuerpo();
+void listaDec();
+void D();
+void Tipo();
+void unsig();
+void Size();
+void dec();
+void Sent();
+void listaSent();
+void listaSent();
+void doW();
+void exprLog();
+void IF();
+void ELSE();
+void FOR();
+void Ret();
+void valRet();
+void Switch();
+void listaCase();
+void Case();
+void E();
+void EP();
+void T();
+void TP();
+void F();
+void FP();
+void G();
+void opLog();
+
+
+void Asig();
+void opAsig();
+
+
+
+void cargarColaCaracterPorCaracter() {
+    char *nombreArchivo = "salida2.txt"; // Nombre del archivo a leer
+    FILE *archivo = fopen(nombreArchivo, "r"); // Abrir el archivo en modo lectura
+    if (!archivo) {
+        printf("Error: No se pudo abrir el archivo %s\n", nombreArchivo);
+        return;
+    }
+
+    char c;
+    int dentroDeCorchetes = 0;
+
+    while ((c = fgetc(archivo)) != EOF) { // Leer carácter por carácter
+        if (c == '[') {
+            dentroDeCorchetes = 1; // Comenzar a leer dentro de los corchetes
+        } else if (c == ']') {
+            dentroDeCorchetes = 0; // Terminar de leer dentro de los corchetes
+            break; // Salir del bucle después de cerrar los corchetes
+        } else if (dentroDeCorchetes) {
+            encolar(cola, c); // Encolar cada carácter dentro de los corchetes
+        }
+    }
+
+    fclose(archivo); // Cerrar el archivo
+}
 
 // --- Declaración ---
-void D(Cola *cola) {
+void D() {
     if (frente(cola) == 't') { // 't' = INT (tipo de dato)
         desencolar(cola);
         if (frente(cola) == 'a') { // 'a' = identificador
@@ -31,11 +92,11 @@ void D(Cola *cola) {
 }
 
 // --- Asignación ---
-void Asig(Cola *cola) {
+void Asig() {
     if (frente(cola) == 'a') { // identificador
         desencolar(cola);
         opAsig(cola); // Verificar operador de asignación
-        expresionArit(cola);
+        E(cola);
         if (frente(cola) == ';') {
             desencolar(cola);
             printf("Asignación válida.\n");
@@ -47,7 +108,7 @@ void Asig(Cola *cola) {
     }
 }
 
-void opAsig(Cola *cola) {
+void opAsig() {
     if (frente(cola) == '#' || frente(cola) == ':' || 
         frente(cola) == '$' || frente(cola) == ',' || 
         frente(cola) == '?' || frente(cola) == ':' || 
@@ -60,7 +121,7 @@ void opAsig(Cola *cola) {
 }
 
 // --- Expresión Aritmética ---
-void expresionArit(Cola *cola) {
+void E() {
     if (frente(cola) == 'n' || frente(cola) == 'a') {
         desencolar(cola); // número o identificador
         while (frente(cola) == '+' || frente(cola) == '-' || frente(cola) == '*' || frente(cola) == '/' || frente(cola) == '%') {
@@ -78,40 +139,40 @@ void expresionArit(Cola *cola) {
 }
 
 // Proyección 23: <Sent> ---> <Asig>
-void Sent23(Cola *cola) {
+void Sent23() {
     Asig(cola);  // Procesar asignación
 }
 
 // Proyección 24: <Sent> ---> <doW>
-void Sent24(Cola *cola) {
+void Sent24() {
     doW(cola);   // Procesar do-while
 }
 
 // Proyección 25: <Sent> ---> <IF>
-void Sent25(Cola *cola) {
+void Sent25() {
     IF(cola);    // Procesar if
 }
 
 // Proyección 26: <Sent> ---> <Switch>
-void Sent26(Cola *cola) {
+void Sent26() {
     Switch(cola); // Procesar switch
 }
 
 // Proyección 27: <Sent> ---> <For>
 void Sent27() {
-    For();   // Procesar for
+    //FOR(cola);   // Procesar for
 }
 
 // Proyección 28: <Sent> ---> <Ret>
 void Sent28() {
-    Ret();   // Procesar return
+    //Ret(cola);   // Procesar return
 }
 
 // Proyección 29: <Sent> ---> c.
-void Sent29(Cola *cola) {
-    if (strcmp(frente(cola), "c") == 0) {
+void Sent29() {
+    if (frente(cola) == 'c') {
         desencolar(cola); // Consumir 'c'
-        if (strcmp(frente(cola), ".") == 0) {
+        if (frente(cola) == '.') {
             desencolar(cola); // Consumir '.'
         } else {
             printf("Error: Se esperaba '.' después de 'c'\n");
@@ -122,10 +183,10 @@ void Sent29(Cola *cola) {
 }
 
 // Proyección 30: <Sent> ---> b.
-void Sent30(Cola *cola) {
-    if (strcmp(frente(cola), "b") == 0) {
+void Sent30() {
+    if (frente(cola) == 'b') {
         desencolar(cola); // Consumir 'b'
-        if (strcmp(frente(cola), ".") == 0) {
+        if (frente(cola) == '.') {
             desencolar(cola); // Consumir '.'
         } else {
             printf("Error: Se esperaba '.' después de 'b'\n");
@@ -136,40 +197,36 @@ void Sent30(Cola *cola) {
 }
 
 // Función general para <Sent>
-void Sent(Cola *cola) {
-    // Verificar el token actual para decidir qué producción aplicar
-    if (strcmp(frente(cola), "d") == 0) {        // Asumo que 'd' inicia <Asig>
+void Sent() {
+    if (frente(cola) == 'd') {        // Asumo que 'd' inicia <Asig>
         Sent23(cola);
     }
-    else if (strcmp(frente(cola), "do") == 0) {  // do-while
-        Sent24(cola);
-    }
-    else if (strcmp(frente(cola), "if") == 0) {  // if
+    else if (frente(cola) == 'i') {  // if
         Sent25(cola);
     }
-    else if (strcmp(frente(cola), "switch") == 0) { // switch
+    else if (frente(cola) == 'k') { // switch
         Sent26(cola);
     }
-    else if (strcmp(frente(cola), "for") == 0) { // for
-        Sent27();
+    else if (frente(cola) == 'f') { // for
+        Sent27(cola);
     }
-    else if (strcmp(frente(cola), "return") == 0) { // return
-        Sent28();
+    else if (frente(cola) == 'r') { // return
+        Sent28(cola);
     }
-    else if (strcmp(frente(cola), "c") == 0) {   // sentencia tipo 'c.'
+    else if (frente(cola) == 'c') {   // sentencia tipo 'c.'
         Sent29(cola);
     }
-    else if (strcmp(frente(cola), "b") == 0) {   // sentencia tipo 'b.'
+    else if (frente(cola) == 'b') {   // sentencia tipo 'b.'
         Sent30(cola);
     }
     else {
-        printf("Error: Token inesperado '%s' en <Sent>\n", frente(cola));
+        printf("Error: Token inesperado '%c' en <Sent>\n", frente(cola));
     }
 }
 
 // Proyección 31: <listaSent> ---> <Sent><listaSent>
 // CS(31): FIRST(<Sent>) = {d, i, k, f, r}
-void listaSent31(Cola *cola) {
+void listaSent31() {
     // Procesar una sentencia
     Sent(cola);
     
@@ -185,35 +242,32 @@ void listaSent32() {
 }
 
 // Función general para <listaSent>
-void listaSent(Cola *cola) {   
-    // Verificar los tokens del FIRST(<Sent>) para la proyección 31
-    if (strcmp(frente(cola), "d") == 0 ||   // declaración
-        strcmp(frente(cola), "i") == 0 ||   // if
-        strcmp(frente(cola), "k") == 0 ||   // for
-        strcmp(frente(cola), "f") == 0 ||   // función
-        strcmp(frente(cola), "r") == 0) {   // return
+void listaSent() {   
+    if (frente(cola) == 'd' ||   // declaración
+        frente(cola) == 'i' ||   // if
+        frente(cola) == 'k' ||   // for
+        frente(cola) == 'f' ||   // función
+        frente(cola) == 'r') {   // return
         listaSent31(cola);
     }
-    // Verificar los tokens del CS(32) para la proyección vacía
-    else if (strcmp(frente(cola), "]") == 0 ||
-             strcmp(frente(cola), "}") == 0 ||
-             strcmp(frente(cola), "b") == 0) {
+    else if (frente(cola) == ']' ||
+             frente(cola) == '}' ||
+             frente(cola) == 'b') {
         listaSent32();
     }
     else {
-        printf("Error: Token inesperado '%s' en <listaSent>\n", frente(cola));
+        printf("Error: Token inesperado '%c' en <listaSent>\n", frente(cola));
     }
 }
 
-
 // Proyección 34: <exprLog> ---> !(E)
-void exprLog34(Cola *cola) {
-    if (strcmp(frente(cola), "!") == 0) {
+void exprLog34() {
+    if (frente(cola) == '!') {
         desencolar(cola); // Consumir '!'
-        if (strcmp(frente(cola), "(") == 0) {
+        if (frente(cola) == '(') {
             desencolar(cola); // Consumir '('
             E(cola);    // Procesar expresión E
-            if (strcmp(frente(cola), ")") == 0) {
+            if (frente(cola) == ')') {
                 desencolar(cola); // Consumir ')'
             } else {
                 printf("Error: Se esperaba ')' después de expresión\n");
@@ -227,20 +281,20 @@ void exprLog34(Cola *cola) {
 }
 
 // Proyección 35 modificada: <exprLog> ---> (E)<opLog>(E)
-void exprLog35(Cola *cola) {
-    if (strcmp(frente(cola), "(") == 0) {
+void exprLog35() {
+    if (frente(cola) == '(') {
         desencolar(cola); // Consumir '('
-        E();     // Procesar primera expresión E
+        E(cola);     // Procesar primera expresión E
         
-        if (strcmp(frente(cola), ")") == 0) {
+        if (frente(cola) == ')') {
             desencolar(cola); // Consumir ')'
             opLog(cola); // Procesar operador lógico (& o |)
             
-            if (strcmp(frente(cola), "(") == 0) {
+            if (frente(cola) == '(') {
                 desencolar(cola); // Consumir '('
-                E();     // Procesar segunda expresión E
+                E(cola);     // Procesar segunda expresión E
                 
-                if (strcmp(frente(cola), ")") == 0) {
+                if (frente(cola) == ')') {
                     desencolar(cola); // Consumir ')'
                     // Expresión lógica completa
                 } else {
@@ -258,30 +312,28 @@ void exprLog35(Cola *cola) {
 }
 
 // Proyección 36: <opLog> ---> &
-void opLog36(Cola *cola) {
-    if (strcmp(frente(cola), "&") == 0) {
+void opLog36() {
+    if (frente(cola) == '&') {
         desencolar(cola); // Consumir '&'
-        // € indica fin de la producción
     } else {
         printf("Error: Se esperaba operador '&'\n");
     }
 }
 
 // Proyección 37: <opLog> ---> |
-void opLog37(Cola *cola) {
-    if (strcmp(frente(cola), "|") == 0) {
+void opLog37() {
+    if (frente(cola) == '|') {
         desencolar(cola); // Consumir '|'
-        // € indica fin de la producción
     } else {
         printf("Error: Se esperaba operador '|'\n");
     }
 }
 
 // Función general para <opLog> que maneja ambas opciones (36 y 37)
-void opLog(Cola *cola) {
-    if (strcmp(frente(cola), "&") == 0) {
+void opLog() {
+    if (frente(cola) == '&') {
         opLog36(cola);
-    } else if (strcmp(frente(cola), "|") == 0) {
+    } else if (frente(cola) == '|') {
         opLog37(cola);
     } else {
         printf("Error: Operador lógico desconocido. Se esperaba '&' o '|'\n");
@@ -289,20 +341,18 @@ void opLog(Cola *cola) {
 }
 
 // Función general para <exprLog> que maneja ambas opciones (34 y 35)
-void exprLog(Cola *cola) {
-    // Verificar si empieza con '!' (proyección 34)
-    if (strcmp(frente(cola), "!") == 0) {
+void exprLog() {
+    if (frente(cola) == '!') {
         exprLog34(cola);
     } 
-    // Verificar si empieza con '(' (proyección 35)
-    else if (strcmp(frente(cola), "(") == 0) {
+    else if (frente(cola) == '(') {
         exprLog35(cola);
     } else {
         printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
     }
 }
 
-void doW(Cola *cola) {
+void doW() {
     if (frente(cola) == 'd') {
         desencolar(cola);
         ////Sent(cola);
@@ -332,7 +382,7 @@ void doW(Cola *cola) {
 }
 
 // Proyección 25: <//Sent> ---> <IF>
-void IF(Cola *cola) {
+void IF() {
     if (frente(cola) == 'i') {
         desencolar(cola);
         if (frente(cola) == '(') {
@@ -356,7 +406,7 @@ void IF(Cola *cola) {
 }
 
 // Proyección 26: <//Sent> ---> <Switch>
-void Switch(Cola *cola) {
+void Switch() {
     if (frente(cola) == 'k') {
         desencolar(cola);
         if (frente(cola) == '(') {
@@ -403,42 +453,58 @@ void Switch(Cola *cola) {
 int main() {
     cola = crearCola();
 
-    // Prueba 1: IF () c. ELSE b.
-    printf("\n--- Prueba IF ---\n");
-    encolar(cola, 'i'); // if
-    encolar(cola, '(');
-    encolar(cola, ')');
-    encolar(cola, 'c');
-    encolar(cola, '.');
-    encolar(cola, 'e'); // else
-    encolar(cola, 'b');
-    encolar(cola, '.');
-    IF(cola);
+    // // Prueba 1: IF () c. ELSE b.
+    // printf("\n--- Prueba IF ---\n");
+    // encolar(cola, 'i'); // if
+    // encolar(cola, '(');
+    // encolar(cola, ')');
+    // encolar(cola, 'c');
+    // encolar(cola, '.');
+    // encolar(cola, 'e'); // else
+    // encolar(cola, 'b');
+    // encolar(cola, '.');
+    // IF(cola);
 
-    // Prueba 2: DO c. WHILE ();;
-    printf("\n--- Prueba DO-WHILE ---\n");
-    encolar(cola, 'd');
-    encolar(cola, 'c');
-    encolar(cola, '.');
-    encolar(cola, 'w');
-    encolar(cola, '(');
-    encolar(cola, ')');
-    encolar(cola, ';');
-    doW(cola);
+    // // Prueba 2: DO c. WHILE ();;
+    // printf("\n--- Prueba DO-WHILE ---\n");
+    // encolar(cola, 'd');
+    // encolar(cola, 'c');
+    // encolar(cola, '.');
+    // encolar(cola, 'w');
+    // encolar(cola, '(');
+    // encolar(cola, ')');
+    // encolar(cola, ';');
+    // doW(cola);
 
-    // Prueba 3: SWITCH(a){ CASE : b. }
-    printf("\n--- Prueba SWITCH ---\n");
-    encolar(cola, 'k');
-    encolar(cola, '(');
-    encolar(cola, 'a');
-    encolar(cola, ')');
-    encolar(cola, '{');
-    encolar(cola, 'z');
-    encolar(cola, ':');
-    encolar(cola, 'b');
-    encolar(cola, '.');
-    encolar(cola, '}');
-    Switch(cola);
+    // // Prueba 3: SWITCH(a){ CASE : b. }
+    // printf("\n--- Prueba SWITCH ---\n");
+    // encolar(cola, 'k');
+    // encolar(cola, '(');
+    // encolar(cola, 'a');
+    // encolar(cola, ')');
+    // encolar(cola, '{');
+    // encolar(cola, 'z');
+    // encolar(cola, ':');
+    // encolar(cola, 'b');
+    // encolar(cola, '.');
+    // encolar(cola, '}');
+    // Switch(cola);
+    
+    printf("\n\n--- Prueba de carga de cola desde archivo ---\n");
+    cargarColaCaracterPorCaracter(); // Cargar la cola desde el archivo
+    mostrarCola(cola); // Mostrar la cola después de las pruebas
+    desencolar(cola); // Desencolar el primer elemento (opcional)
+    mostrarCola(cola); // Mostrar la cola después de las pruebas
+    desencolar(cola); // Desencolar el primer elemento (opcional)
+    mostrarCola(cola); // Mostrar la cola después de las pruebas
+    desencolar(cola); // Desencolar el primer elemento (opcional)
+    mostrarCola(cola); // Mostrar la cola después de las pruebas
+    desencolar(cola); // Desencolar el primer elemento (opcional)
+    mostrarCola(cola); // Mostrar la cola después de las pruebas
+    desencolar(cola); // Desencolar el primer elemento (opcional)
+    mostrarCola(cola); // Mostrar la cola después de las pruebas
+    desencolar(cola); // Desencolar el primer elemento (opcional)
+    mostrarCola(cola); // Mostrar la cola después de las pruebas
 
     destruirCola(cola);
     return 0;
