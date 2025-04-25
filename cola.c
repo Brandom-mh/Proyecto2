@@ -13,6 +13,18 @@ Cola* crearCola() {
     return cola;
 }
 
+Cola* clonarCola(Cola* original) {
+    Cola* copia = crearCola();
+    Nodo* actual = original->frente;
+    
+    while (actual != NULL) {
+        encolar(copia, actual->dato);
+        actual = actual->siguiente;
+    }
+    
+    return copia;
+}
+
 // Función para verificar si la cola está vacía
 bool estaVacia(Cola* cola) {
     return cola->frente == NULL;
@@ -90,4 +102,21 @@ void mostrarCola(Cola* cola) {
         actual = actual->siguiente;
     }
     printf("\n");
+}
+
+void imprimirColaEnArchivo(Cola* cola, FILE* archivo) {
+    if (cola == NULL || archivo == NULL) {
+        fprintf(stderr, "Error: Cola o archivo no válidos\n");
+        return;
+    }
+
+    Nodo* actual = cola->frente;
+    fprintf(archivo, "Contenido de la cola: [");
+    
+    while (actual != NULL) {
+        fprintf(archivo, "%c", actual->dato);
+        actual = actual->siguiente;
+    }
+    
+    fprintf(archivo, "]\n");
 }
