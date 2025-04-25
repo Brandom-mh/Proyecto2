@@ -1,0 +1,8 @@
+VOID saludar() { 
+    INT x = 0;
+    RETURN (x);
+
+    FOR (x) {
+        x = x + 1;
+    } 
+}
