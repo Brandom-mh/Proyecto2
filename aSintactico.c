@@ -4,12 +4,13 @@
 
 Cola *cola;
 // --- Prototipos de funciones ---
-void Declaracion(Cola *cola);
+void D(Cola *cola);
 void Asig(Cola *cola);
+void opAsig(Cola *cola);
 void expresionArit(Cola *cola);
 
 // --- Declaración ---
-void Declaracion(Cola *cola) {
+void D(Cola *cola) {
     if (frente(cola) == 't') { // 't' = INT (tipo de dato)
         desencolar(cola);
         if (frente(cola) == 'a') { // 'a' = identificador
@@ -32,20 +33,28 @@ void Declaracion(Cola *cola) {
 void Asig(Cola *cola) {
     if (frente(cola) == 'a') { // identificador
         desencolar(cola);
-        if (frente(cola) == '=') {
+        opAsig(cola); // Verificar operador de asignación
+        expresionArit(cola);
+        if (frente(cola) == ';') {
             desencolar(cola);
-            expresionArit(cola);
-            if (frente(cola) == ';') {
-                desencolar(cola);
-                printf("Asignación válida.\n");
-            } else {
-                printf("Error: se esperaba ';' al final de la asignación.\n");
-            }
+            printf("Asignación válida.\n");
         } else {
-            printf("Error: se esperaba '=' en la asignación.\n");
+            printf("Error: se esperaba ';' al final de la asignación.\n");
         }
     } else {
         printf("Error: se esperaba identificador en la asignación.\n");
+    }
+}
+
+void opAsig(Cola *cola) {
+    if (frente(cola) == '#' || frente(cola) == ':' || 
+        frente(cola) == '$' || frente(cola) == ',' || 
+        frente(cola) == '?' || frente(cola) == ':' || 
+        frente(cola) == '^' || frente(cola) == '@' || 
+        frente(cola) == '<' || frente(cola) == '>' ) {
+        desencolar(cola);
+    } else {
+        printf("ERROR. No hay operador de asignacion\n");
     }
 }
 
@@ -76,12 +85,12 @@ int main() {
     encolar(cola, 't'); // INT
     encolar(cola, 'a'); // identificador
     encolar(cola, ';');
-    Declaracion(cola);
+    D(cola);
 
     // --- Asignación ---
     printf("\n--- Prueba Asignación ---\n");
     encolar(cola, 'a'); // identificador
-    encolar(cola, '=');
+    encolar(cola, '@');
     encolar(cola, 'n'); // número
     encolar(cola, '+');
     encolar(cola, 'n');
