@@ -4,18 +4,7 @@
 // Proyección: D -> <tipo>a
 void D() {
     // Procesar el tipo
-    tipo();
-    
-    // Verificar que sigue un identificador (a)
-    if (token.clase == 8) { // 8 es la clase para identificadores
-        desencolar(cola ); // Consumir el identificador
-        
-        // Aquí podrías agregar el identificador a la tabla de símbolos con su tipo
-        // Por ejemplo:
-        // agregarATablaSimbolosConTipo(yytext, tipoActual);
-    } else {
-        printf("Error: Se esperaba un identificador después del tipo\n");
-    }
+    tipo();    
 }
 
 // Proyección: <tipo> -> <unsig><size><dec>
