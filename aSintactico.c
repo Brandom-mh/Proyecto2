@@ -3,12 +3,6 @@
 #include "cola.h"
 
 Cola *cola;
-// Proyección: D -> <tipo>a
-void D() {
-    // Procesar el tipo
-    tipo();    
-}
-
 // --- Prototipos de funciones ---
 void Declaracion(Cola *cola);
 void Asig(Cola *cola);
