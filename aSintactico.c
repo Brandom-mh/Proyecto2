@@ -88,20 +88,17 @@ void Ret(Cola* cola) {
     if (frente(cola) == 'x') {  // 'x' representa RETURN
         desencolar(cola); // Consumir 'x'
         
-        // Verificar paréntesis de apertura
         if (frente(cola) == '(') {
             desencolar(cola); // Consumir '('
             
-            // Procesar valor de retorno (puede ser ε)
+            // Si lo siguiente no es ')', hay expresión
             if (frente(cola) != ')') {
-                printf("Procesando expresión dentro del RETURN...\n");
-                E(cola); // Procesar expresión si existe
+                printf("[DEBUG] Procesando expresión dentro del RETURN...\n");
+                E(cola);
             }
-            
-            // Verificar paréntesis de cierre
+
             if (frente(cola) == ')') {
                 desencolar(cola); // Consumir ')'
-                printf("RETURN procesado correctamente.\n");
             } else {
                 printf("Error: Se esperaba ')' al final de RETURN\n");
             }
@@ -109,15 +106,16 @@ void Ret(Cola* cola) {
             printf("Error: Se esperaba '(' después de RETURN\n");
         }
     } else {
-        printf("Error: Se esperaba 'x' (RETURN)\n");
+        printf("Error: Se esperaba 'RETURN' (átomo 'x')\n");
+        return;
     }
 
-// Verificar punto y coma después del return
+    // Verificar punto y coma después del return
     if (frente(cola) == ';') {
-       desencolar(cola);
-       printf("RETURN procesado correctamente.\n");
+        desencolar(cola);
+        printf("RETURN procesado correctamente.\n");
     } else {
-       printf("Error: Se esperaba ';' después de RETURN\n");
+        printf("Error: Se esperaba ';' después de RETURN\n");
     }
 }
 
@@ -254,7 +252,10 @@ void listaSent(Cola* cola) {
 }
 
 void sentencia(Cola* cola) {
+    if (estaVacia(cola)) return;
+
     char actual = frente(cola);
+    printf("[DEBUG] Analizando sentencia iniciando con '%c'\n", actual);
     
     if (actual == 'v') { // FOR
         For(cola);
@@ -263,23 +264,21 @@ void sentencia(Cola* cola) {
         Ret(cola);
     }
     else if (actual == 't' || actual == 'f' || actual == 'g' || actual == 'y') {
-        // Es una declaración
         listaDec(cola);
     }
-    else if (actual == 'a') { // Posible asignación
+    else if (actual == 'a') {
         desencolar(cola); // Consumir identificador
         if (frente(cola) == '=') {
             desencolar(cola); // Consumir '='
             E(cola); // Procesar expresión
         }
-        // Verificar fin de sentencia
         if (frente(cola) == ';') {
             desencolar(cola);
         } else {
-            printf("Error: Se esperaba ';' después de sentencia\n");
+            printf("Error: Se esperaba ';' después de sentencia de asignación\n");
         }
     }
-    else if (actual == '{') { // Bloque
+    else if (actual == '{') {
         desencolar(cola);
         listaSent(cola);
         if (frente(cola) == '}') {
@@ -288,44 +287,60 @@ void sentencia(Cola* cola) {
             printf("Error: Se esperaba '}' al final del bloque\n");
         }
     }
+    else if (actual == ')') {
+        printf("Advertencia: ')' inesperado. Saltando token para evitar ciclo.\n");
+        desencolar(cola); // Evitar ciclo infinito
+    }
     else {
         printf("Error: Sentencia no válida comenzando con '%c'\n", actual);
+        desencolar(cola); // Consumir token para evitar loop infinito
     }
 }
 
+
 void E(Cola* cola) {
-    if (frente(cola) == 'a') { // Identificador
+    if (estaVacia(cola)) {
+        printf("Error: Fin de entrada inesperado en expresión\n");
+        return;
+    }
+
+    printf("[DEBUG] Analizando expresión comenzando con '%c'\n", frente(cola));
+
+    char actual = frente(cola);
+
+    if (actual == 'a') { // Identificador
         desencolar(cola); // Consumir identificador
-        
-        // Verificar si es una asignación
         if (frente(cola) == '=') {
             desencolar(cola); // Consumir '='
             E(cola); // Procesar la expresión después del '='
         }
     }
-    else if (frente(cola) == '(') { // Expresión entre paréntesis
+    else if (actual == '(') {
         desencolar(cola); // Consumir '('
-        E(cola); // Procesar expresión interna
+        E(cola);
         if (frente(cola) == ')') {
             desencolar(cola); // Consumir ')'
         } else {
-            printf("Error: Se esperaba ')'\n");
+            printf("Error: Se esperaba ')' al cerrar expresión entre paréntesis\n");
         }
     }
-    else if (frente(cola) == 'n' || frente(cola) == 'r') { // Número o literal
+    else if (actual == 'n' || actual == 'r') { // Número o literal
         desencolar(cola); // Consumir número o literal
     }
     else {
-        printf("Error: Expresión inválida\n");
+        printf("Error: Expresión inválida comenzando con '%c'\n", actual);
+        desencolar(cola); // Consumir token inválido para evitar bucle
+        return;
     }
-    
-    // Manejar operadores binarios
-    if (frente(cola) == '+' || frente(cola) == '-' || 
-        frente(cola) == '*' || frente(cola) == '/') {
+
+    // Operadores binarios
+    char operador = frente(cola);
+    if (operador == '+' || operador == '-' || operador == '*' || operador == '/') {
         desencolar(cola); // Consumir operador
-        E(cola); // Procesar siguiente expresión
+        E(cola); // Evaluar siguiente parte de la expresión
     }
 }
+
 
 
 void Tipo(Cola* cola) {
