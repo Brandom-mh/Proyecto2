@@ -66,12 +66,24 @@ void cargarColaCaracterPorCaracter() {
 }
 
 //1 Program
+void Program(){
+    Func();
+    otraFunc();
+    return;
+}
+
 //2-3 otraFunc
+void otraFunc(){
+    Func();
+    otraFunc();
+    return;
+}
 //4 Func
 //5-6 TipoF
 //7-8 Arg
 //9 cuerpo
 //10-11 listaDec
+
 //12 D
 void D(Cola* cola) {
         Tipo();
@@ -111,7 +123,7 @@ void size() {
     return ;
 }
 //20-22 dec
-bool dec() {
+void dec() {
     if (frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f') {
         desencolar(cola);
         return ;
@@ -355,12 +367,114 @@ void Case(){
     }else printf("Error: se esperaba z \n"); 
 }
 //49 E
+void E(){
+    T();
+    EP(); 
+}
 //50-52 E'
+void EP(){
+    if(frente(cola) == '+'){
+        desencolar(cola);
+        T();
+        EP();
+    } else printf("Error: Se esperaba '+'\n");
+    
+    if(frente(cola) == '-'){
+        desencolar(cola);
+        T();
+        EP();
+    } else {
+        printf("Error: Se esperaba '-'\n");
+        return;
+    }
+
+    if (frente(cola) == ')')
+    {
+        return; // Fin de la expresión
+    } else printf("Error: Se esperaba ')'\n");
+    
+}
 //53 T
+void T(){
+    F();
+    TP(); 
+}
 //54-57 T'
+void TP(){
+    if(frente(cola) == '*'){
+        desencolar(cola);
+        F();
+        TP();
+    } else printf("Error: Se esperaba '*'\n");
+    
+    if(frente(cola) == '/'){
+        desencolar(cola);
+        F();
+        TP();
+    } else {
+        printf("Error: Se esperaba '/'\n");
+        return;
+    }
+
+    if (frente(cola) == '%')
+    {
+        F();
+        TP();
+    } else printf("Error: Se esperaba %% \n");
+
+    if(frente(cola) == '*'){
+        desencolar(cola);
+        if (frente(cola) == '*') {
+            desencolar(cola); 
+        } else 
+            printf("Error: Se esperaba '*' después de expresión\n");
+        
+    } else 
+        printf("Error: Se esperaba '*'\n");
+
+    if (frente(cola) == '+' || frente(cola) == '-'){
+        return;
+    } else printf("Error se esperaba + o -\n");
+}
+
 //58-62 F
-//63-64 F'
+void F(){
+    if(frente(cola) == '('){
+        desencolar(cola);
+        E();
+        if(frente(cola) == ')'){
+            desencolar(cola);
+        } else printf("Error se esperaba )\n");
+    } else printf("Error se esperaba (\n");
+
+    if(frente(cola) == 'a'){
+        desencolar(cola);
+        G();
+    } else printf("Error se esperaba a\n");
+
+    if(frente(cola) == 'n'){
+        desencolar(cola);
+    }else printf("Error: se esperaba n\n");
+
+    if(frente(cola) == 'r'){
+        desencolar(cola);
+    }else printf("Error: se esperaba r\n");
+}
+
 //65-67 G
+void G(){
+    if(frente(cola) == 'l'){
+        desencolar(cola);
+    }else printf("Error: se esperaba l\n");
+
+    if(frente(cola) == 'm'){
+        desencolar(cola);
+    }else printf("Error: se esperaba m\n");
+
+    if(frente(cola) == '*' || frente(cola) == '/' || frente(cola) == '%'){
+        return;
+    }else printf("Error: se esperaba * / %%\n");
+}
 //68 Asig
 void Asig() {
     if (frente(cola) == 'a') { // identificador
