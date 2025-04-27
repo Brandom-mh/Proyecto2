@@ -81,54 +81,147 @@ void otraFunc(){
 }
 
 // --- Declaración ---
-void D() {
-    if (frente(cola) == 't') { // 't' = INT (tipo de dato)
+// Función para analizar <dec> → t | h | f
+void dec(Cola* cola) {
+    if (frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f') {
         desencolar(cola);
-        if (frente(cola) == 'a') { // 'a' = identificador
+        return ;
+    }
+    printf("Error: Se esperaba 't', 'h' o 'f' en <dec>\n");
+    return ;
+}
+
+// Función para analizar <size> → g | u | y | ξ
+void size(Cola* cola) {
+    if (frente(cola) == 'g' || frente(cola) == 'u' || frente(cola) == 'y') {
+        desencolar(cola);
+        return ;
+    }
+    // Caso epsilon (no se consume nada)
+    return ;
+}
+
+// Función para analizar <unsig> → q | ξ
+void unsig(Cola* cola) {
+    if (frente(cola) == 'q') {
+        desencolar(cola);
+        return ;
+    }
+    // Caso epsilon (no se consume nada)
+    return ;
+}
+
+void Tipo(Cola* cola) {
+    return unsig(cola) && size(cola) && dec(cola);
+}
+
+// Función para analizar D → <Tipo>a.
+void D(Cola* cola) {
+    Tipo(cola); // Ahora es void, no se puede usar en if
+    
+    if (frente(cola) == 'a') {
+        desencolar(cola);
+        if (frente(cola) == ';') {
             desencolar(cola);
-            if (frente(cola) == ';') {
-                desencolar(cola);
-                printf("Declaración válida.\n");
-            } else {
-                printf("Error: se esperaba ';' al final de la declaración.\n");
-            }
         } else {
-            printf("Error: se esperaba identificador.\n");
+            printf("Error: Falta ';' después de identificador\n");
         }
     } else {
-        printf("Error: se esperaba tipo de dato.\n");
+        printf("Error: Se esperaba identificador después de tipo\n");
     }
 }
 
-// --- Asignación ---
+// --- Función para asignaciones normales y compuestas ---
 void Asig() {
     if (frente(cola) == 'a') { // identificador
         desencolar(cola);
-        opAsig(cola); // Verificar operador de asignación
-        E(cola);
+
+        // Verificar el tipo de asignación
+        if (frente(cola) == '=') {
+            desencolar(cola);
+            expresionArit();
+        }
+        else if (frente(cola) == '+') { // +=
+            desencolar(cola);
+            if (frente(cola) == '=') {
+                desencolar(cola);
+                expresionArit();
+            } else {
+                printf("Error: se esperaba '=' después de '+' en asignación compuesta\n");
+            }
+        }
+        else if (frente(cola) == '-') { // -=
+            desencolar(cola);
+            if (frente(cola) == '=') {
+                desencolar(cola);
+                expresionArit();
+            } else {
+                printf("Error: se esperaba '=' después de '-' en asignación compuesta\n");
+            }
+        }
+        else if (frente(cola) == '*') { // *=
+            desencolar(cola);
+            if (frente(cola) == '=') {
+                desencolar(cola);
+                expresionArit();
+            } else {
+                printf("Error: se esperaba '=' después de '*' en asignación compuesta\n");
+            }
+        }
+        else {
+            printf("Error: operador de asignación inválido\n");
+        }
+
+        // Termina con ;
         if (frente(cola) == ';') {
             desencolar(cola);
-            printf("Asignación válida.\n");
         } else {
-            printf("Error: se esperaba ';' al final de la asignación.\n");
+            printf("Error: falta ';' al final de asignación\n");
         }
     } else {
-        printf("Error: se esperaba identificador en la asignación.\n");
+        printf("Error: se esperaba identificador en asignación\n");
     }
 }
-
-void opAsig() {
-    if (frente(cola) == '#' || frente(cola) == ':' || 
-        frente(cola) == '$' || frente(cola) == ',' || 
-        frente(cola) == '?' || frente(cola) == ':' || 
-        frente(cola) == '^' || frente(cola) == '@' || 
-        frente(cola) == '<' || frente(cola) == '>' ) {
+// --- Función para analizar expresiones aritméticas ---
+void expresionArit() {
+    if (frente(cola) == 'n' || frente(cola) == 'a') {
         desencolar(cola);
-    } else {
-        printf("ERROR. No hay operador de asignacion\n");
     }
-}
+    else if (frente(cola) == '(') {
+        desencolar(cola);
+        expresionArit(); // recursión
+        if (frente(cola) == ')') {
+            desencolar(cola);
+        } else {
+            printf("Error: falta ')' en la expresión\n");
+        }
+    }
+    else {
+        printf("Error: expresión aritmética inválida\n");
+        return;
+    }
 
+    // Verificar si siguen operadores
+    while (frente(cola) == '+' || frente(cola) == '-' || frente(cola) == '*' ||
+           frente(cola) == '/' || frente(cola) == '%') {
+        desencolar(cola);
+        if (frente(cola) == 'n' || frente(cola) == 'a') {
+            desencolar(cola);
+        }
+        else if (frente(cola) == '(') {
+            desencolar(cola);
+            expresionArit();
+            if (frente(cola) == ')') {
+                desencolar(cola);
+            } else {
+                printf("Error: falta ')' en subexpresión\n");
+            }
+        }
+        else {
+            printf("Error: falta operando después del operador\n");
+            break;
+        }
+    }
 
 
 // Proyección 23: <Sent> ---> <Asig>
