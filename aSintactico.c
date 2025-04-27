@@ -530,7 +530,16 @@ void Ret() {
     }
 }
 //43-44 valRet
+void valRet(){
+    if(frente(cola) == '('|| frente(cola) == 'a'|| frente(cola) == 'n'|| 
+       frente(cola) == 'r'|| frente(cola) == 'l'|| frente(cola) == 'm'){
+        E();
+        return;
+       }
 
+    if(frente(cola) == ')')
+       return;
+}
 //45 Switch
 void Switch(){
     if(frente(cola)=='k'){
@@ -734,16 +743,10 @@ void opAsig(){
 
 //70 cadena 
 void Cadena(){
-    if(frente(cola)=='#'){
+    if(frente(cola)=='s'){
         desencolar(cola);
-        if(frente(cola)=='s'){
-            desencolar(cola);
-            if(frente(cola)=='#'){
+            if(frente(cola)==';'){
                 desencolar(cola);
-                if(frente(cola)==';'){
-                    desencolar(cola);
-                }else ("Error: no se encontro ;\n");
-            }else ("Error: no se encontro #\n");
-        }else ("Error: no se encontro s\n");
-    }else ("Error: no se encontro #\n");
+            }else ("Error: no se encontro ;\n");
+    }else ("Error: no se encontro s\n");
 }
