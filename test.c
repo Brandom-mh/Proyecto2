@@ -1,0 +1,8 @@
+#include <stdio.h>
+#include "aSintactico.h"
+
+int main(int argc, char const *argv[])
+{
+    Program();
+    return 0;
+}

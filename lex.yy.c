@@ -691,91 +691,8 @@ void imprimirToken(Token token, char *texto) {
     encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
 
-
-
-
-
-// Implementación de Return()
-void Return() {
-    if (strcmp(yytext, "RETURN") == 0) {
-        yylex(); // consumir 'return'
-        // aquí podría venir una expresión opcional
-        if (strcmp(yytext, ";") == 0) {
-            yylex(); // consumir ';'
-        } else {
-            printf("Error: se esperaba ';' después de return\n");
-        }
-    } else {
-        printf("Error: se esperaba 'return'\n");
-    }
-}
-
-// Implementación de For()
-void For() {
-    if (strcmp(yytext, "FOR") == 0) {
-        yylex(); // consumir 'for'
-        if (strcmp(yytext, "(") == 0) {
-            yylex(); // consumir '('
-            // puedes agregar funciones: Declaracion(); o Expresion();
-            if (strcmp(yytext, ";") == 0) {
-                yylex(); // consumir ';'
-                // otra expresión
-                if (strcmp(yytext, ";") == 0) {
-                    yylex(); // consumir ';'
-                    // última expresión
-                    if (strcmp(yytext, ")") == 0) {
-                        yylex(); // consumir ')'
-                        // luego el cuerpo
-                        // puedes poner: Bloque(); o Instruccion();
-                    } else {
-                        printf("Error: se esperaba ')'\n");
-                    }
-                } else {
-                    printf("Error: se esperaba segundo ';'\n");
-                }
-            } else {
-                printf("Error: se esperaba primer ';'\n");
-            }
-        } else {
-            printf("Error: se esperaba '('\n");
-        }
-    } else {
-        printf("Error: se esperaba 'for'\n");
-    }
-}
-
-// Implementación de Funcion()
-void Funcion() {
-    Token token;
-    // Debe comenzar con tipo de retorno
-    if (strcmp(yytext, "INT") == 0 || strcmp(yytext, "VOID") == 0 || strcmp(yytext, "FLOAT") == 0) {
-        yylex(); // consumir tipo
-
-        if (token.clase == 8) {  // identificador
-            yylex(); // consumir nombre
-
-            if (strcmp(yytext, "(") == 0) {
-                yylex(); // consumir '('
-                // Aquí puedes agregar una función Parametros();
-                if (strcmp(yytext, ")") == 0) {
-                    yylex(); // consumir ')'
-                    // Aquí puedes poner Bloque(); para el cuerpo
-                } else {
-                    printf("Error: se esperaba ')'\n");
-                }
-            } else {
-                printf("Error: se esperaba '('\n");
-            }
-        } else {
-            printf("Error: se esperaba nombre de función\n");
-        }
-    } else {
-        printf("Error: se esperaba tipo de retorno\n");
-    }
-}
-
-#line 778 "lex.yy.c"
-#line 779 "lex.yy.c"
+#line 695 "lex.yy.c"
+#line 696 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -992,9 +909,9 @@ YY_DECL
 		}
 
 	{
-#line 253 "proyecto2.l"
+#line 170 "proyecto2.l"
 
-#line 998 "lex.yy.c"
+#line 915 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1053,7 +970,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 254 "proyecto2.l"
+#line 171 "proyecto2.l"
 {
     Token token;
     token.clase = 0;  
@@ -1063,7 +980,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 261 "proyecto2.l"
+#line 178 "proyecto2.l"
 {
     Token token;
     token.clase = 1;  
@@ -1077,7 +994,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 272 "proyecto2.l"
+#line 189 "proyecto2.l"
 {
     Token token;
     token.clase = 2;  // Clase: Operador aritmético
@@ -1094,7 +1011,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 286 "proyecto2.l"
+#line 203 "proyecto2.l"
 {
     Token token;
     token.clase = 3;  // Clase: Símbolo especial
@@ -1104,7 +1021,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 293 "proyecto2.l"
+#line 210 "proyecto2.l"
 {
     Token token;
     token.clase = 4;  // Clase: Constante cadena
@@ -1118,7 +1035,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 304 "proyecto2.l"
+#line 221 "proyecto2.l"
 {
     Token token;
     token.clase = 5;  // Clase: Palabra reservada Esta madre esta al reves en el proyecto 1
@@ -1146,7 +1063,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 329 "proyecto2.l"
+#line 246 "proyecto2.l"
 {
     Token token;
     token.clase = 6;  // Clase: Operador de asignación
@@ -1166,7 +1083,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 346 "proyecto2.l"
+#line 263 "proyecto2.l"
 {
     Token token;
     token.clase = 7;  // Clase: Operador lógico
@@ -1178,7 +1095,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 355 "proyecto2.l"
+#line 272 "proyecto2.l"
 {
     Token token;
     token.clase = 8;  // Clase: Identificador
@@ -1193,12 +1110,12 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 366 "proyecto2.l"
+#line 283 "proyecto2.l"
 {}  // Ignorar espacios en blanco
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 367 "proyecto2.l"
+#line 284 "proyecto2.l"
 { 
     printf("Comentario de línea, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de línea, Texto: %s\n", yytext); 
@@ -1207,7 +1124,7 @@ YY_RULE_SETUP
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 371 "proyecto2.l"
+#line 288 "proyecto2.l"
 { 
     printf("Comentario de bloque, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de bloque, Texto: %s\n", yytext); 
@@ -1215,7 +1132,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 375 "proyecto2.l"
+#line 292 "proyecto2.l"
 { 
     printf("Error: '%s' no es un identificador\n", yytext); 
     fprintf(outputFile, "Error: '%s' no es un identificador\n", yytext); 
@@ -1223,10 +1140,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 379 "proyecto2.l"
+#line 296 "proyecto2.l"
 ECHO;
 	YY_BREAK
-#line 1230 "lex.yy.c"
+#line 1147 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2231,7 +2148,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 379 "proyecto2.l"
+#line 296 "proyecto2.l"
 
 
 int yywrap() {
@@ -2276,7 +2193,7 @@ int main(int argc, char *argv[]){
     }
 
     imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
-    Program();
+    //Program();
     destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida
