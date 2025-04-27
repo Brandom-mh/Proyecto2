@@ -159,7 +159,7 @@ constantesFlotantes [0-9]+\.[0-9]+(e[+-]?[0-9]+)?
 operadoresAritmeticos \+|\+\+|\-|\-\-|\*|\*\*|\/|\%
 simbolosEspeciales \(|\)|\{|\}|\[|\]|&|\,|\:|\;|\. 
 constantesCadena #([A-Za-z0-9!\"$%&'()*+,\-./:;<=>?@\[\\\]^_{|}~ ]+)# 
-palabrasReservadas (WHILE|VOID|UNSIGNED|SWITCH|SIZEOF|SHORT|RETURN|LONG|INT|IF|FOR|FLOAT|ELSE|DOUBLE|DO|CONTINUE|CHAR|CASE|BREAK)  
+palabrasReservadas while|void|unsigned|switch|sizeof|short|return|long|int|if|for|float|else|double|do|continue|char|case|break
 opAsignacion =|\+=|\-=|\*=|\/=|%=|&=|\\|=|\^=|<<=|>>=  
 opLogicos !|&&|\|\|  
 identificador [A-Za-z][A-Za-z0-9_]{0,14}
@@ -221,25 +221,25 @@ comentarioBloque "~/"([^~]|\~[^/])*"\~"
 {palabrasReservadas} {
     Token token;
     token.clase = 5;  // Clase: Palabra reservada Esta madre esta al reves en el proyecto 1
-    if (strcmp(yytext, "BREAK") == 0) token.valor = 0;
-    else if (strcmp(yytext, "CASE") == 0) token.valor = 1;
-    else if (strcmp(yytext, "CHAR") == 0) token.valor = 2;
-    else if (strcmp(yytext, "CONTINUE") == 0) token.valor = 3;
-    else if (strcmp(yytext, "DO") == 0) token.valor = 4;
-    else if (strcmp(yytext, "DOUBLE") == 0) token.valor = 5;
-    else if (strcmp(yytext, "ELSE") == 0) token.valor = 6;
-    else if (strcmp(yytext, "FLOAT") == 0) token.valor = 7;
-    else if (strcmp(yytext, "FOR") == 0) token.valor = 8;
-    else if (strcmp(yytext, "IF") == 0) token.valor = 9;
-    else if (strcmp(yytext, "INT") == 0) token.valor = 10;
-    else if (strcmp(yytext, "LONG") == 0) token.valor = 11;
-    else if (strcmp(yytext, "RETURN") == 0) token.valor = 12;
-    else if (strcmp(yytext, "SHORT") == 0) token.valor = 13;
-    else if (strcmp(yytext, "SIZEOF") == 0) token.valor = 14;
-    else if (strcmp(yytext, "SWITCH") == 0) token.valor = 15;
-    else if (strcmp(yytext, "UNSIGNED") == 0) token.valor = 16;
-    else if (strcmp(yytext, "VOID") == 0) token.valor = 17;
-    else if (strcmp(yytext, "WHILE") == 0) token.valor = 18;
+    if (strcmp(yytext, "break") == 0) token.valor = 0;
+    else if (strcmp(yytext, "case") == 0) token.valor = 1;
+    else if (strcmp(yytext, "char") == 0) token.valor = 2;
+    else if (strcmp(yytext, "continue") == 0) token.valor = 3;
+    else if (strcmp(yytext, "do") == 0) token.valor = 4;
+    else if (strcmp(yytext, "double") == 0) token.valor = 5;
+    else if (strcmp(yytext, "else") == 0) token.valor = 6;
+    else if (strcmp(yytext, "float") == 0) token.valor = 7;
+    else if (strcmp(yytext, "for") == 0) token.valor = 8;
+    else if (strcmp(yytext, "if") == 0) token.valor = 9;
+    else if (strcmp(yytext, "int") == 0) token.valor = 10;
+    else if (strcmp(yytext, "long") == 0) token.valor = 11;
+    else if (strcmp(yytext, "return") == 0) token.valor = 12;
+    else if (strcmp(yytext, "short") == 0) token.valor = 13;
+    else if (strcmp(yytext, "sizeof") == 0) token.valor = 14;
+    else if (strcmp(yytext, "switch") == 0) token.valor = 15;
+    else if (strcmp(yytext, "unsigned") == 0) token.valor = 16;
+    else if (strcmp(yytext, "void") == 0) token.valor = 17;
+    else if (strcmp(yytext, "while") == 0) token.valor = 18;
     imprimirToken(token, yytext);  
 }
 

@@ -64,12 +64,15 @@ void cargarColaCaracterPorCaracter() {
     }
 
     fclose(archivo); // Cerrar el archivo
+    mostrarCola(cola);
 }
 
 //1 Program
 void Program(){
+    printf("entrada a program\n");
     Func();
     otraFunc();
+    printf("salida program\n");
     return;
 }
 
@@ -82,6 +85,7 @@ void otraFunc(){
 
 //4 Func
 void Func() {
+    printf("entrada a func\n");
     TipoF();
     if(frente(cola)== 'a'){
         desencolar(cola);
@@ -101,15 +105,20 @@ void Func() {
             }else printf("Error: se esperaba }");
         }else printf("Error: se esperaba {");
     }else printf("Error: se esperaba a");
+    printf("salida func\n");
+    return;
 }
 
 
 
 //5-6 TipoF
 void TipoF() {
+    printf("entrada a tipoF\n");
     if (frente(cola) == 'o') {  // 'o' representa VOID
         desencolar(cola);
-    } else Tipo(); // Procesar otros tipos (INT, FLOAT, etc.)
+    } else Tipo();
+     // Procesar otros tipos (INT, FLOAT, etc.)
+    return;
 }
 
 //7-8 Arg
@@ -190,6 +199,7 @@ void Size() {
 }
 //20-22 dec
 void dec() {
+    mostrarCola(cola);
     switch (frente(cola)) {
         case 't': // Producción <dec> → t
             desencolar(cola);
