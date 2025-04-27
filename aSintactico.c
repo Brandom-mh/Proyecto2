@@ -428,7 +428,7 @@ void ELSE(){
     } 
 }
 //41 FOR
-void For(Cola* cola) {
+void For() {
     Cola* temp = crearCola();
     Cola* copiaOriginal = clonarCola(cola); // Clonar la cola original
     
