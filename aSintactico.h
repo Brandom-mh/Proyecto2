@@ -1,7 +1,6 @@
 #ifndef ASINTACTICO.H
 #define ASINTACTICO.H
 
-
 void cargarColaCaracterPorCaracter();
 void Program();
 void otraFunc();

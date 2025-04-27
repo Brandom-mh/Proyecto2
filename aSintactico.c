@@ -115,7 +115,7 @@ void unsig() {
     return;
 }
 //16-19 size
-void size() {
+void Size() {
     if (frente(cola) == 'g' || frente(cola) == 'u' || frente(cola) == 'y') {
         desencolar(cola);
         return;
