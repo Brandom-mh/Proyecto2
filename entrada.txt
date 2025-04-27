@@ -1,5 +1,6 @@
 ~~impresion
 int main() {
+    int # = 1;
     int x = 10;
     float y = 3.14e-2; ~~definicion de y
     if (x > 5) {
