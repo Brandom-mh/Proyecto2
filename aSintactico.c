@@ -102,7 +102,7 @@ void D() {
 //13 tipo
 void Tipo() {
     unsig();
-    size();
+    Size();
     dec();
 }
 //14-15 unsig
@@ -115,7 +115,7 @@ void unsig() {
     return;
 }
 //16-19 size
-void size() {
+void Size() {
     if (frente(cola) == 'g' || frente(cola) == 'u' || frente(cola) == 'y') {
         desencolar(cola);
         return;
@@ -282,10 +282,10 @@ void IF(){
             exprLog();
             if(frente(cola)== ')'){
                 desencolar(cola);
-                if(frente(cola)=="{"){
+                if(frente(cola)=='{'){
                     desencolar(cola);
                     listaSent();
-                    if (frente(cola)=="}"){
+                    if (frente(cola)=='}'){
                     desencolar(cola);
                     ELSE();
                     return;
@@ -520,11 +520,11 @@ void opAsig(){
 void Cadena(){
     if(frente(cola)=='#'){
         desencolar(cola);
-        if(frente(cola)=="s"){
+        if(frente(cola)=='s'){
             desencolar(cola);
             if(frente(cola)=='#'){
                 desencolar(cola);
-                if(frente(cola)==";"){
+                if(frente(cola)==';'){
                     desencolar(cola);
                 }else ("Error: no se encontro ;\n");
             }else ("Error: no se encontro #\n");
