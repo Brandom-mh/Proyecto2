@@ -20,7 +20,6 @@ void Size();
 void dec();//skock
 void Sent();
 void listaSent();
-void listaSent();
 void doW();
 void exprLog();
 void IF(); //Corregir deivid
@@ -105,8 +104,8 @@ void D() {
 void Asig() {
     if (frente(cola) == 'a') { // identificador
         desencolar(cola);
-        opAsig(cola); // Verificar operador de asignación
-        E(cola);
+        opAsig(); // Verificar operador de asignación
+        E();
         if (frente(cola) == ';') {
             desencolar(cola);
             printf("Asignación válida.\n");
@@ -130,239 +129,115 @@ void opAsig() {
     }
 }
 
-// --- Expresión Aritmética ---
-void E() {
-    T();
-    EP(); // Procesar la parte de la expresión después de T
-    if (frente(cola) == 'n' || frente(cola) == 'a') {
-        desencolar(cola); // número o identificador
-        while (frente(cola) == '+' || frente(cola) == '-' || frente(cola) == '*' || frente(cola) == '/' || frente(cola) == '%') {
-            desencolar(cola); // operador
-            if (frente(cola) == 'n' || frente(cola) == 'a') {
-                desencolar(cola); // operando
-            } else {
-                printf("Error: se esperaba un operando después del operador.\n");
-                return;
-            }
-        }
-    } else {
-        printf("Error: expresión aritmética inválida.\n");
-    }
-}
+//Brandom
 
-// Proyección 23: <Sent> ---> <Asig>
-void Sent23() {
-    Asig(cola);  // Procesar asignación
-}
-
-// Proyección 24: <Sent> ---> <doW>
-void Sent24() {
-    doW(cola);   // Procesar do-while
-}
-
-// Proyección 25: <Sent> ---> <IF>
-void Sent25() {
-    IF(cola);    // Procesar if
-}
-
-// Proyección 26: <Sent> ---> <Switch>
-void Sent26() {
-    Switch(cola); // Procesar switch
-}
-
-// Proyección 27: <Sent> ---> <For>
-void Sent27() {
-    //FOR(cola);   // Procesar for
-}
-
-// Proyección 28: <Sent> ---> <Ret>
-void Sent28() {
-    //Ret(cola);   // Procesar return
-}
-
-// Proyección 29: <Sent> ---> c.
-void Sent29() {
-    if (frente(cola) == 'c') {
-        desencolar(cola); // Consumir 'c'
-        if (frente(cola) == '.') {
-            desencolar(cola); // Consumir '.'
-        } else {
-            printf("Error: Se esperaba '.' después de 'c'\n");
-        }
-    } else {
-        printf("Error: Se esperaba 'c' para sentencia\n");
-    }
-}
-
-// Proyección 30: <Sent> ---> b.
-void Sent30() {
-    if (frente(cola) == 'b') {
-        desencolar(cola); // Consumir 'b'
-        if (frente(cola) == '.') {
-            desencolar(cola); // Consumir '.'
-        } else {
-            printf("Error: Se esperaba '.' después de 'b'\n");
-        }
-    } else {
-        printf("Error: Se esperaba 'b' para sentencia\n");
-    }
-}
-
-// Función general para <Sent>
-void Sent() {
-    if (frente(cola) == 'd') {        // Asumo que 'd' inicia <Asig>
-        Sent23(cola);
-    }
-    else if (frente(cola) == 'i') {  // if
-        Sent25(cola);
-    }
-    else if (frente(cola) == 'k') { // switch
-        Sent26(cola);
-    }
-    else if (frente(cola) == 'f') { // for
-        Sent27(cola);
-    }
-    else if (frente(cola) == 'r') { // return
-        Sent28(cola);
-    }
-    else if (frente(cola) == 'c') {   // sentencia tipo 'c.'
-        Sent29(cola);
-    }
-    else if (frente(cola) == 'b') {   // sentencia tipo 'b.'
-        Sent30(cola);
-    }
-    else {
-        printf("Error: Token inesperado '%c' en <Sent>\n", frente(cola));
-    }
-}
-
-// Proyección 31: <listaSent> ---> <Sent><listaSent>
-// CS(31): FIRST(<Sent>) = {d, i, k, f, r}
-void listaSent31() {
-    // Procesar una sentencia
-    Sent(cola);
+void Sent(){
     
-    // Procesar el resto de sentencias
-    listaSent(cola);
+switch (frente(cola)) {
+    case 'a': // Asignación
+        Asig();
+        break;
+
+    case 'd': // do-while
+        doW();
+        break;
+
+    case 'i': // if
+        IF();
+        break;
+
+    case 'k': // switch
+        Switch();
+        break;
+
+    case 'f': // for
+        For();
+        break;
+
+    case 'r': // return
+        Ret();
+        break;
+
+    default: // Caso no reconocido
+        printf("Error: Token inesperado '%c'\n", frente(cola));
+        break;
+}
+        if (frente(cola) == 'c'){
+            desencolar(cola);
+            if (frente(cola) == '.'){
+                desencolar(cola);
+            }else printf("Error: se esperaba .\n");       
+        }else printf("Error: se esperaba c\n");        
+
+        if (frente(cola) == 'b'){
+            desencolar(cola);
+            if(frente(cola) == '.'){
+                desencolar(cola);
+                return;
+            } else printf("Error: se esperaba .\n");
+        } else printf("Error se esperaba b\n");
+    
 }
 
-// Proyección 32: <listaSent> ---> ε
-// CS(32): { ], }, b }
-void listaSent32() {
-    // Producción vacía, no se hace nada
-    return;
+void listaSent(){
+    if(frente(cola) == 'a' || frente(cola) == 'd' || frente(cola) == 'i' ||
+       frente(cola) == 'k' || frente(cola) == 'f' || frente(cola) == 'r'  ){
+        Sent();
+        listaSent();
+        return;
+    }printf("Error token incorrecto\n");
+    if(frente(cola) == ']' || frente(cola) == '}' || frente(cola) == 'b'){
+        return;
+    }else printf("Error: se esperaba ] } b\n");
 }
 
-// Función general para <listaSent>
-void listaSent() {   
-    if (frente(cola) == 'd' ||   // declaración
-        frente(cola) == 'i' ||   // if
-        frente(cola) == 'k' ||   // for
-        frente(cola) == 'f' ||   // función
-        frente(cola) == 'r') {   // return
-        listaSent31(cola);
-    }
-    else if (frente(cola) == ']' ||
-             frente(cola) == '}' ||
-             frente(cola) == 'b') {
-        listaSent32();
-    }
-    else {
-        printf("Error: Token inesperado '%c' en <listaSent>\n", frente(cola));
-    }
+void exprLog(){
+    if(frente(cola) == '!'){
+        desencolar(cola);
+        if (frente(cola) == '('){
+            desencolar(cola);
+            E();
+            if(frente(cola) == ')'){
+                desencolar(cola);
+                return;
+            }else printf("Error: se esperaba )\n");
+        }else printf("Error: se esperaba (\n");
+    }else printf("Error: se esperaba !\n");
+
+    if(frente(cola) == '('){
+        desencolar(cola);
+        E();
+        if(frente(cola) == ')'){
+            desencolar(cola);
+            opLog();
+            if(frente(cola) == '('){
+                desencolar(cola);
+                E();
+                if(frente(cola) == ')'){
+                    desencolar(cola);
+                    return;
+                }else printf("Error: se esperaba )\n");
+            }else printf("Error: se esperaba (\n");
+        }else printf("Error: se esperaba )\n");
+    }   else printf("Error: se esperaba (\n");
 }
 
-// Proyección 34: <exprLog> ---> !(E)
-void exprLog34() {
-    if (frente(cola) == '!') {
-        desencolar(cola); // Consumir '!'
-        if (frente(cola) == '(') {
-            desencolar(cola); // Consumir '('
-            E(cola);    // Procesar expresión E
-            if (frente(cola) == ')') {
-                desencolar(cola); // Consumir ')'
-            } else {
-                printf("Error: Se esperaba ')' después de expresión\n");
-            }
-        } else {
-            printf("Error: Se esperaba '(' después de '!'\n");
-        }
-    } else {
-        printf("Error: Se esperaba '!' para expresión lógica\n");
-    }
+void opLog(){
+    if(frente(cola) == '&'){
+        desencolar(cola);
+        return;
+    }else printf("Error: se esperaba &\n");
+
+    if(frente(cola) == '|'){
+        desencolar(cola);
+        return;
+    }else printf("Error: se esperaba |\n");
 }
 
-// Proyección 35 modificada: <exprLog> ---> (E)<opLog>(E)
-void exprLog35() {
-    if (frente(cola) == '(') {
-        desencolar(cola); // Consumir '('
-        E(cola);     // Procesar primera expresión E
-        
-        if (frente(cola) == ')') {
-            desencolar(cola); // Consumir ')'
-            opLog(cola); // Procesar operador lógico (& o |)
-            
-            if (frente(cola) == '(') {
-                desencolar(cola); // Consumir '('
-                E(cola);     // Procesar segunda expresión E
-                
-                if (frente(cola) == ')') {
-                    desencolar(cola); // Consumir ')'
-                    // Expresión lógica completa
-                } else {
-                    printf("Error: Se esperaba ')' después de la segunda expresión\n");
-                }
-            } else {
-                printf("Error: Se esperaba '(' después del operador lógico\n");
-            }
-        } else {
-            printf("Error: Se esperaba ')' después de la primera expresión\n");
-        }
-    } else {
-        printf("Error: Se esperaba '(' para expresión lógica\n");
-    }
-}
 
-// Proyección 36: <opLog> ---> &
-void opLog36() {
-    if (frente(cola) == '&') {
-        desencolar(cola); // Consumir '&'
-    } else {
-        printf("Error: Se esperaba operador '&'\n");
-    }
-}
 
-// Proyección 37: <opLog> ---> |
-void opLog37() {
-    if (frente(cola) == '|') {
-        desencolar(cola); // Consumir '|'
-    } else {
-        printf("Error: Se esperaba operador '|'\n");
-    }
-}
 
-// Función general para <opLog> que maneja ambas opciones (36 y 37)
-void opLog() {
-    if (frente(cola) == '&') {
-        opLog36(cola);
-    } else if (frente(cola) == '|') {
-        opLog37(cola);
-    } else {
-        printf("Error: Operador lógico desconocido. Se esperaba '&' o '|'\n");
-    }
-}
 
-// Función general para <exprLog> que maneja ambas opciones (34 y 35)
-void exprLog() {
-    if (frente(cola) == '!') {
-        exprLog34(cola);
-    } 
-    else if (frente(cola) == '(') {
-        exprLog35(cola);
-    } else {
-        printf("Error: Expresión lógica no válida. Debe comenzar con '!' o '('\n");
-    }
-}
 
 void doW() {
     if (frente(cola) == 'd') {
