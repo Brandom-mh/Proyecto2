@@ -79,11 +79,126 @@ void otraFunc(){
     otraFunc();
     return;
 }
+
 //4 Func
+void Func() {
+    Cola* copiaOriginal = clonarCola(cola); // Clonamos la cola original
+    Cola* temp = crearCola(); // Por si quieres ir guardando el bloque de la función (opcional)
+
+    // Procesar tipo de retorno
+    TipoF(cola);
+
+    // Verificar identificador de función
+    if (frente(cola) == 'a') {
+        encolar(temp, desencolar(cola)); // Consumir identificador
+
+        // Verificar paréntesis de apertura para argumentos
+        if (frente(cola) == '(') {
+            encolar(temp, desencolar(cola)); // Consumir '('
+
+            // Procesar argumentos (puede ser ε)
+            Arg(cola);
+
+            // Verificar paréntesis de cierre
+            if (frente(cola) == ')') {
+                encolar(temp, desencolar(cola)); // Consumir ')'
+
+                // Verificar llave de apertura del cuerpo
+                if (frente(cola) == '{') {
+                    encolar(temp, desencolar(cola)); // Consumir '{'
+
+                    // Procesar cuerpo de la función
+                    cuerpo(cola);
+
+                    // Verificar llave de cierre
+                    if (frente(cola) == '}') {
+                        encolar(temp, desencolar(cola)); // Consumir '}'
+
+                        printf("Función analizada correctamente\n");
+                        mostrarCola(copiaOriginal);
+                    } else {
+                        printf("Error: Se esperaba '}' al final de la función\n");
+                    }
+                } else {
+                    printf("Error: Se esperaba '{' después de los argumentos\n");
+                }
+            } else {
+                printf("Error: Se esperaba ')' después de los argumentos\n");
+            }
+        } else {
+            printf("Error: Se esperaba '(' después del nombre de función\n");
+        }
+    } else {
+        printf("Error: Se esperaba identificador como nombre de función\n");
+    }
+
+    destruirCola(temp);
+    destruirCola(copiaOriginal);
+}
+
 //5-6 TipoF
+void TipoF() {
+    if (frente(cola) == 'o') {  // 'o' representa VOID
+        desencolar(cola);
+    } else {
+        Tipo(cola); // Procesar otros tipos (INT, FLOAT, etc.)
+    }
+}
+
 //7-8 Arg
+void Arg() {
+    // Si hay un tipo, es un argumento, sino es ε
+    if (frente(cola) == 't' || frente(cola) == 'f' || 
+        frente(cola) == 'g' || frente(cola) == 'y') {
+        
+        Tipo(cola); // Procesar tipo
+        if (frente(cola) == 'a') {
+            desencolar(cola); // Consumir identificador de argumento
+        } else {
+            printf("Error: Se esperaba identificador después del tipo en argumento\n");
+        }
+    }
+    // Si no hay tipo, es ε (no se hace nada)
+}
+
 //9 cuerpo
+void cuerpo() {
+    // Procesar declaraciones (puede ser ε)
+    listaDec(cola);
+    
+    // Procesar sentencias (puede ser ε)
+    listaSent(cola);
+}
+
 //10-11 listaDec
+void listaDec() {
+    while (frente(cola) == 't' || frente(cola) == 'f' || 
+           frente(cola) == 'g' || frente(cola) == 'y') {
+        
+        Tipo(cola); // Procesar tipo
+        
+        if (frente(cola) == 'a') {
+            desencolar(cola); // Consumir identificador
+            
+            // Manejar posible asignación O solo declaración
+            if (frente(cola) == '=') {
+                desencolar(cola); // Consumir '='
+                E(cola); // Procesar expresión
+            }
+            
+            // Verificar fin de declaración
+            if (frente(cola) == ';') {
+                desencolar(cola); // Consumir ';'
+            } else {
+                printf("Error: Se esperaba ';' después de declaración\n");
+                break;
+            }
+        } else {
+            printf("Error: Se esperaba identificador en declaración\n");
+            break;
+        }
+    }
+}
 
 //12 D
 void D() {
@@ -313,8 +428,44 @@ void ELSE(){
     } 
 }
 //41 FOR
+
 //42 Ret
+void Ret() {
+    if (frente(cola) == 'x') {  // 'x' representa RETURN
+        desencolar(cola); // Consumir 'x'
+        
+        if (frente(cola) == '(') {
+            desencolar(cola); // Consumir '('
+            
+            // Si lo siguiente no es ')', hay expresión
+            if (frente(cola) != ')') {
+                printf("[DEBUG] Procesando expresión dentro del RETURN...\n");
+                E(cola);
+            }
+
+            if (frente(cola) == ')') {
+                desencolar(cola); // Consumir ')'
+            } else {
+                printf("Error: Se esperaba ')' al final de RETURN\n");
+            }
+        } else {
+            printf("Error: Se esperaba '(' después de RETURN\n");
+        }
+    } else {
+        printf("Error: Se esperaba 'RETURN' (átomo 'x')\n");
+        return;
+    }
+
+    // Verificar punto y coma después del return
+    if (frente(cola) == ';') {
+        desencolar(cola);
+        printf("RETURN procesado correctamente.\n");
+    } else {
+        printf("Error: Se esperaba ';' después de RETURN\n");
+    }
+}
 //43-44 valRet
+
 //45 Switch
 void Switch(){
     if(frente(cola)=='k'){
