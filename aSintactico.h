@@ -1,5 +1,5 @@
-#ifndef ASINTACTICO.H
-#define ASINTACTICO.H
+#ifndef ASINTACTICO_H
+#define ASINTACTICO_H
 
 void cargarColaCaracterPorCaracter();
 void Program();
