@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "cola.h"
-
+#include "aSintactico.h"
 
 int yylex(void);
 

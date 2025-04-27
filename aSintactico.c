@@ -86,7 +86,7 @@ void otraFunc(){
 //10-11 listaDec
 
 //12 D
-void D(Cola* cola) {
+void D() {
         Tipo();
         if (frente(cola) == 'a') {
             desencolar(cola);
