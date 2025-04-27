@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "cola.h"  
+#include "cola.h"
+
 
 int yylex(void);
 
@@ -398,12 +399,6 @@ int main(int argc, char *argv[]){
     colaDeAtomos=crearCola(); // Ejecutar el analizador léxico
     yylex(); 
     
-    
-
-    // Imprimir la cadena de átomos
-    //printf("\nCadena de átomos:\n%s\n", cadenaDeAtomos);
-    //fprintf(outputFile, "\nCadena de átomos:\n%s\n", cadenaDeAtomos);
-
     // Imprimir la tabla de símbolos
     printf("\nTabla de Símbolos:\n");
     fprintf(outputFile, "\nTabla de Símbolos:\n");
@@ -425,7 +420,7 @@ int main(int argc, char *argv[]){
     }
 
     imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
-    mostrarCola(colaDeAtomos);  // Mostrar la cola de átomos
+    
     destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida

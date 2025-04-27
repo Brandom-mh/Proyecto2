@@ -67,6 +67,7 @@ void cargarColaCaracterPorCaracter() {
 
 //1 Program
 void Program(){
+    cargarColaCaracterPorCaracter();
     Func();
     otraFunc();
     return;
@@ -273,7 +274,7 @@ void opLog(){
     }else printf("Error: se esperaba |\n");
 }
 //38 IF
-void If(){
+void IF(){
     if (frente (cola) == 'i'){
         desencolar(cola);
         if(frente (cola)=='('){
@@ -525,8 +526,8 @@ void Cadena(){
                 desencolar(cola);
                 if(frente(cola)==";"){
                     desencolar(cola);
-                }else ("Error: 404 no se encontro ;\n");
-            }else ("Error: 404 no se encontro #\n");
-        }else ("Error: 404 no se encontro s\n");
-    }else ("Error: 404 no se encontro #\n");
+                }else ("Error: no se encontro ;\n");
+            }else ("Error: no se encontro #\n");
+        }else ("Error: no se encontro s\n");
+    }else ("Error: no se encontro #\n");
 }
