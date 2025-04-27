@@ -428,7 +428,72 @@ void ELSE(){
     } 
 }
 //41 FOR
+void For(Cola* cola) {
+    Cola* temp = crearCola();
+    Cola* copiaOriginal = clonarCola(cola); // Clonar la cola original
+    
+    char atomo;
+    
+    // Verificar si es un FOR (átomo 'v')
+    if (frente(cola) != 'v') {
+        printf("Error: Se esperaba 'FOR' (átomo 'v')\n");
+        destruirCola(temp);
+        destruirCola(copiaOriginal);
+        return;
+    }
+    atomo = desencolar(cola);
+    encolar(temp, atomo);
+    
+    // Verificar paréntesis de apertura '('
+    if (frente(cola) != '(') {
+        printf("Error: Se esperaba '(' después de FOR\n");
+        destruirCola(temp);
+        destruirCola(copiaOriginal);
+        return;
+    }
+    encolar(temp, desencolar(cola)); // Mover '(' a temp
 
+    // Procesar expresión aritmética
+    E(cola); // Procesar la expresión aritmética
+
+    // Verificar paréntesis de cierre ')'
+    if (frente(cola) != ')') {
+        printf("Error: Se esperaba ')' después de la expresión en FOR\n");
+        destruirCola(temp);
+        destruirCola(copiaOriginal);
+        return;
+    }
+    encolar(temp, desencolar(cola)); // Mover ')' a temp
+
+    // Verificar llave de apertura '{'
+    if (frente(cola) != '{') {
+        printf("Error: Se esperaba '{' después de FOR(expresión)\n");
+        destruirCola(temp);
+        destruirCola(copiaOriginal);
+        return;
+    }
+    encolar(temp, desencolar(cola)); // Mover '{' a temp
+
+    // Procesar lista de sentencias
+    listaSent(cola); // Procesar las sentencias
+
+    // Verificar llave de cierre '}'
+    if (frente(cola) != '}') {
+        printf("Error: Se esperaba '}' al final del bloque FOR\n");
+        destruirCola(temp);
+        destruirCola(copiaOriginal);
+        return;
+    }
+    encolar(temp, desencolar(cola)); // Mover '}' a temp
+
+    printf("FOR analizado correctamente\n");
+
+    // Mostrar la cola original completa (incluyendo todos los átomos originales)
+    mostrarCola(copiaOriginal);
+
+    destruirCola(temp);
+    destruirCola(copiaOriginal);
+}
 //42 Ret
 void Ret() {
     if (frente(cola) == 'x') {  // 'x' representa RETURN
