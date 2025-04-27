@@ -41,6 +41,7 @@ void opAsig();
 void Cadena();
 
 void cargarColaCaracterPorCaracter() {
+    cola = crearCola();
     char *nombreArchivo = "salida.txt"; // Nombre del archivo a leer
     FILE *archivo = fopen(nombreArchivo, "r"); // Abrir el archivo en modo lectura
     if (!archivo) {
@@ -67,7 +68,6 @@ void cargarColaCaracterPorCaracter() {
 
 //1 Program
 void Program(){
-    cargarColaCaracterPorCaracter();
     Func();
     otraFunc();
     return;
@@ -190,12 +190,23 @@ void Size() {
 }
 //20-22 dec
 void dec() {
-    if (frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f') {
-        desencolar(cola);
-        return ;
+    switch (frente(cola)) {
+        case 't': // Producción <dec> → t
+            desencolar(cola);
+            break;
+
+        case 'h': // Producción <dec> → h
+            desencolar(cola);
+            break;
+
+        case 'f': // Producción <dec> → f
+            desencolar(cola);
+            break;
+
+        default: // Caso de error
+            printf("Error: Se esperaba 't', 'h' o 'f' en <dec>\n");
+            break;
     }
-    else printf("Error: Se esperaba 't', 'h' o 'f' en <dec>\n");
-    return;
 }
 //23-30 Sent
 void Sent(){
