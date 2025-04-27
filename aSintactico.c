@@ -111,7 +111,7 @@ void size() {
     return ;
 }
 //20-22 dec
-bool dec() {
+void dec() {
     if (frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f') {
         desencolar(cola);
         return ;
