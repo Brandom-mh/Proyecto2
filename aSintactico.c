@@ -14,7 +14,7 @@ void Arg();
 void cuerpo();
 void listaDec();
 void D();
-void Tipo();
+void frente();
 void unsig();
 void Size();
 void dec();//skock
@@ -44,7 +44,55 @@ void opLog();
 void Asig();
 void opAsig();
 
+// Función para analizar <dec> → t | h | f
+void dec(Cola* cola) {
+    if (frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f') {
+        desencolar(cola);
+        return true;
+    }
+    printf("Error: Se esperaba 't', 'h' o 'f' en <dec>\n");
+    return ;
+}
 
+// Función para analizar <size> → g | u | y | ξ
+void size(Cola* cola) {
+    if (frente(cola) == 'g' || frente(cola) == 'u' || frente(cola) == 'y') {
+        desencolar(cola);
+        return ;
+    }
+    // Caso epsilon (no se consume nada)
+    return ;
+}
+
+// Función para analizar <unsig> → q | ξ
+void unsig(Cola* cola) {
+    if (frente(cola) == 'q') {
+        desencolar(cola);
+        return ;
+    }
+    // Caso epsilon (no se consume nada)
+    return ;
+}
+
+void Tipo(Cola* cola) {
+    return unsig(cola) && size(cola) && dec(cola);
+}
+
+// Función para analizar D → <Tipo>a.
+void D(Cola* cola) {
+    Tipo(cola); // Ahora es void, no se puede usar en if
+    
+    if (frente(cola) == 'a') {
+        desencolar(cola);
+        if (frente(cola) == ';') {
+            desencolar(cola);
+        } else {
+            printf("Error: Falta ';' después de identificador\n");
+        }
+    } else {
+        printf("Error: Se esperaba identificador después de tipo\n");
+    }
+}
 
 void cargarColaCaracterPorCaracter() {
     char *nombreArchivo = "salida2.txt"; // Nombre del archivo a leer
@@ -81,7 +129,9 @@ void otraFunc(){
     otraFunc(); // Llamar a otraFunc() recursivamente
 }
 
-// --- Declaración ---
+#include <stdio.h>
+#include "cola.h" // Asegúrate de que la implementación de cola esté bien definida
+
 // --- Declaración ---
 void D() {
     if (esTipo(cola)) { // Verificar <Tipo>
@@ -118,25 +168,20 @@ int esTipo(Cola *cola) {
     return (frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' || frente(cola) == 'y');
 }
 
-
 // --- Asignación ---
 void Asig() {
-    if (frente(cola) == 'a') { // 'a' = identificador
+    if (frente(cola) == 'a') { // identificador
         desencolar(cola);
-        if (frente(cola) == '=') {
+        opAsig(cola); // Verificar operador de asignación
+        E(cola);
+        if (frente(cola) == ';') {
             desencolar(cola);
-            E(cola); // Expresión aritmética
-            if (frente(cola) == '.') { // '.' = fin de asignación
-                desencolar(cola);
-                printf("Asignación válida.\n");
-            } else {
-                printf("Error: se esperaba '.' al final de la asignación.\n");
-            }
+            printf("Asignación válida.\n");
         } else {
-            printf("Error: se esperaba '=' en la asignación.\n");
+            printf("Error: se esperaba ';' al final de la asignación.\n");
         }
     } else {
-        printf("Error: se esperaba un identificador en la asignación.\n");
+        printf("Error: se esperaba identificador en la asignación.\n");
     }
 }
 
@@ -152,97 +197,60 @@ void opAsig() {
     }
 }
 
-// --- Expresión E completa ---
-void E(Cola *cola) {
-    if (estaVacia(cola)) {
-        printf("Error: Fin de entrada inesperado en expresión\n");
-        return;
+// --- Ver el frente de la cola ---
+int frente(Cola *cola) {
+    if (!estaVacia(cola)) {
+        return obtenerFrente(cola); // Suponiendo que tienes una función para obtener el frente
     }
+    return -1; // Indica que la cola está vacía
+}
 
-    printf("[DEBUG] Analizando expresión comenzando con '%c'\n", frente(cola));
-
-    char actual = frente(cola);
-
-    if (actual == 'a') { // Identificador
+// --- Asignación ---
+void Asig() {
+    if (frente(cola) == 'a') { // identificador
         desencolar(cola);
-        G(cola); // Procesar G (puede ser l, m o vacío)
-    }
-    else if (actual == '(') { // Expresión entre paréntesis
-        desencolar(cola);
+        opAsig(cola); // Verificar operador de asignación
         E(cola);
-        if (frente(cola) == ')') {
+        if (frente(cola) == ';') {
             desencolar(cola);
+            printf("Asignación válida.\n");
         } else {
-            printf("Error: Se esperaba ')' cerrando expresión\n");
+            printf("Error: se esperaba ';' al final de la asignación.\n");
         }
+    } else {
+        printf("Error: se esperaba identificador en la asignación.\n");
     }
-    else if (actual == 'n' || actual == 'r') { // Número o número real
-        desencolar(cola);
-    }
-    else if (actual == '[') { // Llamada a función: [fun1{x1}]
-        desencolar(cola);
-        if (frente(cola) == 'a') { // Debe haber un identificador de función
-            desencolar(cola);
-            if (frente(cola) == '{') {
-                desencolar(cola);
-                E(cola); // Procesar argumento de la función
-                if (frente(cola) == '}') {
-                    desencolar(cola);
-                } else {
-                    printf("Error: Se esperaba '}' cerrando argumentos de función\n");
-                }
-            } else {
-                printf("Error: Se esperaba '{' después del nombre de función\n");
-            }
-        } else {
-            printf("Error: Se esperaba identificador de función dentro de [ ]\n");
-        }
-        if (frente(cola) == ']') {
-            desencolar(cola);
-        } else {
-            printf("Error: Se esperaba ']' cerrando llamada de función\n");
-        }
-    }
-    else if (actual == '<') { // Cadena: <una cadena>
-        desencolar(cola);
-        // Aquí podrías consumir una cadena hasta encontrar '>'
-        // Simplificamos: solo buscar '>'
-        while (!estaVacia(cola) && frente(cola) != '>') {
-            desencolar(cola); // Consumir caracteres dentro de la cadena
-        }
-        if (frente(cola) == '>') {
-            desencolar(cola);
-        } else {
-            printf("Error: Se esperaba '>' cerrando cadena\n");
-        }
-    }
-    else {
-        printf("Error: Expresión inválida comenzando con '%c'\n", actual);
-        desencolar(cola); // Consumir token inválido para evitar loop infinito
-        return;
-    }
+}
 
-    // --- Procesar operadores binarios (+, -, *, /, %, **) después ---
-    while (1) {
-        char operador = frente(cola);
-        if (operador == '+' || operador == '-' || operador == '*' || 
-            operador == '/' || operador == '%' ) {
-            desencolar(cola); // Consumir operador
-            E(cola); // Procesar siguiente parte de la expresión
-        }
-        else if (operador == '*') { 
-            // Verificar operador de potencia **
-            desencolar(cola); 
-            if (frente(cola) == '*') {
-                desencolar(cola);
-                E(cola);
+void opAsig() {
+    if (frente(cola) == '#' || frente(cola) == ':' || 
+        frente(cola) == '$' || frente(cola) == ',' || 
+        frente(cola) == '?' || frente(cola) == ':' || 
+        frente(cola) == '^' || frente(cola) == '@' || 
+        frente(cola) == '<' || frente(cola) == '>' ) {
+        desencolar(cola);
+    } else {
+        printf("ERROR. No hay operador de asignacion\n");
+    }
+}
+
+// --- Expresión Aritmética ---
+void E() {
+    T();
+    EP(); // Procesar la parte de la expresión después de T
+    if (frente(cola) == 'n' || frente(cola) == 'a') {
+        desencolar(cola); // número o identificador
+        while (frente(cola) == '+' || frente(cola) == '-' || frente(cola) == '*' || frente(cola) == '/' || frente(cola) == '%') {
+            desencolar(cola); // operador
+            if (frente(cola) == 'n' || frente(cola) == 'a') {
+                desencolar(cola); // operando
             } else {
-                printf("Error: Se esperaba segundo '*' para potencia '**'\n");
+                printf("Error: se esperaba un operando después del operador.\n");
+                return;
             }
         }
-        else {
-            break; // No hay más operadores -> terminamos
-        }
+    } else {
+        printf("Error: expresión aritmética inválida.\n");
     }
 }
 
@@ -778,7 +786,7 @@ void TipoF() {
     if (frente(cola) == 'o') {  // 'o' representa VOID
         desencolar(cola);
     } else {
-        Tipo(cola); // Procesar otros tipos (INT, FLOAT, etc.)
+        frente(cola); // Procesar otros tipos (INT, FLOAT, etc.)
     }
 }
 
@@ -787,7 +795,7 @@ void Arg() {
     if (frente(cola) == 't' || frente(cola) == 'f' || 
         frente(cola) == 'g' || frente(cola) == 'y') {
         
-        Tipo(cola); // Procesar tipo
+        frente(cola); // Procesar tipo
         if (frente(cola) == 'a') {
             desencolar(cola); // Consumir identificador de argumento
         } else {
@@ -809,7 +817,7 @@ void listaDec() {
     while (frente(cola) == 't' || frente(cola) == 'f' || 
            frente(cola) == 'g' || frente(cola) == 'y') {
         
-        Tipo(cola); // Procesar tipo
+        frente(cola); // Procesar tipo
         
         if (frente(cola) == 'a') {
             desencolar(cola); // Consumir identificador
@@ -942,7 +950,7 @@ void E() {
 
 
 
-void Tipo() {
+void frente() {
     // Procesar tipos básicos (INT, FLOAT, etc.)
     char actual = frente(cola);
     
