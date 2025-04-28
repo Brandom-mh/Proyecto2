@@ -1,12 +1,6 @@
-~~impresion
-int main() {
-    int x;
-    float y; ~~definicion de y
-    if ((x) || (a)) {
-    ~~impresion2
-        ~~printf(#Hola Mundo#);
-        return;
-    }
-    ~otro comentario
-    return (0);
-}	
+void fun1 (float hola)
+{
+    int a;
+    float b;
+    a=b;
+}

@@ -153,7 +153,9 @@ void Arg() {
 //9 cuerpo
 void cuerpo() {
     if (frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' || 
-        frente(cola) == 'y' || frente(cola) == 't'|| frente(cola) == 'h' || frente(cola) == 'f'){
+        frente(cola) == 'y' || frente(cola) == 't'|| frente(cola) == 'h' || frente(cola) == 'f' ||
+        frente(cola) == 'a' || frente(cola) == 'd' || frente(cola) == 'i' || frente(cola) == 'k'||
+        frente(cola) == 'v' || frente(cola) == 'x' || frente(cola) == 'c' || frente(cola) == 'b'){
             listaDec();
             listaSent();
             return;
@@ -169,10 +171,11 @@ void listaDec() {
         D();
         listaDec();
         return;
-      }else printf("Error no hay tipo\n");
+      }
     if(frente(cola) =='a' || frente(cola) =='d' || frente(cola) =='i' ||
        frente(cola) =='k' || frente(cola) =='f' || frente(cola) =='r' )
         return;
+    printf("Error\n");
 }
 
 //12 D

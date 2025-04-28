@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "aSintactico.h"
 
-int main(int argc, char const *argv[])
+int main()
 {
     cargarColaCaracterPorCaracter();
     

@@ -689,96 +689,8 @@ void imprimirToken(Token token, char *texto) {
     encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
 
-<<<<<<< HEAD
-
-
-
-
-// Implementación de Return()
-void Return() {
-    if (strcmp(yytext, "RETURN") == 0) {
-        yylex(); // consumir 'return'
-        // aquí podría venir una expresión opcional
-        if (strcmp(yytext, ";") == 0) {
-            yylex(); // consumir ';'
-        } else {
-            printf("Error: se esperaba ';' después de return\n");
-        }
-    } else {
-        printf("Error: se esperaba 'return'\n");
-    }
-}
-
-// Implementación de For()
-void For() {
-    if (strcmp(yytext, "FOR") == 0) {
-        yylex(); // consumir 'for'
-        if (strcmp(yytext, "(") == 0) {
-            yylex(); // consumir '('
-            // puedes agregar funciones: Declaracion(); o Expresion();
-            if (strcmp(yytext, ";") == 0) {
-                yylex(); // consumir ';'
-                // otra expresión
-                if (strcmp(yytext, ";") == 0) {
-                    yylex(); // consumir ';'
-                    // última expresión
-                    if (strcmp(yytext, ")") == 0) {
-                        yylex(); // consumir ')'
-                        // luego el cuerpo
-                        // puedes poner: Bloque(); o Instruccion();
-                    } else {
-                        printf("Error: se esperaba ')'\n");
-                    }
-                } else {
-                    printf("Error: se esperaba segundo ';'\n");
-                }
-            } else {
-                printf("Error: se esperaba primer ';'\n");
-            }
-        } else {
-            printf("Error: se esperaba '('\n");
-        }
-    } else {
-        printf("Error: se esperaba 'for'\n");
-    }
-}
-
-// Implementación de Funcion()
-void Funcion() {
-    Token token;
-    // Debe comenzar con tipo de retorno
-    if (strcmp(yytext, "INT") == 0 || strcmp(yytext, "VOID") == 0 || strcmp(yytext, "FLOAT") == 0) {
-        yylex(); // consumir tipo
-
-        if (token.clase == 8) {  // identificador
-            yylex(); // consumir nombre
-
-            if (strcmp(yytext, "(") == 0) {
-                yylex(); // consumir '('
-                // Aquí puedes agregar una función Parametros();
-                if (strcmp(yytext, ")") == 0) {
-                    yylex(); // consumir ')'
-                    // Aquí puedes poner Bloque(); para el cuerpo
-                } else {
-                    printf("Error: se esperaba ')'\n");
-                }
-            } else {
-                printf("Error: se esperaba '('\n");
-            }
-        } else {
-            printf("Error: se esperaba nombre de función\n");
-        }
-    } else {
-        printf("Error: se esperaba tipo de retorno\n");
-    }
-}
-
-#line 775 "lex.yy.c"
-#line 776 "lex.yy.c"
-=======
 #line 693 "lex.yy.c"
 #line 694 "lex.yy.c"
->>>>>>> master
 
 #define INITIAL 0
 
@@ -997,11 +909,7 @@ YY_DECL
 	{
 #line 170 "proyecto2.l"
 
-<<<<<<< HEAD
-#line 995 "lex.yy.c"
-=======
 #line 913 "lex.yy.c"
->>>>>>> master
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1233,11 +1141,7 @@ YY_RULE_SETUP
 #line 296 "proyecto2.l"
 ECHO;
 	YY_BREAK
-<<<<<<< HEAD
-#line 1227 "lex.yy.c"
-=======
 #line 1145 "lex.yy.c"
->>>>>>> master
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2264,12 +2168,9 @@ int main(int argc, char *argv[]){
         return 1;
     }
     colaDeAtomos=crearCola();
+    
     yylex();  // Ejecutar el analizador léxico
     
-<<<<<<< HEAD
-    
-=======
->>>>>>> master
     // Imprimir la tabla de símbolos
     printf("\nTabla de Símbolos:\n");
     fprintf(outputFile, "\nTabla de Símbolos:\n");
