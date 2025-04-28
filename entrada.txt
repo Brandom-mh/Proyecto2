@@ -1,13 +1,9 @@
-~~impresion
-int main() {
-    int x;
-    x=10;
-    float y;
-    y=3.14e-2; ~~definicion de y
-    if (x > 5) {
-    ~~impresion2
-        printf(#Hola Mundo#);
+void main() {
+    int  x;
+        
+    if ((x)&&(x)) {  
+        x = 20;
     }
-    ~otro comentario
-    return 0;
-}	
+    
+    return (x);
+}
