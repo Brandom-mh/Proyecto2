@@ -1,13 +1,12 @@
 ~~impresion
 int main() {
     int x;
-    x=10;
-    float y;
-    y=3.14e-2; ~~definicion de y
-    if (x > 5) {
+    float y; ~~definicion de y
+    if ((x) || (a)) {
     ~~impresion2
-        printf(#Hola Mundo#);
+        ~~printf(#Hola Mundo#);
+        return;
     }
     ~otro comentario
-    return 0;
+    return (0);
 }	
