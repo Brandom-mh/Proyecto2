@@ -89,15 +89,15 @@ void Func() {
     TipoF();
     if(frente(cola)== 'a'){
         desencolar(cola);
-        if(frente(cola) == '{'){
+        if(frente(cola) == '('){
             desencolar(cola);
             Arg();
-            if(frente(cola) == '}'){
+            if(frente(cola) == ')'){
                 desencolar(cola);
-                if(frente(cola) == '['){
+                if(frente(cola) == '{'){
                     desencolar(cola);
                     cuerpo();
-                    if(frente(cola) == ']'){
+                    if(frente(cola) == '}'){
                         desencolar(cola);
                         return;
                     }else printf("Error: se esperaba ]");
@@ -134,6 +134,7 @@ void Arg() {
             printf("Error: Se esperaba identificador después del tipo en argumento\n");
         }
     }
+    return;
     // Si no hay tipo, es ε (no se hace nada)
 }
 
@@ -164,10 +165,10 @@ void D() {
         Tipo();
         if (frente(cola) == 'a') {
             desencolar(cola);
-            if (frente(cola) == '.') {
+            if (frente(cola) == ';') {
                 desencolar(cola);
             } else {
-                printf("Error: Falta '.' después de identificador\n");
+                printf("Error: Falta ';' después de identificador\n");
             }
         } else {
             printf("Error: Se esperaba una a\n");
@@ -252,17 +253,17 @@ void Sent(){
     }
             if (frente(cola) == 'c'){
                 desencolar(cola);
-                if (frente(cola) == '.'){
+                if (frente(cola) == ';'){
                     desencolar(cola);
-                }else printf("Error: se esperaba .\n");       
+                }else printf("Error: se esperaba ;\n");       
             }else printf("Error: se esperaba c\n");        
     
             if (frente(cola) == 'b'){
                 desencolar(cola);
-                if(frente(cola) == '.'){
+                if(frente(cola) == ';'){
                     desencolar(cola);
                     return;
-                } else printf("Error: se esperaba .\n");
+                } else printf("Error: se esperaba ;\n");
             } else printf("Error se esperaba b\n");
         
     }
@@ -519,9 +520,9 @@ void Case(){
                 listaSent();
                 if(frente(cola)=='b'){
                     desencolar(cola);
-                    if(frente(cola)=='.'){
+                    if(frente(cola)==';'){
                         desencolar(cola);
-                    } else printf("Error: se esperaba . \n"); 
+                    } else printf("Error: se esperaba ; \n"); 
                 } else printf("Error: se esperaba b \n"); 
             } else printf("Error: se esperaba ) \n"); 
         }else printf("Error: se esperaba n \n"); 
@@ -650,7 +651,10 @@ void Asig() {
 }
 // 69 opAsig
 void opAsig(){
+    printf("entrado a OPASIG");
     switch(frente(cola)){
+        case'=': desencolar(cola);
+                 break;
         case'#': desencolar(cola);
                 break;
         case';': desencolar(cola);
@@ -682,6 +686,7 @@ void Cadena(){
         desencolar(cola);
             if(frente(cola)==';'){
                 desencolar(cola);
-            }else ("Error: no se encontro ;\n");
-    }else ("Error: no se encontro s\n");
+            }else printf("Error: no se encontro ;\n");
+    }else printf("Error: no se encontro s\n");
 }
+

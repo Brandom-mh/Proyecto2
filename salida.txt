@@ -6,10 +6,14 @@ TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
 TOKEN: Clase 5 (Palabra reservada), Valor: 10, Texto: int
 TOKEN: Clase 8 (Identificador), Valor: 1, Texto: x
+TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
+TOKEN: Clase 8 (Identificador), Valor: 1, Texto: x
 TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
 TOKEN: Clase 0 (Constante numérica entera), Valor: 10, Texto: 10
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 5 (Palabra reservada), Valor: 7, Texto: float
+TOKEN: Clase 8 (Identificador), Valor: 2, Texto: y
+TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 8 (Identificador), Valor: 2, Texto: y
 TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
 TOKEN: Clase 1 (Constante numérica flotante), Valor: 0, Texto: 3.14e-2
@@ -48,6 +52,4 @@ Posición: 5, Nombre: comentario, Tipo: -1
 Tabla de Literales:
 Posición: 0, Dato: 3.14e-2
 Posición: 1, Dato: #Hola Mundo#
-Contenido de la cola: [ta(){ta=n;fa=r;i(an){a(s);}aaxn;}]
-
-(){ta=n;fa=r;i(an){a(s);}aaxn;}
+Contenido de la cola: [ta(){ta;a=n;fa;a=r;i(an){a(s);}aaxn;}]

@@ -1,7 +1,9 @@
 ~~impresion
 int main() {
-    int x = 10;
-    float y = 3.14e-2; ~~definicion de y
+    int x;
+    x=10;
+    float y;
+    y=3.14e-2; ~~definicion de y
     if (x > 5) {
     ~~impresion2
         printf(#Hola Mundo#);
