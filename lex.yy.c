@@ -539,7 +539,8 @@ char *yytext;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "cola.h"  
+#include "cola.h"
+#include "aSintactico.h"
 
 int yylex(void);
 
@@ -688,6 +689,7 @@ void imprimirToken(Token token, char *texto) {
     encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
 
+<<<<<<< HEAD
 
 
 
@@ -773,6 +775,10 @@ void Funcion() {
 
 #line 775 "lex.yy.c"
 #line 776 "lex.yy.c"
+=======
+#line 693 "lex.yy.c"
+#line 694 "lex.yy.c"
+>>>>>>> master
 
 #define INITIAL 0
 
@@ -989,9 +995,13 @@ YY_DECL
 		}
 
 	{
-#line 252 "proyecto2.l"
+#line 170 "proyecto2.l"
 
+<<<<<<< HEAD
 #line 995 "lex.yy.c"
+=======
+#line 913 "lex.yy.c"
+>>>>>>> master
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1050,7 +1060,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 253 "proyecto2.l"
+#line 171 "proyecto2.l"
 {
     Token token;
     token.clase = 0;  
@@ -1060,7 +1070,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 260 "proyecto2.l"
+#line 178 "proyecto2.l"
 {
     Token token;
     token.clase = 1;  
@@ -1074,7 +1084,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 271 "proyecto2.l"
+#line 189 "proyecto2.l"
 {
     Token token;
     token.clase = 2;  // Clase: Operador aritmético
@@ -1091,7 +1101,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 285 "proyecto2.l"
+#line 203 "proyecto2.l"
 {
     Token token;
     token.clase = 3;  // Clase: Símbolo especial
@@ -1101,7 +1111,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 292 "proyecto2.l"
+#line 210 "proyecto2.l"
 {
     Token token;
     token.clase = 4;  // Clase: Constante cadena
@@ -1115,7 +1125,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 303 "proyecto2.l"
+#line 221 "proyecto2.l"
 {
     Token token;
     token.clase = 5;  // Clase: Palabra reservada Esta madre esta al reves en el proyecto 1
@@ -1143,7 +1153,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 328 "proyecto2.l"
+#line 246 "proyecto2.l"
 {
     Token token;
     token.clase = 6;  // Clase: Operador de asignación
@@ -1163,7 +1173,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 345 "proyecto2.l"
+#line 263 "proyecto2.l"
 {
     Token token;
     token.clase = 7;  // Clase: Operador lógico
@@ -1175,7 +1185,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 354 "proyecto2.l"
+#line 272 "proyecto2.l"
 {
     Token token;
     token.clase = 8;  // Clase: Identificador
@@ -1190,12 +1200,12 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 365 "proyecto2.l"
+#line 283 "proyecto2.l"
 {}  // Ignorar espacios en blanco
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 366 "proyecto2.l"
+#line 284 "proyecto2.l"
 { 
     printf("Comentario de línea, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de línea, Texto: %s\n", yytext); 
@@ -1204,7 +1214,7 @@ YY_RULE_SETUP
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 370 "proyecto2.l"
+#line 288 "proyecto2.l"
 { 
     printf("Comentario de bloque, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de bloque, Texto: %s\n", yytext); 
@@ -1212,7 +1222,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 374 "proyecto2.l"
+#line 292 "proyecto2.l"
 { 
     printf("Error: '%s' no es un identificador\n", yytext); 
     fprintf(outputFile, "Error: '%s' no es un identificador\n", yytext); 
@@ -1220,10 +1230,14 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 378 "proyecto2.l"
+#line 296 "proyecto2.l"
 ECHO;
 	YY_BREAK
+<<<<<<< HEAD
 #line 1227 "lex.yy.c"
+=======
+#line 1145 "lex.yy.c"
+>>>>>>> master
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2228,7 +2242,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 378 "proyecto2.l"
+#line 296 "proyecto2.l"
 
 
 int yywrap() {
@@ -2252,7 +2266,10 @@ int main(int argc, char *argv[]){
     colaDeAtomos=crearCola();
     yylex();  // Ejecutar el analizador léxico
     
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
     // Imprimir la tabla de símbolos
     printf("\nTabla de Símbolos:\n");
     fprintf(outputFile, "\nTabla de Símbolos:\n");
@@ -2274,7 +2291,7 @@ int main(int argc, char *argv[]){
     }
 
     imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
-    mostrarCola(colaDeAtomos);  // Mostrar la cola de átomos
+    //Program();
     destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida

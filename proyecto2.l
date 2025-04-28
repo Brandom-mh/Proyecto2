@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "cola.h"  
+#include "cola.h"
+#include "aSintactico.h"
 
 int yylex(void);
 
@@ -150,7 +151,6 @@ void imprimirToken(Token token, char *texto) {
     char atomo = obtenerAtomo(token, texto);
     encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
-
 
 %}
 
@@ -317,7 +317,6 @@ int main(int argc, char *argv[]){
     
     yylex();  // Ejecutar el analizador léxico
     
-    
     // Imprimir la tabla de símbolos
     printf("\nTabla de Símbolos:\n");
     fprintf(outputFile, "\nTabla de Símbolos:\n");
@@ -339,7 +338,7 @@ int main(int argc, char *argv[]){
     }
 
     imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
-    mostrarCola(colaDeAtomos);  // Mostrar la cola de átomos
+    //Program();
     destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida
