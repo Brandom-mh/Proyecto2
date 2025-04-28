@@ -830,6 +830,7 @@ void Asig() {
         }
     }
 }
+
 // 69 opAsig
 void opAsig() {
     // Verificar cola vacía
@@ -864,6 +865,14 @@ void opAsig() {
             }
             break;
     }
+}
+
+void Valor(){
+    if(frente(cola) == 'n' || frente(cola) == 's'){
+        desencolar(cola);
+    }
+    else printf("Error: falta para asignar");
+
 }
 
 void Valor(){
