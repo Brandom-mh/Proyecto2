@@ -1,30 +1,65 @@
 ~~impresion
 int main() {
-    int # = 1;
-    int x = 10;
-    float y = 3.14e-2; ~~definicion de y
-    if (x > 5) {
-    ~~impresion2
-        printf(#Hola Mundo#);
-    }
-    ~/
-    ⢀⡴⠑⡄⠀⠀⠀ ⣀⣀⣤⣤⣤⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
-⠸⡇⠀⠿⡀⠀⠀⠀⣀⡴⢿⣿⣿⣿⣿⣿⣿⣿⣷⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⠀⠑⢄⣠⠾⠁⣀⣄⡈⠙⣿⣿⣿⣿⣿⣿⣿⣿⣆⠀⠀⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⠀⢀⡀⠁⠀⠀⠈⠙⠛⠂⠈⣿⣿⣿⣿⣿⠿⡿⢿⣆⠀⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⢀⡾⣁⣀⠀⠴⠂⠙⣗⡀⠀⢻⣿⣿⠭⢤⣴⣦⣤⣹⠀⠀⠀⢀⢴⣶⣆ 
-⠀⠀⢀⣾⣿⣿⣿⣷⣮⣽⣾⣿⣥⣴⣿⣿⡿⢂⠔⢚⡿⢿⣿⣦⣴⣾⠁⠸⣼⡿ 
-⠀⢀⡞⠁⠙⠻⠿⠟⠉⠀⠛⢹⣿⣿⣿⣿⣿⣌⢤⣼⣿⣾⣿⡟⠉⠀⠀⠀⠀⠀ 
-⠀⣾⣷⣶⠇⠀⠀⣤⣄⣀⡀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ 
-⠀⠉⠈⠉⠀⠀⢦⡈⢻⣿⣿⣿⣶⣶⣶⣶⣤⣽⡹⣿⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⠀⠀⠀⠀⠉⠲⣽⡻⢿⣿⣿⣿⣿⣿⣿⣷⣜⣿⣿⣿⡇⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿⣷⣶⣮⣭⣽⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⠀⠀⠀⣀⣀⣈⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⠀⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⠀⠀⠀⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀ 
-⠀⠀⠀⠀⠀⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠟⠁⠀⠀⠀⠀⠀⠀~~hola 
-⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠛⠻⠿⠿⠿⠿⠛⠉
-    \~
 
-    ~otro comentario
-    return 0;
+    unsigned char x1;
+    short int a2B;
+    float a;
+    int x;
+    float y; ~~definicion de y
+    a+=x1**3+a2B;
+    B=#a#;
+    
+    if ((x) || (a)) {
+    ~~impresion2
+        ~~printf(#Hola Mundo#);
+    return (1);
+    } else { a=alondra;}
+
+    for(a+5){
+        a =1;
+    }
+    ~~otro comentario
+    return (0);
+
+    do {
+        y=23;
+    } while(!(a))
+
+    switch(a){
+        case 1) a=3;
+                break;
+        case 2) a=3;
+                break;
+    }
+
+    if (!(alisson)){
+        return (a);
+    }
 }	
+
+void fun1 (float aka){
+    int a;
+
+    do {
+        y=23;
+        y=a+1;
+
+        if (!(alisson)){
+        return (a);
+        }
+
+        if (!(alisson)){
+        return (a);
+        } else { a=alondra;}
+
+        if (!(alisson)){
+        return (a);
+        }
+
+        if (!(alisson)){
+        return (a);
+        }
+
+
+    } while(!(a))
+}

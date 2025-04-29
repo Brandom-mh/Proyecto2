@@ -2,7 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "cola.h"  
+#include "cola.h"
+#include "aSintactico.h"
 
 int yylex(void);
 
@@ -97,7 +98,16 @@ char obtenerAtomo(Token token, const char* texto) {
     switch (token.clase) {
         case 0: return 'n';  // Constante entera
         case 1: return 'r';  // Constante flotante
-        case 2: return texto[0];  // Operadores aritméticos (primer caracter)
+        case 2: {  // Operadores aritméticos
+                    if (strcmp(texto, "+") == 0) return '+';  // Suma
+                    if (strcmp(texto, "-") == 0) return '-';  // Resta
+                    if (strcmp(texto, "*") == 0) return '*';  // Multiplicación
+                    if (strcmp(texto, "/") == 0) return '/';  // División
+                    if (strcmp(texto, "%") == 0) return '%';  // Módulo
+                    if (strcmp(texto, "++") == 0) return 'm'; // Incremento
+                    if (strcmp(texto, "--") == 0) return 'l'; // Decremento
+                    if (strcmp(texto, "**") == 0) return 'p'; // Potencia 
+                }
         case 3: return texto[0];  // Símbolos especiales (primer caracter)
         case 4: return 's';  // Constante cadena
         case 5: {  // Palabras reservadas
@@ -150,7 +160,6 @@ void imprimirToken(Token token, char *texto) {
     char atomo = obtenerAtomo(token, texto);
     encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
-
 
 %}
 
@@ -317,7 +326,6 @@ int main(int argc, char *argv[]){
     
     yylex();  // Ejecutar el analizador léxico
     
-    
     // Imprimir la tabla de símbolos
     printf("\nTabla de Símbolos:\n");
     fprintf(outputFile, "\nTabla de Símbolos:\n");
@@ -339,7 +347,7 @@ int main(int argc, char *argv[]){
     }
 
     imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
-    mostrarCola(colaDeAtomos);  // Mostrar la cola de átomos
+    //Program();
     destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida

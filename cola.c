@@ -51,6 +51,7 @@ char desencolar(Cola* cola) {
     
     free(temp);
     cola->tamano--;
+    mostrarCola(cola);
     return dato;
 }
 
