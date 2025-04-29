@@ -4,40 +4,17 @@ TOKEN: Clase 8 (Identificador), Valor: 0, Texto: main
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 5 (Palabra reservada), Valor: 16, Texto: unsigned
-TOKEN: Clase 5 (Palabra reservada), Valor: 2, Texto: char
-TOKEN: Clase 8 (Identificador), Valor: 1, Texto: x1
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 13, Texto: short
 TOKEN: Clase 5 (Palabra reservada), Valor: 10, Texto: int
-TOKEN: Clase 8 (Identificador), Valor: 2, Texto: a2B
+TOKEN: Clase 8 (Identificador), Valor: 1, Texto: x
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 5 (Palabra reservada), Valor: 7, Texto: float
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 10, Texto: int
-TOKEN: Clase 8 (Identificador), Valor: 4, Texto: x
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 7, Texto: float
-TOKEN: Clase 8 (Identificador), Valor: 5, Texto: y
+TOKEN: Clase 8 (Identificador), Valor: 2, Texto: y
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 Comentario de línea, Texto: ~~definicion de y
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 6 (Operador de asignación), Valor: 1, Texto: +=
-TOKEN: Clase 8 (Identificador), Valor: 1, Texto: x1
-TOKEN: Clase 2 (Operador aritmético), Valor: 7, Texto: **
-TOKEN: Clase 0 (Constante numérica entera), Valor: 3, Texto: 3
-TOKEN: Clase 2 (Operador aritmético), Valor: 0, Texto: +
-TOKEN: Clase 8 (Identificador), Valor: 2, Texto: a2B
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 8 (Identificador), Valor: 6, Texto: B
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 4 (Constante cadena), Valor: 0, Texto: #a#
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 4, Texto: x
+TOKEN: Clase 8 (Identificador), Valor: 1, Texto: x
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 7 (Operador lógico), Valor: 1, Texto: ||
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
@@ -48,195 +25,25 @@ TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
 Comentario de línea, Texto: ~~impresion2
 Comentario de línea, Texto: ~~printf(#Hola Mundo#);
 TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 0 (Constante numérica entera), Valor: 1, Texto: 1
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 6, Texto: else
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 8 (Identificador), Valor: 7, Texto: alondra
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 8, Texto: for
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 2 (Operador aritmético), Valor: 0, Texto: +
-TOKEN: Clase 0 (Constante numérica entera), Valor: 5, Texto: 5
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 0 (Constante numérica entera), Valor: 1, Texto: 1
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-Comentario de línea, Texto: ~~otro comentario
+Error: '~' no es un identificador
+TOKEN: Clase 8 (Identificador), Valor: 4, Texto: otro
+TOKEN: Clase 8 (Identificador), Valor: 5, Texto: comentario
 TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 0 (Constante numérica entera), Valor: 0, Texto: 0
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 4, Texto: do
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 8 (Identificador), Valor: 5, Texto: y
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 0 (Constante numérica entera), Valor: 23, Texto: 23
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 18, Texto: while
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 5 (Palabra reservada), Valor: 15, Texto: switch
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 5 (Palabra reservada), Valor: 1, Texto: case
-TOKEN: Clase 0 (Constante numérica entera), Valor: 1, Texto: 1
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 0 (Constante numérica entera), Valor: 3, Texto: 3
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 0, Texto: break
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 1, Texto: case
-TOKEN: Clase 0 (Constante numérica entera), Valor: 2, Texto: 2
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 0 (Constante numérica entera), Valor: 3, Texto: 3
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 0, Texto: break
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 17, Texto: void
-TOKEN: Clase 8 (Identificador), Valor: 9, Texto: fun1
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 5 (Palabra reservada), Valor: 7, Texto: float
-TOKEN: Clase 8 (Identificador), Valor: 10, Texto: aka
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 5 (Palabra reservada), Valor: 10, Texto: int
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 5 (Palabra reservada), Valor: 4, Texto: do
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 8 (Identificador), Valor: 5, Texto: y
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 0 (Constante numérica entera), Valor: 23, Texto: 23
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 8 (Identificador), Valor: 5, Texto: y
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 2 (Operador aritmético), Valor: 0, Texto: +
-TOKEN: Clase 0 (Constante numérica entera), Valor: 1, Texto: 1
-TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 6, Texto: else
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 8 (Identificador), Valor: 7, Texto: alondra
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
-TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
-TOKEN: Clase 5 (Palabra reservada), Valor: 18, Texto: while
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
-TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
-TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 
 Tabla de Símbolos:
 Posición: 0, Nombre: main, Tipo: -1
-Posición: 1, Nombre: x1, Tipo: -1
-Posición: 2, Nombre: a2B, Tipo: -1
+Posición: 1, Nombre: x, Tipo: -1
+Posición: 2, Nombre: y, Tipo: -1
 Posición: 3, Nombre: a, Tipo: -1
-Posición: 4, Nombre: x, Tipo: -1
-Posición: 5, Nombre: y, Tipo: -1
-Posición: 6, Nombre: B, Tipo: -1
-Posición: 7, Nombre: alondra, Tipo: -1
-Posición: 8, Nombre: alisson, Tipo: -1
-Posición: 9, Nombre: fun1, Tipo: -1
-Posición: 10, Nombre: aka, Tipo: -1
+Posición: 4, Nombre: otro, Tipo: -1
+Posición: 5, Nombre: comentario, Tipo: -1
 
 Tabla de Literales:
-Posición: 0, Dato: #a#
-Contenido de la cola: [ta(){qha;yta;fa;ta;fa;a#apn+a;a=s;i((a)&(a)){x(n);}e{a=a;}v(a+n){a=n;}x(n);d{a=n;}w(!(a))k(a){zn)a=n;b;zn)a=n;b;}i(!(a)){x(a);}}oa(fa)ta;d{a=n;a=a+ni(!(a)){x(a);}i(!(a)){x(a);}e{a=a;}i(!(a)){x(a);}i(!(a)){x(a);}}w(!(a))}]
+Contenido de la cola: [ta(){ta;fa;i((a)&(a)){x;}aax(n);}]

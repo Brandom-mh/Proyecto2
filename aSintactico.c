@@ -738,23 +738,3 @@ void opAsig(){
         break;
     }
 }
-
-void Valor(){
-    if(frente(cola) == 'n' || frente(cola) == 's' || frente(cola) == 'a'){
-        desencolar(cola);
-        return;
-    }
-    else printf("Error: falta para asignar");
-
-}
-
-//70 cadena 
-void Cadena(){
-    if(frente(cola)=='s'){
-        desencolar(cola);
-            if(frente(cola)==';'){
-                desencolar(cola);
-            }else printf("Error: no se encontro ;\n");
-    }else printf("Error: no se encontro s\n");
-}
-
