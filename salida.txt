@@ -116,12 +116,25 @@ TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 5 (Palabra reservada), Valor: 0, Texto: break
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
+TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
+TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
+TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
+TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
+TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
+TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
+TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
+TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
+TOKEN: Clase 5 (Palabra reservada), Valor: 12, Texto: return
+TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
+TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
+TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
+TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 TOKEN: Clase 5 (Palabra reservada), Valor: 17, Texto: void
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: fun1
+TOKEN: Clase 8 (Identificador), Valor: 9, Texto: fun1
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 5 (Palabra reservada), Valor: 7, Texto: float
-TOKEN: Clase 8 (Identificador), Valor: 9, Texto: aka
+TOKEN: Clase 8 (Identificador), Valor: 10, Texto: aka
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
 TOKEN: Clase 5 (Palabra reservada), Valor: 10, Texto: int
@@ -138,9 +151,10 @@ Posición: 4, Nombre: x, Tipo: -1
 Posición: 5, Nombre: y, Tipo: -1
 Posición: 6, Nombre: B, Tipo: -1
 Posición: 7, Nombre: alondra, Tipo: -1
-Posición: 8, Nombre: fun1, Tipo: -1
-Posición: 9, Nombre: aka, Tipo: -1
+Posición: 8, Nombre: alisson, Tipo: -1
+Posición: 9, Nombre: fun1, Tipo: -1
+Posición: 10, Nombre: aka, Tipo: -1
 
 Tabla de Literales:
 Posición: 0, Dato: #a#
-Contenido de la cola: [ta(){qha;yta;fa;ta;fa;a#apn+a;a=s;i((a)&(a)){x(n);}e{a=a;}v(a+n){a=n;}x(n);d{a=n;}w(!(a))k(a){zn)a=n;b;zn)a=n;b;}}oa(fa){ta;}]
+Contenido de la cola: [ta(){qha;yta;fa;ta;fa;a#apn+a;a=s;i((a)&(a)){x(n);}e{a=a;}v(a+n){a=n;}x(n);d{a=n;}w(!(a))k(a){zn)a=n;b;zn)a=n;b;}i(!(a)){x(a;}}oa(fa){ta;}]
