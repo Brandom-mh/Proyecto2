@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "cola.h"
-Cola *cola; // Cola de prueba
 
 Cola *cola;
 
