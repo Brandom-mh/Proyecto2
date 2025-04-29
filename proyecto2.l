@@ -98,7 +98,16 @@ char obtenerAtomo(Token token, const char* texto) {
     switch (token.clase) {
         case 0: return 'n';  // Constante entera
         case 1: return 'r';  // Constante flotante
-        case 2: return texto[0];  // Operadores aritméticos (primer caracter)
+        case 2: {  // Operadores aritméticos
+                    if (strcmp(texto, "+") == 0) return '+';  // Suma
+                    if (strcmp(texto, "-") == 0) return '-';  // Resta
+                    if (strcmp(texto, "*") == 0) return '*';  // Multiplicación
+                    if (strcmp(texto, "/") == 0) return '/';  // División
+                    if (strcmp(texto, "%") == 0) return '%';  // Módulo
+                    if (strcmp(texto, "++") == 0) return 'm'; // Incremento
+                    if (strcmp(texto, "--") == 0) return 'l'; // Decremento
+                    if (strcmp(texto, "**") == 0) return 'p'; // Potencia 
+                }
         case 3: return texto[0];  // Símbolos especiales (primer caracter)
         case 4: return 's';  // Constante cadena
         case 5: {  // Palabras reservadas

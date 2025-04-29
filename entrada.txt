@@ -1,6 +1,38 @@
-void fun1 (float hola)
-{
+~~impresion
+int main() {
+
+    unsigned char x1;
+    short int a2B;
+    float a;
+    int x;
+    float y; ~~definicion de y
+    a+=x1**3+a2B;
+    B=#a#;
+    
+    if ((x) || (a)) {
+    ~~impresion2
+        ~~printf(#Hola Mundo#);
+    return (1);
+    } else { a=alondra;}
+
+    for(a+5){
+        a =1;
+    }
+    ~~otro comentario
+    return (0);
+
+    do {
+        y=23;
+    } while(!(a))
+
+    switch(a){
+        case 1) a=3;
+                break;
+        case 2) a=3;
+                break;
+    }
+}	
+
+void fun1 (float aka){
     int a;
-    float b;
-    a=b;
 }

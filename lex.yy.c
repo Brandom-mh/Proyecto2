@@ -635,7 +635,16 @@ char obtenerAtomo(Token token, const char* texto) {
     switch (token.clase) {
         case 0: return 'n';  // Constante entera
         case 1: return 'r';  // Constante flotante
-        case 2: return texto[0];  // Operadores aritméticos (primer caracter)
+        case 2: {  // Operadores aritméticos
+                    if (strcmp(texto, "+") == 0) return '+';  // Suma
+                    if (strcmp(texto, "-") == 0) return '-';  // Resta
+                    if (strcmp(texto, "*") == 0) return '*';  // Multiplicación
+                    if (strcmp(texto, "/") == 0) return '/';  // División
+                    if (strcmp(texto, "%") == 0) return '%';  // Módulo
+                    if (strcmp(texto, "++") == 0) return 'm'; // Incremento
+                    if (strcmp(texto, "--") == 0) return 'l'; // Decremento
+                    if (strcmp(texto, "**") == 0) return 'p'; // Potencia 
+                }
         case 3: return texto[0];  // Símbolos especiales (primer caracter)
         case 4: return 's';  // Constante cadena
         case 5: {  // Palabras reservadas
@@ -689,8 +698,8 @@ void imprimirToken(Token token, char *texto) {
     encolar(colaDeAtomos, atomo);  // Encolar el átomo
 }
 
-#line 693 "lex.yy.c"
-#line 694 "lex.yy.c"
+#line 702 "lex.yy.c"
+#line 703 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -907,9 +916,9 @@ YY_DECL
 		}
 
 	{
-#line 170 "proyecto2.l"
+#line 179 "proyecto2.l"
 
-#line 913 "lex.yy.c"
+#line 922 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -968,7 +977,7 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 171 "proyecto2.l"
+#line 180 "proyecto2.l"
 {
     Token token;
     token.clase = 0;  
@@ -978,7 +987,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 178 "proyecto2.l"
+#line 187 "proyecto2.l"
 {
     Token token;
     token.clase = 1;  
@@ -992,7 +1001,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 189 "proyecto2.l"
+#line 198 "proyecto2.l"
 {
     Token token;
     token.clase = 2;  // Clase: Operador aritmético
@@ -1009,7 +1018,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 203 "proyecto2.l"
+#line 212 "proyecto2.l"
 {
     Token token;
     token.clase = 3;  // Clase: Símbolo especial
@@ -1019,7 +1028,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 210 "proyecto2.l"
+#line 219 "proyecto2.l"
 {
     Token token;
     token.clase = 4;  // Clase: Constante cadena
@@ -1033,7 +1042,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 221 "proyecto2.l"
+#line 230 "proyecto2.l"
 {
     Token token;
     token.clase = 5;  // Clase: Palabra reservada Esta madre esta al reves en el proyecto 1
@@ -1061,7 +1070,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 246 "proyecto2.l"
+#line 255 "proyecto2.l"
 {
     Token token;
     token.clase = 6;  // Clase: Operador de asignación
@@ -1081,7 +1090,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 263 "proyecto2.l"
+#line 272 "proyecto2.l"
 {
     Token token;
     token.clase = 7;  // Clase: Operador lógico
@@ -1093,7 +1102,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 272 "proyecto2.l"
+#line 281 "proyecto2.l"
 {
     Token token;
     token.clase = 8;  // Clase: Identificador
@@ -1108,12 +1117,12 @@ YY_RULE_SETUP
 case 10:
 /* rule 10 can match eol */
 YY_RULE_SETUP
-#line 283 "proyecto2.l"
+#line 292 "proyecto2.l"
 {}  // Ignorar espacios en blanco
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 284 "proyecto2.l"
+#line 293 "proyecto2.l"
 { 
     printf("Comentario de línea, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de línea, Texto: %s\n", yytext); 
@@ -1122,7 +1131,7 @@ YY_RULE_SETUP
 case 12:
 /* rule 12 can match eol */
 YY_RULE_SETUP
-#line 288 "proyecto2.l"
+#line 297 "proyecto2.l"
 { 
     printf("Comentario de bloque, Texto: %s\n", yytext); 
     fprintf(outputFile, "Comentario de bloque, Texto: %s\n", yytext); 
@@ -1130,7 +1139,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 292 "proyecto2.l"
+#line 301 "proyecto2.l"
 { 
     printf("Error: '%s' no es un identificador\n", yytext); 
     fprintf(outputFile, "Error: '%s' no es un identificador\n", yytext); 
@@ -1138,10 +1147,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 296 "proyecto2.l"
+#line 305 "proyecto2.l"
 ECHO;
 	YY_BREAK
-#line 1145 "lex.yy.c"
+#line 1154 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2146,7 +2155,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 296 "proyecto2.l"
+#line 305 "proyecto2.l"
 
 
 int yywrap() {

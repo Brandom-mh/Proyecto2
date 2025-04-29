@@ -41,7 +41,6 @@ void Asig();
 void opAsig();
 void Cadena();
 void Valor();
-
 void cargarColaCaracterPorCaracter() {
     cola = crearCola();
     char *nombreArchivo = "salida.txt"; // Nombre del archivo a leer
@@ -72,29 +71,31 @@ void cargarColaCaracterPorCaracter() {
 //1 Program
 void Program(){
     printf("entrada a program\n");
-    Func();
-    otraFunc();
+    
+    while(!estaVacia(cola)) {
+        Func();
+        otraFunc();
+    }
+    
     printf("salida program\n");
-    return;
+
 }
 
 //2-3 otraFunc
 void otraFunc(){
-    if(frente(cola) == 'o' || frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' ||
-       frente(cola) == 'y' || frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f' ){
+    if( !estaVacia(cola) && (frente(cola) == 'o' || frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' ||
+       frente(cola) == 'y' || frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f') ){
         Func();
         otraFunc();
         return;
-    }else printf("Error: Funky");
-    if (estaVacia(cola)) 
-        return;
+    }
+    return;
 }
 
 //4 Func
 void Func() {
-    printf("entrada a func\n");
-    if(frente(cola) == 'o' || frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' ||
-       frente(cola) == 'y' || frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f' ){
+    if(!estaVacia(cola) && (frente(cola) == 'o' || frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' ||
+       frente(cola) == 'y' || frente(cola) == 't' || frente(cola) == 'h' || frente(cola) == 'f') ){
             TipoF();
             if(frente(cola)== 'a'){
                 desencolar(cola);
@@ -109,10 +110,10 @@ void Func() {
                             if(frente(cola) == '}'){
                                 desencolar(cola);
                                 return;
-                            }else printf("Error: se esperaba ]");
-                        }else printf("Error: se esperaba [");
-                    }else printf("Error: se esperaba }");
-                }else printf("Error: se esperaba {");
+                            }else printf("Error: se esperaba }");
+                        }else printf("Error: se esperaba {");
+                    }else printf("Error: se esperaba )");
+                }else printf("Error: se esperaba (");
             }else printf("Error: se esperaba a");
             printf("salida func\n");
             return;
@@ -152,10 +153,10 @@ void Arg() {
 
 //9 cuerpo
 void cuerpo() {
-    if (frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' || 
+    if (!estaVacia(cola) &&(frente(cola) == 'q' || frente(cola) == 'g' || frente(cola) == 'u' || 
         frente(cola) == 'y' || frente(cola) == 't'|| frente(cola) == 'h' || frente(cola) == 'f' ||
         frente(cola) == 'a' || frente(cola) == 'd' || frente(cola) == 'i' || frente(cola) == 'k'||
-        frente(cola) == 'v' || frente(cola) == 'x' || frente(cola) == 'c' || frente(cola) == 'b'){
+        frente(cola) == 'v' || frente(cola) == 'x' || frente(cola) == 'c' || frente(cola) == 'b')){
             listaDec();
             listaSent();
             return;
@@ -165,7 +166,6 @@ void cuerpo() {
 
 //10-11 listaDec
 void listaDec() {
-    mostrarCola(cola);
    if(frente(cola) == 't'|| frente(cola) == 'h'|| frente(cola) == 'f'|| frente(cola) == 'g'|| frente(cola) == 'u'||frente(cola) == 'y'||
       frente(cola) == 'q'){
         D();
@@ -175,7 +175,6 @@ void listaDec() {
     if(frente(cola) =='a' || frente(cola) =='d' || frente(cola) =='i' ||
        frente(cola) =='k' || frente(cola) =='f' || frente(cola) =='r' )
         return;
-    printf("Error\n");
 }
 
 //12 D
@@ -190,9 +189,7 @@ void D() {
                 } else {
                     printf("Error: Falta ';' después de identificador\n");
                 }
-            } else {
-                printf("Error: Se esperaba una a\n");
-            }
+            } 
     }
 }
 //13 tipo checar otra vez
@@ -225,7 +222,6 @@ void Size() {
 }
 //20-22 dec
 void dec() {
-    mostrarCola(cola);
     switch (frente(cola)) {
         case 't': // Producción <dec> → t
             desencolar(cola);
@@ -268,7 +264,7 @@ void Sent(){
             For();
             break;
     
-        case 'r': // return
+        case 'x': // return
             Ret();
             break;
         case 'c': // return
@@ -290,14 +286,14 @@ void Sent(){
 //31-32 listaSent
 void listaSent(){
     if(frente(cola) == 'a' || frente(cola) == 'd' || frente(cola) == 'i' ||
-       frente(cola) == 'k' || frente(cola) == 'v' || frente(cola) == 'r'  ){
+       frente(cola) == 'k' || frente(cola) == 'v' || frente(cola) == 'x'  ){
         Sent();
         listaSent();
         return;
-    }printf("Error token incorrecto\n");
+    }
     if(frente(cola) == ']' || frente(cola) == '}' || frente(cola) == 'b'){
         return;
-    }else printf("Error: se esperaba ] } b\n");
+    }
 }
 //33 doW
 void doW() {
@@ -337,41 +333,54 @@ void doW() {
 
 
 //34-35 exprLog
-void exprLog(){
-    if(frente(cola) == '!'){
-        desencolar(cola);
-        if (frente(cola) == '('){
-            desencolar(cola);
-            if(frente(cola) == 'a'){
-                desencolar(cola);
-            if(frente(cola) == ')'){
-                desencolar(cola);
+void exprLog() {
+    // Producción: <exprLog> → !(E)
+    if (frente(cola) == '!') {
+        desencolar(cola); // Consumir '!'
+        if (frente(cola) == '(') {
+            desencolar(cola); // Consumir '('
+            E(); // Procesar <E>
+            if (frente(cola) == ')') {
+                desencolar(cola); // Consumir ')'
+                return; // Producción procesada correctamente
+            } else {
+                printf("Error: se esperaba ')' después de E en !(E)\n");
                 return;
-            }else printf("Error: se esperaba )\n");
-            }else printf("Esperaba un a\n");
-        }else printf("Error: se esperaba (\n");
-    }else printf("Error: se esperaba !\n");
+            }
+        } else {
+            printf("Error: se esperaba '(' después de '!' en !(E)\n");
+            return;
+        }
+    }
+    // Producción: <exprLog> → (E)<opLog>(E)
+    if (frente(cola) == '(') {
+        desencolar(cola); // Consumir '('
+        E(); // Procesar <E>
+        if (frente(cola) == ')') {
+            desencolar(cola); // Consumir ')'
+            opLog(); // Procesar <opLog>
+            if (frente(cola) == '(') {
+                desencolar(cola); // Consumir '('
+                E(); // Procesar <E>
+                if (frente(cola) == ')') {
+                    desencolar(cola); // Consumir ')'
+                    return; // Producción procesada correctamente
+                } else {
+                    printf("Error: se esperaba ')' después de E en (E)<opLog>(E)\n");
+                    return;
+                }
+            } else {
+                printf("Error: se esperaba '(' después de <opLog> en (E)<opLog>(E)\n");
+                return;
+            }
+        } else {
+            printf("Error: se esperaba ')' después de E en (E)<opLog>(E)\n");
+            return;
+        }
+    }
 
-    if(frente(cola) == '('){
-        desencolar(cola);
-        if(frente(cola) == 'a'){
-            desencolar(cola);
-            if(frente(cola) == ')'){
-                desencolar(cola);
-                opLog();
-                if(frente(cola) == '('){
-                    desencolar(cola);
-                    if(frente(cola) == 'a'){
-
-                    if(frente(cola) == ')'){
-                        desencolar(cola);
-                        return;
-                    }else printf("Error: se esperaba )\n");
-                 } else printf("error");
-                }else printf("Error: esperaba (\n");
-                }else printf("Error: se esperaba )\n");
-        }else printf("Error: se esperaba a\n");
-    }   else printf("Error: se esperaba (\n");
+    // Si no coincide con ninguna producción, imprimir error
+    printf("Error: expresión lógica no válida\n");
 }
 
 //36-37 opLog
@@ -419,7 +428,7 @@ void ELSE(){
                 desencolar(cola);
             }else printf("Error: se esperaba } \n");  
         }else printf("Error: se esperaba {\n");  
-    }else printf("Error: se esperaba e \n");  
+    }  
 
     if( frente (cola)== 'a' || frente (cola)== 'd'|| frente (cola)== 'i' || frente (cola)== 'k'|| frente (cola)== 'f' || frente (cola)== 'r' ){
         return;
@@ -467,7 +476,6 @@ void For() {
     }
     desencolar(cola); // Mover '}' a temp
 
-    printf("FOR analizado correctamente\n");
     return;
 
 }
@@ -588,26 +596,40 @@ void T(){
     }
 }
 //54-57 T'
-void TP(){
-    if(frente(cola) == '*'){
-        desencolar(cola);
-        F();
-        TP();
+void TP() {
+    if (frente(cola) == '*') {
+        desencolar(cola); // Consumir '*'
+        F(); // Procesar <F>
+        TP(); // Procesar <T'>
+        return;
+    } else if (frente(cola) == '/') {
+        desencolar(cola); // Consumir '/'
+        F(); // Procesar <F>
+        TP(); // Procesar <T'>
+        return;
+    } else if (frente(cola) == '%') {
+        desencolar(cola); // Consumir '%'
+        F(); // Procesar <F>
+        TP(); // Procesar <T'>
+        return;
+    } else if (frente(cola) == 'p'){
+        desencolar(cola); // Consumir '%'
+        F(); // Procesar <F>
+        TP(); // Procesar <T'>
+        return;
+    } else if (frente(cola) == 'l'){
+        desencolar(cola); // Consumir '%'
+        F(); // Procesar <F>
+        TP(); // Procesar <T'>
+        return;
+    }else if (frente(cola) == 'm'){
+        desencolar(cola); // Consumir '%'
+        F(); // Procesar <F>
+        TP(); // Procesar <T'>
         return;
     }
-    else if(frente(cola) == '/'){
-        desencolar(cola);
-        F();
-        TP();
-        return;
-    }
-    else if(frente(cola) == '%'){
-        desencolar(cola);
-        F();
-        TP();
-        return;
-    }
-    // Caso epsilon
+    // Caso epsilon: no se hace nada
+    return;
 }
 
 //58-62 F
@@ -619,13 +641,13 @@ void F(){
             desencolar(cola);
             return;
         } else printf("Error se esperaba )\n");
-    } else printf("Error se esperaba (\n");
+    }
 
     if(frente(cola) == 'a'){
         desencolar(cola);
         G();
         return;
-    } else printf("Error se esperaba a\n");
+    }
 
     if(frente(cola) == 'n'){
         desencolar(cola);
@@ -643,32 +665,52 @@ void G(){
     if(frente(cola) == 'l'){
         desencolar(cola);
         return;
-    }else printf("Error: se esperaba l\n");
+    }
 
     if(frente(cola) == 'm'){
         desencolar(cola);
         return;
-    }else printf("Error: se esperaba m\n");
+    }
 
     if(frente(cola) == '*' || frente(cola) == '/' || frente(cola) == '%'){
         return;
-    }else printf("Error: se esperaba * / %%\n");
+    }
 }
 //68 Asig
 void Asig() {
-    if (frente(cola) == 'a') { // identificador
-        desencolar(cola);
-        opAsig();
-        Valor();
-        if(frente(cola) == ';'){
-            desencolar(cola);
-        }else printf("Error: Falta \n");
+    if (frente(cola) == 'a') { // Identificador
+        desencolar(cola); // Consumir 'a'
+        opAsig(); // Procesar <opAsig>
+
+        // Verificar si hay una expresión opcional <E>
+        if (frente(cola) == '(' || frente(cola) == 'a' || frente(cola) == 'n' || frente(cola) == 'r') {
+            E(); // Procesar <E>
+        }
+
+        // Verificar si hay un 's' opcional
+        if (frente(cola) == 's') {
+            desencolar(cola); // Consumir 's'
+        } else if (frente(cola) != ';') { // Si no hay 's', debe haber ';'
+            printf("Error: Se esperaba 's' o ';' al final de la asignación\n");
+            return;
+        }
+
+        // Verificar el ';' obligatorio
+        if (frente(cola) == ';') {
+            desencolar(cola); // Consumir ';'
+            return; // Producción procesada correctamente
+        } else {
+            printf("Error: Falta ';' al final de la asignación\n");
+            return;
+        }
+    } else {
+        printf("Error: Se esperaba un identificador 'a' al inicio de la asignación\n");
+        return;
     }
 }
 
 // 69 opAsig
 void opAsig(){
-    printf("entrado a OPASIG");
     switch(frente(cola)){
         case'=': desencolar(cola);
                  break;
@@ -698,8 +740,9 @@ void opAsig(){
 }
 
 void Valor(){
-    if(frente(cola) == 'n' || frente(cola) == 's'){
+    if(frente(cola) == 'n' || frente(cola) == 's' || frente(cola) == 'a'){
         desencolar(cola);
+        return;
     }
     else printf("Error: falta para asignar");
 
