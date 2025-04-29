@@ -39,4 +39,27 @@ int main() {
 
 void fun1 (float aka){
     int a;
+
+    do {
+        y=23;
+        y=a+1;
+
+        if (!(alisson)){
+        return (a);
+        }
+
+        if (!(alisson)){
+        return (a);
+        } else { a=alondra;}
+
+        if (!(alisson)){
+        return (a);
+        }
+
+        if (!(alisson)){
+        return (a);
+        }
+
+
+    } while(!(a))
 }
