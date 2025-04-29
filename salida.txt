@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 Comentario de línea, Texto: ~~impresion
 TOKEN: Clase 5 (Palabra reservada), Valor: 10, Texto: int
 TOKEN: Clase 8 (Identificador), Valor: 0, Texto: main
@@ -139,6 +137,7 @@ TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 5 (Palabra reservada), Valor: 7, Texto: float
 TOKEN: Clase 8 (Identificador), Valor: 10, Texto: aka
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
+TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
 TOKEN: Clase 5 (Palabra reservada), Valor: 10, Texto: int
 TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
@@ -153,6 +152,7 @@ TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
 TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
 TOKEN: Clase 2 (Operador aritmético), Valor: 0, Texto: +
 TOKEN: Clase 0 (Constante numérica entera), Valor: 1, Texto: 1
+TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
@@ -240,10 +240,5 @@ Posición: 9, Nombre: fun1, Tipo: -1
 Posición: 10, Nombre: aka, Tipo: -1
 
 Tabla de Literales:
-<<<<<<< HEAD
 Posición: 0, Dato: #a#
-Contenido de la cola: [ta(){qha;yta;fa;ta;fa;a#apn+a;a=s;i((a)&(a)){x(n);}e{a=a;}v(a+n){a=n;}x(n);d{a=n;}w(!(a))k(a){zn)a=n;b;zn)a=n;b;}i(!(a)){x(a);}}oa(fa)ta;d{a=n;a=a+ni(!(a)){x(a);}i(!(a)){x(a);}e{a=a;}i(!(a)){x(a);}i(!(a)){x(a);}}w(!(a))}]
-=======
-Contenido de la cola: [ta(){ta;fa;i((a)&(a)){x;}aax(n);}]
->>>>>>> 2c9d215b697da8d8d04449983f5b06b63ae2c1e2
->>>>>>> 97e72a6dc7be970357cb053a81f2ea1a73d64056
+Contenido de la cola: [ta(){qha;yta;fa;ta;fa;a#apn+a;a=s;i((a)&(a)){x(n);}e{a=a;}v(a+n){a=n;}x(n);d{a=n;}w(!(a))k(a){zn)a=n;b;zn)a=n;b;}i(!(a)){x(a);}}oa(fa){ta;d{a=n;a=a+n;i(!(a)){x(a);}i(!(a)){x(a);}e{a=a;}i(!(a)){x(a);}i(!(a)){x(a);}}w(!(a))}]
