@@ -7,6 +7,7 @@ int main() {
     int x;
     float y; ~~definicion de y
     a+=x1**3+a2B;
+    a*=[fun1{x1}]
     B=#a#;
     
     if ((x) || (a)) {

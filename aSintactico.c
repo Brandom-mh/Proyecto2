@@ -642,8 +642,26 @@ void F(){
         } else printf("Error se esperaba )\n");
     }
 
-    if(frente(cola) == 'a'){
+    if (frente(cola) == 'a') { // Identificador
         desencolar(cola);
+        if (frente(cola) == '(') { // Llamada a función con paréntesis
+            desencolar(cola);
+            if (frente(cola) == ')') { // Verificar cierre de paréntesis
+                desencolar(cola);
+                return;
+            } else {
+                printf("Error: se esperaba ')' después de la llamada a función\n");
+            }
+        } else if (frente(cola) == '{') { // Llamada a función con llaves
+            desencolar(cola);
+            E(); // Procesar la expresión dentro de las llaves
+            if (frente(cola) == '}') {
+                desencolar(cola); // Consumir '}'
+                return;
+            } else {
+                printf("Error: se esperaba '}' después de la expresión en llaves\n");
+            }
+        }
         G();
         return;
     }
@@ -733,6 +751,14 @@ void opAsig(){
                 break;
         case'>': desencolar(cola);
                 break;
+        case '*': // Reconocer *=
+            desencolar(cola);
+            if (frente(cola) == '=') {
+                desencolar(cola); // Consumir '=' después de '*'
+            } else {
+                printf("Error: se esperaba '=' después de '*'\n");
+            }
+            break;
         default: printf("Error: operador no encontrado \n");
         break;
     }

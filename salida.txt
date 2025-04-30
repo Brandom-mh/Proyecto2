@@ -30,7 +30,15 @@ TOKEN: Clase 0 (Constante numérica entera), Valor: 3, Texto: 3
 TOKEN: Clase 2 (Operador aritmético), Valor: 0, Texto: +
 TOKEN: Clase 8 (Identificador), Valor: 2, Texto: a2B
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
-TOKEN: Clase 8 (Identificador), Valor: 6, Texto: B
+TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
+TOKEN: Clase 6 (Operador de asignación), Valor: 3, Texto: *=
+TOKEN: Clase 3 (Símbolo especial), Valor: 91, Texto: [
+TOKEN: Clase 8 (Identificador), Valor: 6, Texto: fun1
+TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
+TOKEN: Clase 8 (Identificador), Valor: 1, Texto: x1
+TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
+TOKEN: Clase 3 (Símbolo especial), Valor: 93, Texto: ]
+TOKEN: Clase 8 (Identificador), Valor: 7, Texto: B
 TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
 TOKEN: Clase 4 (Constante cadena), Valor: 0, Texto: #a#
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
@@ -57,7 +65,7 @@ TOKEN: Clase 5 (Palabra reservada), Valor: 6, Texto: else
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
 TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
 TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 8 (Identificador), Valor: 7, Texto: alondra
+TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alondra
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 TOKEN: Clase 5 (Palabra reservada), Valor: 8, Texto: for
@@ -120,7 +128,7 @@ TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
+TOKEN: Clase 8 (Identificador), Valor: 9, Texto: alisson
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
@@ -132,7 +140,7 @@ TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 TOKEN: Clase 5 (Palabra reservada), Valor: 17, Texto: void
-TOKEN: Clase 8 (Identificador), Valor: 9, Texto: fun1
+TOKEN: Clase 8 (Identificador), Valor: 6, Texto: fun1
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 5 (Palabra reservada), Valor: 7, Texto: float
 TOKEN: Clase 8 (Identificador), Valor: 10, Texto: aka
@@ -157,7 +165,7 @@ TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
+TOKEN: Clase 8 (Identificador), Valor: 9, Texto: alisson
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
@@ -171,7 +179,7 @@ TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
+TOKEN: Clase 8 (Identificador), Valor: 9, Texto: alisson
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
@@ -185,14 +193,14 @@ TOKEN: Clase 5 (Palabra reservada), Valor: 6, Texto: else
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
 TOKEN: Clase 8 (Identificador), Valor: 3, Texto: a
 TOKEN: Clase 6 (Operador de asignación), Valor: 0, Texto: =
-TOKEN: Clase 8 (Identificador), Valor: 7, Texto: alondra
+TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alondra
 TOKEN: Clase 3 (Símbolo especial), Valor: 59, Texto: ;
 TOKEN: Clase 3 (Símbolo especial), Valor: 125, Texto: }
 TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
+TOKEN: Clase 8 (Identificador), Valor: 9, Texto: alisson
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
@@ -206,7 +214,7 @@ TOKEN: Clase 5 (Palabra reservada), Valor: 9, Texto: if
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
 TOKEN: Clase 7 (Operador lógico), Valor: 2, Texto: !
 TOKEN: Clase 3 (Símbolo especial), Valor: 40, Texto: (
-TOKEN: Clase 8 (Identificador), Valor: 8, Texto: alisson
+TOKEN: Clase 8 (Identificador), Valor: 9, Texto: alisson
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 41, Texto: )
 TOKEN: Clase 3 (Símbolo especial), Valor: 123, Texto: {
@@ -233,12 +241,12 @@ Posición: 2, Nombre: a2B, Tipo: -1
 Posición: 3, Nombre: a, Tipo: -1
 Posición: 4, Nombre: x, Tipo: -1
 Posición: 5, Nombre: y, Tipo: -1
-Posición: 6, Nombre: B, Tipo: -1
-Posición: 7, Nombre: alondra, Tipo: -1
-Posición: 8, Nombre: alisson, Tipo: -1
-Posición: 9, Nombre: fun1, Tipo: -1
+Posición: 6, Nombre: fun1, Tipo: -1
+Posición: 7, Nombre: B, Tipo: -1
+Posición: 8, Nombre: alondra, Tipo: -1
+Posición: 9, Nombre: alisson, Tipo: -1
 Posición: 10, Nombre: aka, Tipo: -1
 
 Tabla de Literales:
 Posición: 0, Dato: #a#
-Contenido de la cola: [ta(){qha;yta;fa;ta;fa;a#apn+a;a=s;i((a)&(a)){x(n);}e{a=a;}v(a+n){a=n;}x(n);d{a=n;}w(!(a))k(a){zn)a=n;b;zn)a=n;b;}i(!(a)){x(a);}}oa(fa){ta;d{a=n;a=a+n;i(!(a)){x(a);}i(!(a)){x(a);}e{a=a;}i(!(a)){x(a);}i(!(a)){x(a);}}w(!(a))}]
+Contenido de la cola: [ta(){qha;yta;fa;ta;fa;a#apn+a;a$[a{a}]a=s;i((a)&(a)){x(n);}e{a=a;}v(a+n){a=n;}x(n);d{a=n;}w(!(a))k(a){zn)a=n;b;zn)a=n;b;}i(!(a)){x(a);}}oa(fa){ta;d{a=n;a=a+n;i(!(a)){x(a);}i(!(a)){x(a);}e{a=a;}i(!(a)){x(a);}i(!(a)){x(a);}}w(!(a))}]

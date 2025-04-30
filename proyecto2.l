@@ -113,7 +113,7 @@ char obtenerAtomo(Token token, const char* texto) {
         case 5: {  // Palabras reservadas
             const char atomoReservadas[] = {
                 'b','z','h','c','d','u','e','f','v','i',
-                't','g','x','y','j','k','q','o','w'
+                't','g','x','y','j','k','q','o','w'git
             };
             return atomoReservadas[token.valor];
         }
