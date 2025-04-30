@@ -3,7 +3,6 @@
 #include "cola.h"
 Cola *cola; // Cola de prueba
 
-Cola *cola;
 
 void cargarColaCaracterPorCaracter();
 void Program();
@@ -70,6 +69,7 @@ void cargarColaCaracterPorCaracter() {
 
 //1 Program
 void Program(){
+    cargarColaCaracterPorCaracter();
     printf("entrada a program\n");
     
     while(!estaVacia(cola)) {

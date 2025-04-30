@@ -2201,7 +2201,7 @@ int main(int argc, char *argv[]){
     }
 
     imprimirColaEnArchivo(colaDeAtomos, outputFile);  // Imprimir la cola de átomos en el archivo
-    //Program();
+    Program();
     destruirCola(colaDeAtomos);  // Destruir la cola de átomos
 
     fclose(outputFile);  // Cerrar archivo de salida
